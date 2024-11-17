@@ -84,12 +84,8 @@ session_start();
                     $_SESSION["role"] = $row["role"];
                     if ($row['password'] == $pw) {
                         // Password is correct
-                        if ($row["role"] == "student") {
-                            header("Location: /CLINIC_IS/customer-page/welcome-page.php");
-                        } elseif ($row["AccountType"] == "faculty") {
-                            header("Location: /CLINIC_IS/admin-page/admin-page.php");
-                        } elseif ($row["AccountType"] == "alumni") {
-                            header("Location: /CLINIC_IS/employees-page/employee-page-backup.php");
+                        if (($row["role"] == "student") || ($row["role"] == "alumni") || ($row["role"] == "faculty")) {
+                            header("Location: /Revised-Evala/home.php");
                         }
                     } else {
                         // Password is incorrect
