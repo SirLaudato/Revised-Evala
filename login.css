@@ -1,0 +1,566 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 121px;
+  position: relative;
+  background-color: #f4f4f3;
+  margin-top: 200px;
+}
+
+
+
+.login .frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 393px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper {
+  width: fit-content;
+  color: #727271;
+  font-size: 24px;
+  position: relative;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #727271;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .img {
+  position: relative;
+  width: 92px;
+}
+
+.login .login-interface {
+  width: 657px;
+  gap: 59px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .div-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-3 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #342928;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .p {
+  position: relative;
+  align-self: stretch;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #727271;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .div-3 {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-4 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #342928;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .input-field {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 27px 17px 27px 25px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #ffffff;
+      font-family: "Montserrat", Helvetica, sans-serif;
+    font-weight: 500;
+    color: #858585;
+    font-size: 15px;
+    letter-spacing: 0;
+    outline: none;
+    line-height: normal;
+    border: none;
+    resize: none; /* Prevents the textarea from being resized */
+    overflow-y: auto; /* Adds vertical scroll if text exceeds height */
+}
+
+.login .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -13.00px;
+  margin-bottom: -11.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #858585;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.login .label {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-6 {
+  position: relative;
+  flex: 1;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #342928;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .login-button {
+  width: 657px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #342928;
+}
+
+.login .text-wrapper-7 {
+  position: relative;
+  width: fit-content;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.login .text-wrapper-8 {
+  position: relative;
+  align-self: stretch;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #342928;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .footer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 1044px;
+  align-items: center;
+  justify-content: center;
+  gap: 120px 104px;
+  padding: 171px 227px 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #ebebeb;
+}
+
+.login .frame-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 105px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.login .frame-3 {
+  display: flex;
+  flex-direction: column;
+  width: 889px;
+  align-items: center;
+  gap: 47px;
+  padding: 4px 0px 0px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .frame-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-9 {
+  align-self: stretch;
+  height: 78px;
+  color: #59504fe6;
+  font-size: 64px;
+  text-align: center;
+  position: relative;
+  margin-top: -1.00px;
+  font-family: "Montserrat-BoldItalic", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .text-wrapper-10 {
+  position: relative;
+  align-self: stretch;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .frame-5 {
+  display: flex;
+  width: 406px;
+  height: 56px;
+  align-items: center;
+  gap: 10px;
+  padding: 27px 23px;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.login .text-wrapper-11 {
+  position: relative;
+  width: 190.59px;
+  margin-top: -9.00px;
+  margin-bottom: -7.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 600;
+  color: #858585;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .frame-6 {
+  display: flex;
+  align-items: center;
+  gap: 104px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .frame-7 {
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+}
+
+.login .frame-8 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-12 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.login .frame-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .frame-9 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .text-wrapper-13 {
+  align-self: stretch;
+  color: #685f5f;
+  font-size: 20px;
+  position: relative;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .text-wrapper-14 {
+  align-self: stretch;
+  color: #685f5f;
+  font-size: 20px;
+  position: relative;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .frame-10 {
+  display: flex;
+  flex-direction: column;
+  width: 207px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+}
+
+.login .frame-11 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  margin-bottom: -47.00px;
+}
+
+.login .text-wrapper-15 {
+  position: relative;
+  width: 191px;
+  margin-top: -1.00px;
+  margin-right: -4.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #685f5f;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .text-wrapper-16 {
+  position: relative;
+  width: 213px;
+  margin-right: -26.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #685f5f;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login .frame-12 {
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+  margin-right: -109.00px;
+}
+
+.login .frame-13 {
+  display: flex;
+  flex-direction: column;
+  width: 1423px;
+  height: 136px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -218.50px;
+  margin-right: -218.50px;
+}
+
+.login .frame-14 {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .line-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 1425px;
+  height: 39px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -1.00px;
+  margin-right: -1.00px;
+}
+
+.login .line {
+  position: relative;
+  width: 1423.88px;
+  height: 1.88px;
+  margin-bottom: -1.00px;
+  object-fit: cover;
+}
+
+.login .frame-15 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 153px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.login .frame-16 {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 9px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login .frame-17 {
+  display: flex;
+  width: 275px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.login .text-wrapper-17 {
+  position: relative;
+  flex: 1;
+  margin-top: -1.00px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 600;
+  color: #685f5f;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+

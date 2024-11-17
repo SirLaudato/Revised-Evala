@@ -1,0 +1,65 @@
+
+  
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700,600,italic");
+
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+
+:root {
+    --collection-1-text-color: rgba(52, 41, 40, 1);
+    --collection-1-text-gray-color: rgba(104, 95, 95, 1);
+    --collection-1-container-lightgray-color: rgba(235, 235, 235, 1);
+  }
+  
+
+
+  body {
+  	margin: 0;
+  	line-height: normal;
+}
+
+
+:root {
+  	
+  	/* fonts */
+  	--font-montserrat: Montserrat;
+  	
+  	/* font sizes */
+  	--font-size-mini: 15px;
+  	--font-size-xl: 20px;
+  	
+  	/* Colors */
+  	--color-dimgray-100: #685f5f;
+  	
+  	/* Gaps */
+  	--gap-mini: 15px;
+  	--gap-4xl: 23px;
+  	
+  	/* Paddings */
+  	--padding-11xs: 2px;
+  	--padding-3xs: 10px;
+  	
+}
+
+:root {
+  --collection-1-text-color: rgba(52, 41, 40, 1);
+  --collection-1-text-gray-color: rgba(104, 95, 95, 1);
+  --collection-1-container-lightgray-color: rgba(235, 235, 235, 1);
+}
+

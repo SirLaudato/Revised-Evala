@@ -1,0 +1,104 @@
+body {
+    background-color: #f4f4f3;
+}
+
+/* General Button Styles */
+.nav-button, .icon-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #727271;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-button:hover,
+  .icon-button:hover {
+    color: #000; /* Darker hover color */
+  }
+  
+  .icon-button svg {
+    width: 22px;
+    height: 25px;
+    fill: #727271;
+    transition: fill 0.3s ease;
+  }
+  
+  .icon-button:hover svg {
+    fill: #000; /* Darker hover color for icons */
+  }
+  
+  /* SVG Button Group */
+  .svg-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Navigation Styles */
+  .navigator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Sticks navigator to the top */
+    top: 0; /* Aligns it to the top of the viewport */
+    left: 0;
+    width: 100%; /* Full width of viewport */
+    background-color: #f4f4f3; /* Matches background */
+    z-index: 1000; /* Keeps it above other content */
+    padding: 10px 20px; /* Padding for spacing */
+  }
+  
+  /* Login Page Styles */
+
+  
+  .frame {
+    display: inline-flex;
+    align-items: center;
+    gap: 393px;
+    position: relative;
+    flex: 0 0 auto;
+    height: 60px;
+  }
+  
+  .div-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+   .text-wrapper {
+    width: fit-content;
+    color: #727271;
+    font-size: 24px;
+    font-family: "Montserrat", Helvetica;
+    font-weight: 700;
+    font-style: italic;
+    margin-top: -1px;
+    line-height: normal;
+  }
+  
+  .div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 33px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .text-wrapper-2 {
+    width: fit-content;
+    font-family: "Montserrat", Helvetica;
+    font-weight: 500;
+    color: #727271;
+    font-size: 16px;
+    margin-top: -1px;
+    line-height: normal;
+  }
+  
