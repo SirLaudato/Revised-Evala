@@ -21,7 +21,7 @@
                 <div class="frame-2">
                     <div class="welcome-container">
                         <div class="frame-3"><div class="text-wrapper-3">Welcome, UserName</div></div>
-                        <div class="frame-4"><p class="p">Here is your overview of the evaluations</p></div>
+                        <div class="frame-4"><p class="p">User Role</p></div>
                     </div>
                     <div class="frame-5">
                         <div class="frame-6">
