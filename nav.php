@@ -8,7 +8,7 @@
                 <link rel="stylesheet" href="all.css" />
             </head>
             <body>
-            <div class="navigator">
+            <div class="navbar">
                 <div class="frame">
                     <!-- Header -->
                     <div class="div-wrapper">
@@ -50,6 +50,18 @@
                     </div>
                 </div>
             </div>
+            <script>
+                const navbar = document.querySelector('.navbar');
 
+                window.addEventListener('scroll', function() {  // Removed extra parentheses here
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (scrollTop > 0) {
+                        navbar.classList.add('shadow');
+                    } else {
+                        navbar.classList.remove('shadow');
+                    }
+                });
+            </script>
             </body>
             </html>
