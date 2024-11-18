@@ -2,14 +2,15 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="globals.css" />
-        <link rel="stylesheet" href="styleguide.css" />
-        <link rel="stylesheet" href="catalog-selection.css" />
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/catalog-selection.css" />
+        <link rel="stylesheet" href="/components/all.css">
+
     </head>
     <body>
         <div class="questionnaire">
             <div class="navigator">
-                <?php include('nav.php') ?>
+                <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
             </div>
             <div class="catalog-container">
                 <div class="evaluation-pics-desc">
@@ -43,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <?php include('footer.php') ?>
+            <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\footer.php') ?>
         </div>
     </body>
 </html>

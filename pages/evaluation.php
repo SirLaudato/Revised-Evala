@@ -2,16 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="globals.css" />
-        <link rel="stylesheet" href="styleguide.css" />
-        <link rel="stylesheet" href="evaluation.css" />
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/evaluation.css" />
+        <link rel="stylesheet" href="/components/all.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="questionnaire">
             <div class="navigator">
-                <?php include('nav.php') ?>
+                <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
             </div>
+
             <div class="frame-2">
                 <div class="frame-wrapper">
                     <div class="frame-3">
@@ -104,7 +105,8 @@
                     <button type="submit" class="submit-btn">Submit Evaluation</button>
                 </form>
             </div>
-            <?php include('footer.php') ?>
+
+<?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
         </div>
     </body>
 </html>

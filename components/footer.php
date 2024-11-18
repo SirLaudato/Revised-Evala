@@ -5,10 +5,9 @@
   	<meta name="viewport" content="initial-scale=1, width=device-width">
   	
   	
-  	<link rel="stylesheet" href="global.css" />
-  	<link rel="stylesheet"  href="footer.css" />
+  	<link rel="stylesheet" href="/css/global.css" />
+  	<link rel="stylesheet"  href="/components/footer.css" />
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,700&display=swap" />
-  	
   	
   	
 </head>

@@ -2,16 +2,16 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="global.css" />
-        <link rel="stylesheet" href="styleguide.css" />
-        <link rel="stylesheet" href="contact-support.css" />
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/contact-support.css" />
+        <link rel="stylesheet" href="/components/all.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,700&display=swap" />
     </head>
     <body>
         <div class="customer-support">
             
             <div class="navigator">
-            <?php include('nav.php') ?>
+                <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
             </div>
 
             <div class="frame-2">
@@ -39,7 +39,8 @@
                     </div>
                 </div>
             </div>
-            <?php include('footer.php') ?>
+
+        <?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
         </div>
     </body>
 </html>

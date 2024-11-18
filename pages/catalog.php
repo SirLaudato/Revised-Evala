@@ -2,8 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="catalog.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/catalog.css" />
+    <link rel="stylesheet" href="/components/all.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,7 @@
   <body>
     <div class="catalog">
       <div class="navigator">
-        <?php include('nav.php') ?>
+        <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
       </div>
       <div class="frame-wrapper">
         <div class="frame-2">
@@ -112,7 +113,7 @@
           </div>
         </div>
       </div>
-        <?php include('footer.php')?>
+        <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\footer.php')?>
     </div>
   </body>
 </html>

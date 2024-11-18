@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
-    <link rel="stylesheet" href="account.css"> <!-- Include your CSS file -->
-    <link rel="stylesheet" href="all.css">
+    <link rel="stylesheet" href="/css/account.css"> 
+    <link rel="stylesheet" href="/components/all.css">
 </head>
 <div>
 
-<?php include 'nav.php' ?>
+<?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\nav.php' ?>
 <div class="containerism">
     <div class="account">
         <div class="tab-content" id="tab-content">
@@ -125,7 +125,7 @@
 </div>
 
 
-<?php include 'footer.php' ?>
+<?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
 
 </body>
 </html>

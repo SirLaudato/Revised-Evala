@@ -7,17 +7,18 @@ session_start();
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="/components/all.css">
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/login.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="login">
         <!-- Include the navigation bar -->
-        <div class="navigator">
-            <?php include('nav.php'); ?>
-        </div>
+            <div class="navigator">
+                <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
+            </div>
 
         <!-- Login Form -->
         <div class="login-interface">
@@ -47,7 +48,8 @@ session_start();
         </div>
 
         <!-- Include the footer -->
-        <?php include('footer.php'); ?>
+        
+        <?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
     </div>
 
 

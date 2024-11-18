@@ -6,6 +6,7 @@
                 <link rel="stylesheet" href="global.css" />
                 <link rel="stylesheet" href="nav.css" />
                 <link rel="stylesheet" href="all.css" />
+                <link rel="stylesheet"  href="/components/nav.css" />
             </head>
             <body>
             <div class="navbar">
