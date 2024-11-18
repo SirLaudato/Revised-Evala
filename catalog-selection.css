@@ -622,3 +622,7 @@
     letter-spacing: 0;
     line-height: normal;
 }
+
+.catalog-container a {
+    width: 100%;
+}

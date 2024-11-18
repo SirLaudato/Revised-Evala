@@ -34,9 +34,12 @@
                     <button class="start-eval-button">
                         <span class="text-wrapper-6">Start Evaluation</span>
                     </button>
-                    <button class="check-other-button">
-                        <span class="text-wrapper-7">Check Other Evaluation</span>
-                    </button>
+                    
+                        <a href="catalog.php">
+                            <button class="check-other-button">
+                                <span class="text-wrapper-7">Check Other Evaluation</span>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
