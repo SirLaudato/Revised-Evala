@@ -242,7 +242,7 @@
 
 .footer-line hr {
   border: none; /* Remove any default borders */
-  height: 2px; /* Set the line height */
+  height: 1.5px; /* Set the line height */
   background-color: var(--color-dimgray-100); /* Set the line color */
   width: 100%; /* Make it span the container */
   margin: 10px 0; /* Add vertical spacing */

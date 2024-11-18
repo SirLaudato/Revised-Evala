@@ -21,9 +21,7 @@
           					<i class="innovatio">Innovatio.</i>
           					<div class="enhance-the-learning">Enhance the learning experience for students and educators alike.</div>
         				</div>
-        				<div class="footer-email-container">
-          					<div class="personemailcom">Person@email.com</div>
-        				</div>
+
       			</div>
       			<div class="footer-links">
         				<div class="footer-links1">
