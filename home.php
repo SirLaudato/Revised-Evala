@@ -24,6 +24,7 @@
 
 </head>
 
+<<<<<<< HEAD
 <body>
     <div class="home">
         <div class="navigator">
@@ -35,6 +36,13 @@
                 <div class="welcome-container">
                     <div class="frame-3">
                         <div class="text-wrapper-3">Welcome, UserName</div>
+=======
+            <div class="frame-wrapper">
+                <div class="frame-2">
+                    <div class="welcome-container">
+                        <div class="frame-3"><div class="text-wrapper-3">Welcome, UserName</div></div>
+                        <div class="frame-4"><p class="p">User Role</p></div>
+>>>>>>> 26e5470771eae04452c71a0277e8c13c2b787f29
                     </div>
                     <div class="frame-4">
                         <p class="p">Here is your overview of the evaluations</p>
