@@ -1,15 +1,14 @@
-.customer-support {
+.questionnaire {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 92px;
+    gap: 87px;
     position: relative;
     background-color: #f4f4f3;
 }
 
 
-
-.customer-support .frame {
+.questionnaire .frame {
     display: inline-flex;
     align-items: center;
     gap: 393px;
@@ -17,7 +16,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .div-wrapper {
+.questionnaire .div-wrapper {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -26,20 +25,20 @@
     flex: 0 0 auto;
 }
 
-.customer-support .text-wrapper {
-    position: relative;
+.questionnaire .text-wrapper {
     width: fit-content;
+    color: #727271;
+    font-size: 24px;
+    position: relative;
     margin-top: -1.00px;
     font-family: "Montserrat", Helvetica;
     font-weight: 700;
     font-style: italic;
-    color: #727271;
-    font-size: 24px;
     letter-spacing: 0;
     line-height: normal;
 }
 
-.customer-support .div {
+.questionnaire .div {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +47,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .text-wrapper-2 {
+.questionnaire .text-wrapper-2 {
     position: relative;
     width: fit-content;
     margin-top: -1.00px;
@@ -60,177 +59,107 @@
     line-height: normal;
 }
 
-.customer-support .img {
+.questionnaire .img {
     position: relative;
     width: 92px;
 }
 
-.customer-support .frame-2 {
+.questionnaire .frame-2 {
     display: inline-flex;
-    align-items: flex-start;
-    gap: 67px;
-    position: relative;
-    flex: 0 0 auto;
     margin-top: 150px;
+    flex-direction: column;
+    align-items: center;
+    gap: 27px;
+    position: relative;
+    flex: 0 0 auto;
 }
 
-.customer-support .support-container {
+.questionnaire .frame-wrapper {
     display: flex;
     flex-direction: column;
-    width: 373px;
-    align-items: center;
-    gap: 25px;
-    position: relative;
-}
-
-.customer-support .text-wrapper-3 {
-    align-self: stretch;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #342928;
-    font-size: 20px;
-    position: relative;
-    margin-top: -1.00px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.customer-support .p {
-    position: relative;
-    align-self: stretch;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #727271;
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.customer-support .frame-3 {
-    display: flex;
-    flex-direction: column;
-    width: 831px;
-    align-items: center;
-    gap: 84px;
-    position: relative;
-}
-
-.customer-support .title-hero {
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    height: 77px;
-}
-
-.customer-support .text-wrapper-4 {
-    position: absolute;
-    width: 344px;
-    top: -1px;
-    left: 0;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #342928;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.customer-support .text-wrapper-5 {
-    position: absolute;
-    width: 829px;
-    top: 60px;
-    left: 0;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #727271;
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.customer-support .frame-4 {
-    display: flex;
-    flex-wrap: wrap;
+    width: 978px;
     align-items: flex-start;
-    gap: 14px 21px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.questionnaire .frame-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 19px;
     position: relative;
     align-self: stretch;
     width: 100%;
     flex: 0 0 auto;
 }
 
-.customer-support .input-field {
-    width: 405px;
-    height: 46px;
-    padding: 19px 10px;
+.questionnaire .text-wrapper-3 {
     position: relative;
-    background-color: #ffffff;
-    border: none;
-    flex: 1;
+    align-self: stretch;
     margin-top: -1.00px;
     font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #858585;
-    font-size: 15px;
+    font-weight: 400;
+    color: #000000;
+    font-size: 20px;
     letter-spacing: 0;
     line-height: normal;
-    outline: none;
-
 }
 
-
-.customer-support .input-field-2 {
-    display: flex;
-    width: 405px;
-    height: 46px;
-    align-items: center;
-    justify-content: center;
-    padding: 19px 10px;
+.questionnaire .p {
     position: relative;
-    background-color: #ffffff;
+    align-self: stretch;
+    height: 94px;
     font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #858585;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: normal;
-    border: none;
-    outline: none;
-}
-
-.customer-support .text-wrapper-6 {
-    position: relative;
-    flex: 1;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #858585;
-    font-size: 15px;
+    font-weight: 400;
+    color: #000000;
+    font-size: 14px;
     letter-spacing: 0;
     line-height: normal;
 }
 
-.customer-support .input-field-3 {
-    display: flex;
-    width: 831px;
-    height: 228px;
+.questionnaire .frame-4 {
+    display: inline-flex;
+    flex-direction: column;
     align-items: flex-start;
-    padding: 19px 10px;
     position: relative;
-    background-color: #ffffff;
-    font-family: "Montserrat", Helvetica, sans-serif;
-    font-weight: 500;
-    color: #858585;
-    font-size: 15px;
-    letter-spacing: 0;
-    outline: none;
-    line-height: normal;
-    border: none;
-    resize: none; /* Prevents the textarea from being resized */
-    overflow-y: auto; /* Adds vertical scroll if text exceeds height */
+    flex: 0 0 auto;
 }
 
-.customer-support .footer {
+.questionnaire .frame-5 {
+    display: flex;
+    flex-direction: column;
+    width: 766px;
+    align-items: flex-start;
+    gap: 19px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.questionnaire .frame-6 {
+    display: flex;
+    flex-direction: column;
+    width: 766px;
+    align-items: flex-start;
+    gap: 19px;
+    position: relative;
+    flex: 0 0 auto;
+    margin-top: -15px;
+}
+
+.questionnaire .text-wrapper-4 {
+    position: relative;
+    align-self: stretch;
+    height: 49px;
+    font-family: "Montserrat", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.questionnaire .footer {
     display: flex;
     flex-wrap: wrap;
     height: 1044px;
@@ -244,7 +173,7 @@
     background-color: #ebebeb;
 }
 
-.customer-support .frame-5 {
+.questionnaire .frame-7 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -254,7 +183,7 @@
     flex-grow: 1;
 }
 
-.customer-support .frame-6 {
+.questionnaire .frame-8 {
     display: flex;
     flex-direction: column;
     width: 889px;
@@ -265,7 +194,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .frame-7 {
+.questionnaire .frame-9 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,7 +205,22 @@
     flex: 0 0 auto;
 }
 
-.customer-support .text-wrapper-8 {
+.questionnaire .text-wrapper-5 {
+    align-self: stretch;
+    height: 78px;
+    color: #59504fe6;
+    font-size: 64px;
+    text-align: center;
+    position: relative;
+    margin-top: -1.00px;
+    font-family: "Montserrat", Helvetica;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.questionnaire .text-wrapper-6 {
     position: relative;
     align-self: stretch;
     font-family: "Montserrat", Helvetica;
@@ -288,31 +232,7 @@
     line-height: normal;
 }
 
-.customer-support .frame-8 {
-    display: flex;
-    width: 406px;
-    height: 46px;
-    align-items: center;
-    gap: 10px;
-    padding: 27px 23px;
-    position: relative;
-    background-color: #ffffff;
-}
-
-.customer-support .text-wrapper-9 {
-    position: relative;
-    width: 190.59px;
-    margin-top: -9.00px;
-    margin-bottom: -7.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 600;
-    color: #858585;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.customer-support .frame-9 {
+.questionnaire .frame-10 {
     display: flex;
     align-items: center;
     gap: 104px;
@@ -322,7 +242,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .frame-10 {
+.questionnaire .frame-11 {
     display: flex;
     flex-direction: column;
     width: 192px;
@@ -332,7 +252,7 @@
     position: relative;
 }
 
-.customer-support .frame-11 {
+.questionnaire .frame-12 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -342,7 +262,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .text-wrapper-10 {
+.questionnaire .text-wrapper-7 {
     position: relative;
     width: fit-content;
     margin-top: -1.00px;
@@ -355,7 +275,7 @@
     white-space: nowrap;
 }
 
-.customer-support .frame-wrapper {
+.questionnaire .frame-13 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -367,7 +287,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .frame-12 {
+.questionnaire .frame-14 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -378,30 +298,30 @@
     flex: 0 0 auto;
 }
 
-.customer-support .text-wrapper-11 {
-    position: relative;
+.questionnaire .text-wrapper-8 {
     align-self: stretch;
+    color: #685f5f;
+    font-size: 20px;
+    position: relative;
     margin-top: -1.00px;
     font-family: "Montserrat-Medium", Helvetica;
     font-weight: 500;
-    color: #685f5f;
-    font-size: 20px;
     letter-spacing: 0;
     line-height: normal;
 }
 
-.customer-support .text-wrapper-12 {
-    position: relative;
+.questionnaire .text-wrapper-9 {
     align-self: stretch;
+    color: #685f5f;
+    font-size: 20px;
+    position: relative;
     font-family: "Montserrat-Medium", Helvetica;
     font-weight: 500;
-    color: #685f5f;
-    font-size: 20px;
     letter-spacing: 0;
     line-height: normal;
 }
 
-.customer-support .frame-13 {
+.questionnaire .frame-15 {
     display: flex;
     flex-direction: column;
     width: 207px;
@@ -411,7 +331,7 @@
     position: relative;
 }
 
-.customer-support .frame-14 {
+.questionnaire .frame-16 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -424,7 +344,7 @@
     margin-bottom: -47.00px;
 }
 
-.customer-support .text-wrapper-13 {
+.questionnaire .text-wrapper-10 {
     position: relative;
     width: 191px;
     margin-top: -1.00px;
@@ -437,7 +357,7 @@
     line-height: normal;
 }
 
-.customer-support .text-wrapper-14 {
+.questionnaire .text-wrapper-11 {
     position: relative;
     width: 213px;
     margin-right: -26.00px;
@@ -449,7 +369,7 @@
     line-height: normal;
 }
 
-.customer-support .frame-15 {
+.questionnaire .frame-17 {
     display: flex;
     flex-direction: column;
     width: 192px;
@@ -460,7 +380,7 @@
     margin-right: -109.00px;
 }
 
-.customer-support .frame-16 {
+.questionnaire .frame-18 {
     display: flex;
     flex-direction: column;
     width: 1423px;
@@ -472,12 +392,12 @@
     margin-right: -218.50px;
 }
 
-.customer-support .frame-17 {
+.questionnaire .frame-19 {
     position: relative;
     flex: 0 0 auto;
 }
 
-.customer-support .line-wrapper {
+.questionnaire .line-wrapper {
     display: flex;
     flex-direction: column;
     width: 1425px;
@@ -489,7 +409,7 @@
     margin-right: -1.00px;
 }
 
-.customer-support .line {
+.questionnaire .line {
     position: relative;
     width: 1423.88px;
     height: 1.88px;
@@ -497,7 +417,7 @@
     object-fit: cover;
 }
 
-.customer-support .frame-18 {
+.questionnaire .frame-20 {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -508,7 +428,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .frame-19 {
+.questionnaire .frame-21 {
     display: inline-flex;
     align-items: flex-start;
     gap: 9px;
@@ -516,7 +436,7 @@
     flex: 0 0 auto;
 }
 
-.customer-support .frame-20 {
+.questionnaire .frame-22 {
     display: flex;
     width: 275px;
     align-items: center;
@@ -525,7 +445,7 @@
     position: relative;
 }
 
-.customer-support .text-wrapper-15 {
+.questionnaire .text-wrapper-12 {
     position: relative;
     flex: 1;
     margin-top: -1.00px;
@@ -538,7 +458,58 @@
     line-height: normal;
 }
 
-.send-message .button {
+
+
+
+
+.questionnaire-evaluation {
+    font-family: "Montserrat", Helvetica;
+    margin: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 1000px;
+}
+
+thead th {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+td.question {
+    text-align: left;
+    width: 40%;
+}
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #666; 
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+    background-color: #342928;
+    border-color: #342928;
+}
+
+.submit-btn {
+    font-family: "Montserrat", Helvetica;
+    margin-top: 100px;
     display: flex;
     height: 48px;
     align-items: center;
@@ -548,35 +519,20 @@
     position: relative;
     align-self: stretch;
     width: 100%;
-    background-color: #f0f0f0;
-    border: 1px solid;
-    border-color: #342928;
+    background-color: #342928; /* Background color */
+    color: white; /* Ensure text is visible */
+    border: none; /* No border */
+    font-size: 20px; /* Optional: Font size */
+    cursor: pointer; /* Pointer cursor */
 }
 
-.send-message .button:hover {
-    background-color: #e0e0e0; /* Slightly darker background for hover effect */
-    border-color: #1f1a19; /* Adjusted border color on hover */
-    cursor: pointer; /* Pointer cursor for hover */
+.submit-btn:hover {
+    background-color: #3e2f2d; /* Slightly lighter shade on hover */
 }
 
-.send-message .button:active {
-    background-color: #d0d0d0; /* Even darker for click feedback */
-    border-color: #000000; /* Darker border for active state */
-}
-
-.text-wrapper-7 {
-    position: relative;
-    width: fit-content;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #342928;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
-}
-
-.send-message {
-    width: 100%;
-    margin-top: 20px;
+ol li {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+    line-height: 1.6;
 }

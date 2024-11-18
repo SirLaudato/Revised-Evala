@@ -39,8 +39,9 @@ session_start();
 
             <div class="login-button">
                 <button class="button">
-                    <div class="text-wrapper-7">Log In</div>
+                    <span class="text-wrapper-7">Log In</span>
                 </button>
+                
                 <div class="text-wrapper-8">Forgot your password?</div>
             </div>
         </div>

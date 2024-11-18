@@ -31,8 +31,15 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <div class="start-eval-button"><div class="text-wrapper-6">Start Evaluation</div></div>
-                        <div class="check-other-button"><div class="text-wrapper-7">Check Other Evaluation</div></div>
+                    <button class="start-eval-button">
+                        <span class="text-wrapper-6">Start Evaluation</span>
+                    </button>
+                    
+                        <a href="catalog.php">
+                            <button class="check-other-button">
+                                <span class="text-wrapper-7">Check Other Evaluation</span>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -48,9 +48,13 @@ body {
     width: 100%; /* Full width of viewport */
     background-color: #f4f4f3; /* Matches background */
     z-index: 1000; /* Keeps it above other content */
-    padding: 10px 20px; /* Padding for spacing */
+
+}
+
+  .navigator .shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
   }
-  
+    
   /* Login Page Styles */
 
   

@@ -9,9 +9,11 @@
     </head>
     <body>
         <div class="customer-support">
+            
             <div class="navigator">
             <?php include('nav.php') ?>
             </div>
+
             <div class="frame-2">
                 <div class="support-container">
                     <div class="text-wrapper-3">Contact Support</div>
@@ -28,7 +30,12 @@
                         <input class="input-field" placeholder="Phone Number" type="tel" />
                         <input class="input-field-2" placeholder="Subject" type="text">
                         <textarea class="input-field-3" placeholder="Message" type="text-area"></textarea>
-                        <!-- <div class="input-field-3"><div class="text-wrapper-6">Message</div></div> -->
+                        
+                        <div class="send-message">
+                            <button class="button">
+                                <span class="text-wrapper-7">Send Message</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

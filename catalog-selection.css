@@ -249,6 +249,44 @@
     border: 1px solid;
     border-color: #342928;
 }
+.questionnaire .check-other-button:hover {
+    background-color: #e0e0e0; /* Slightly darker background for hover effect */
+    border-color: #1f1a19; /* Adjusted border color on hover */
+    cursor: pointer; /* Pointer cursor for hover */
+}
+
+.questionnaire .check-other-button:active {
+    background-color: #d0d0d0; /* Even darker for click feedback */
+    border-color: #000000; /* Darker border for active state */
+}
+
+.questionnaire .start-eval-button {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background-color: #342928; /* Background color */
+    color: white; /* Ensure text is visible */
+    border: none; /* No border */
+    font-size: 16px; /* Optional: Font size */
+    cursor: pointer; /* Pointer cursor */
+
+}
+
+/* Hover state for the Start Evaluation button */
+.questionnaire .start-eval-button:hover {
+    background-color: #3e2f2d; /* Slightly lighter shade on hover */
+}
+
+/* Active state for the Start Evaluation button */
+.questionnaire .start-eval-button:active {
+    background-color: #2a1e1d; /* Darker shade for click feedback */
+}
 
 .questionnaire .text-wrapper-7 {
     position: relative;
@@ -583,4 +621,8 @@
     text-align: center;
     letter-spacing: 0;
     line-height: normal;
+}
+
+.catalog-container a {
+    width: 100%;
 }
