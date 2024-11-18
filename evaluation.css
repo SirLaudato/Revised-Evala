@@ -522,7 +522,7 @@ input[type="radio"]:checked {
     background-color: #342928; /* Background color */
     color: white; /* Ensure text is visible */
     border: none; /* No border */
-    font-size: 16px; /* Optional: Font size */
+    font-size: 20px; /* Optional: Font size */
     cursor: pointer; /* Pointer cursor */
 }
 
@@ -530,3 +530,9 @@ input[type="radio"]:checked {
     background-color: #3e2f2d; /* Slightly lighter shade on hover */
 }
 
+ol li {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}

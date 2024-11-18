@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="globals.css" />
         <link rel="stylesheet" href="styleguide.css" />
         <link rel="stylesheet" href="evaluation.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="questionnaire">
@@ -19,14 +20,24 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
                         </p>
                     </div>
-                </div>
-                <div class="frame-4">
-                    <div class="frame-5">
-                        <div class="text-wrapper-3">Privacy Settings</div>
+                    <div class="frame-3">
+                        <div class="text-wrapper-3">Privacy Setting</div>
                         <p class="p">
                         At Innovatio, we prioritize your privacy and are committed to ensuring a secure and trustworthy evaluation process. Your feedback is invaluable, and we take every measure to protect your personal information. 
                         Explore the Innovatio Privacy Policy to understand how we handle, use, and safeguard your data throughout the evaluation journey.
                         </p>
+                    </div>
+                    <div class="frame-3">
+                        <p class="p">
+                            Please read each question carefully and choose the option that best represents your perspective. Your feedback is essential in shaping and improving the curriculum.
+                        </p>
+                        <ol>
+                            <li><strong>1 - Strongly Disagree</strong></li>
+                            <li><strong>2 - Disagree</strong></li>
+                            <li><strong>3 - Neutral</strong></li>
+                            <li><strong>4 - Agree</strong></li>
+                            <li><strong>5 - Strongly Agree</strong></li>
+                        </ol>
                     </div>
                 </div>
             </div>
