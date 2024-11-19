@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Catalog</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/catalog.css" />
     <link rel="stylesheet" href="/components/all.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
   </head>
   <body>

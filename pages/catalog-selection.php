@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Catalog Selection</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/css/global.css" />
         <link rel="stylesheet" href="/css/catalog-selection.css" />
         <link rel="stylesheet" href="/components/all.css">
+        <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
     </head>
     <body>

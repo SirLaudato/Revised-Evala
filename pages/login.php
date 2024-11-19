@@ -74,11 +74,13 @@ mysqli_close($con);
 <html lang="en">
 
 <head>
+    <title>Log In</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../components/all.css">
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/login.css" />
     <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 </head>

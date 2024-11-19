@@ -11,11 +11,12 @@ if (!isset($_SESSION['emailaddress'])) {
 <html lang="en">
 
 <head>
+    <title>Account</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
     <link rel="stylesheet" href="../css/account.css">
     <link rel="stylesheet" href="../components/all.css">
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 </head>
 <div>
 
