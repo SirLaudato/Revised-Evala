@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <html lang="en">
 
 <head>
