@@ -1,5 +1,53 @@
 <?php
 session_start();
+
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$database = "evala_db1"; 
+
+$con = mysqli_connect($servername, $username, $password, $database);
+
+if (!$con) {
+    die("Connection Failed: " . mysqli_connect_error());
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['e-mail']) && isset($_POST['password'])) {
+        $email = mysqli_real_escape_string($con, $_POST['e-mail']);
+        $pw = mysqli_real_escape_string($con, $_POST['password']);
+
+        $userQuery = "SELECT * FROM users WHERE email = '$email'";
+        $result = mysqli_query($con, $userQuery);
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            if ($row['password'] == $pw) {
+                $_SESSION["user_id"] = $row["user_id"];
+                $_SESSION["first_name"] = $row["first_name"];
+                $_SESSION["last_name"] = $row["last_name"];
+                $_SESSION["emailaddress"] = $row["email"];
+                $_SESSION["role"] = $row["role"];
+
+                if (in_array($row["role"], ["student", "alumni", "faculty"])) {
+                    header("Location: ../pages/home.php");
+                    exit();
+                }
+            } else {
+                $modalTitle = "Login Error";
+                $modalMessage = "Incorrect password. Please try again.";
+            }
+        } else {
+            $modalTitle = "Account Error";
+            $modalMessage = "An account with this email doesn’t exist.";
+        }
+    } else {
+        $modalTitle = "Input Error";
+        $modalMessage = "Please fill in all the fields.";
+    }
+}
+
+mysqli_close($con);
 ?>
 
 <!DOCTYPE html>
@@ -55,62 +103,16 @@ session_start();
         <?php include '../components/footer.php' ?>
     </div>
 
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Alert</h2>
+            <p id="modalMessage">This is a message.</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
 
-    <?php
-    $servername = "localhost"; //database server
-    $username = "root"; //database username
-    $password = ""; //database password
-    $database = "evala_db1"; //database name
-    
-    $con = mysqli_connect($servername, $username, $password, $database);
 
-    if (!$con) {
-        die("Connection Failed: " . mysqli_connect_error());
-    } else {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Check if fields are filled
-            if (isset($_POST['e-mail']) && isset($_POST['password'])) {
-                // Initialize variables for queries and POST method
-                $email = mysqli_real_escape_string($con, $_POST['e-mail']); // Clean email text
-                $pw = mysqli_real_escape_string($con, $_POST['password']); // Clean password text
-    
-                // Check if the email exists in the database
-                $userQuery = "SELECT * FROM users
-                          WHERE email = '$email'";
-                $result = mysqli_query($con, $userQuery);
 
-                // Check if the query has a result
-                if (mysqli_num_rows($result) > 0) {
-                    $row = mysqli_fetch_assoc($result);
-                    $_SESSION["user_id"] = $row["user_id"];
-                    $_SESSION["first_name"] = $row["first_name"];
-                    $_SESSION["last_name"] = $row["last_name"];
-                    $_SESSION["emailaddress"] = $row["email"];
-                    $_SESSION["password"] = $row["password"];
-                    $_SESSION["role"] = $row["role"];
-                    if ($row['password'] == $pw) {
-                        // Password is correct
-                        if (($row["role"] == "student") || ($row["role"] == "alumni") || ($row["role"] == "faculty")) {
-                            header("Location: Revised-Evala/pages/home.php");
-                        }
-                    } else {
-                        // Password is incorrect
-                        echo "<script>alert('Incorrect password');</script>";
-                    }
-                } else {
-                    // Email not present in the database
-                    echo "<script>alert('An account with this email doesn\'t exist');</script>";
-                }
-            } else {
-                // Fields are not filled
-                echo "<script>alert('Please fill in all the fields.');</script>";
-            }
-        }
-    }
-
-    // Close the connection
-    mysqli_close($con);
-    ?>
     <!-- Scroll event for shadow -->
     <script>
         document.addEventListener('scroll', () => {
@@ -121,6 +123,36 @@ session_start();
             }
         });
     </script>
+
+<script>
+    const modal = document.getElementById("alertModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMessage = document.getElementById("modalMessage");
+
+    // Function to show the modal
+    function showModal(title, message) {
+        modalTitle.innerText = title;
+        modalMessage.innerText = message;
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+
+    // Check for server-side modal trigger
+    <?php if ($modalTitle && $modalMessage): ?>
+        showModal("<?php echo $modalTitle; ?>", "<?php echo $modalMessage; ?>");
+    <?php endif; ?>
+</script>
 </body>
 
 </html>
