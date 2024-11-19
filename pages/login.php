@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["student_number"] = $row["student_number"];
 
                 // Redirect based on role
-                if (in_array($row["role"], ["student", "alumni", "faculty"])) {
+                if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
                     header("Location: ../pages/home.php");
                     exit();
                 }
