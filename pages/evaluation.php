@@ -22,16 +22,6 @@
                         </p>
                     </div>
                     <div class="frame-3">
-                        <div class="text-wrapper-3">Privacy Setting</div>
-                        <p class="p">
-                        At Innovatio, we prioritize your privacy and are committed to ensuring a secure and trustworthy evaluation process. Your feedback is invaluable, and we take every measure to protect your personal information. 
-                        Explore the Innovatio Privacy Policy to understand how we handle, use, and safeguard your data throughout the evaluation journey.
-                        </p>
-                    </div>
-                    <div class="frame-3">
-                        <p class="p">
-                            Please read each question carefully and choose the option that best represents your perspective. Your feedback is essential in shaping and improving the curriculum.
-                        </p>
                         <ol>
                             <li><strong>1 - Strongly Disagree</strong></li>
                             <li><strong>2 - Disagree</strong></li>
