@@ -41,41 +41,6 @@ body {
     display: flex;
 }
 
-.nav-item {
-    color: var(--text-color);
-    text-decoration: none;
-    margin: 0 15px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s, filter 0.3s; /* Added filter transition */
-    position: relative; /* Added position relative for pseudo-element */
-    opacity: 0.6;
-
-    i.material-icons {
-        margin-right: 12px;
-    }
-
-    &:hover {
-        opacity: 1; /* Increase brightness on hover */
-    }
-
-    /* Pseudo-element for overlay effect */
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0; /* Initially hidden */
-        transition: opacity 0.3s; /* Smooth opacity transition */
-    }
-
-    &:hover::before {
-        opacity: 1; /* Show overlay on hover */
-    }
-}
 
 .nav-center {
     flex-grow: 1;
