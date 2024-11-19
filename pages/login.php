@@ -23,13 +23,6 @@ session_start();
         </div>
 
         <!-- Login Form -->
-        <div class="login-interface">
-            <div class="div-2">
-                <div class="text-wrapper-3">Log In</div>
-                <p class="p">Use the school email provided by your school.</p>
-            </div>
-            
-        <form action="" method="post" class="form-group">
         <form action="" method="post" class="form-group">
             <div class="login-interface">
                 <div class="div-2">
