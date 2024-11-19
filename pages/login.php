@@ -7,18 +7,20 @@ session_start();
 
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/components/all.css">
-    <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="../components/all.css">
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/nav.css" />
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="login">
         <!-- Include the navigation bar -->
-            <div class="navigator">
-                <?php include('C:\Users\Lawrence\Documents\Revised Evala\components\nav.php') ?>
-            </div>
+        <div class="navigator">
+            <?php include('../components/nav.php') ?>
+        </div>
 
         <!-- Login Form -->
         <div class="login-interface">
@@ -26,30 +28,30 @@ session_start();
                 <div class="text-wrapper-3">Log In</div>
                 <p class="p">Use the school email provided by your school.</p>
             </div>
-
-            <div class="div-2">
-                <div class="div-3">
-                    <div class="text-wrapper-4">Email Address</div>
-                    <input class="input-field" placeholder="Your E-mail" type="email" name="e-mail" />
+            <form action="" method="post" class="form-group">
+                <div class="div-2">
+                    <div class="div-3">
+                        <div class="text-wrapper-4">Email Address</div>
+                        <input class="input-field" placeholder="Your E-mail" type="email" name="e-mail" />
+                    </div>
+                    <div class="div-3">
+                        <div class="text-wrapper-6">Password</div>
+                        <input class="input-field" placeholder="Your Password" type="password" name="password" />
+                    </div>
                 </div>
-                <div class="div-3">
-                    <div class="text-wrapper-6">Password</div>
-                    <input class="input-field" placeholder="Your Password" type="password" name="password" />
-                </div>
-            </div>
 
-            <div class="login-button">
-                <button class="button">
-                    <span class="text-wrapper-7">Log In</span>
-                </button>
-                
-                <div class="text-wrapper-8">Forgot your password?</div>
-            </div>
+                <div class="login-button">
+                    <button class="button">
+                        <span class="text-wrapper-7">Log In</span>
+                    </button>
+
+                    <div class="text-wrapper-8">Forgot your password?</div>
+                </div>
         </div>
-
+        </form>
         <!-- Include the footer -->
-        
-        <?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
+
+        <?php include '../components/footer.php' ?>
     </div>
 
 
@@ -68,7 +70,7 @@ session_start();
             // Check if fields are filled
             if (isset($_POST['e-mail']) && isset($_POST['password'])) {
                 // Initialize variables for queries and POST method
-                $email = mysqli_real_escape_string($con, $_POST['username']); // Clean email text
+                $email = mysqli_real_escape_string($con, $_POST['e-mail']); // Clean email text
                 $pw = mysqli_real_escape_string($con, $_POST['password']); // Clean password text
     
                 // Check if the email exists in the database
@@ -88,7 +90,7 @@ session_start();
                     if ($row['password'] == $pw) {
                         // Password is correct
                         if (($row["role"] == "student") || ($row["role"] == "alumni") || ($row["role"] == "faculty")) {
-                            header("Location: /Revised-Evala/home.php");
+                            header("Location: ../pages/home.php");
                         }
                     } else {
                         // Password is incorrect
