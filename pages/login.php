@@ -1,10 +1,18 @@
 <?php
 session_start();
+ // Redirect if already logged in
+    if (isset($_SESSION['emailaddress'])) {
+        header("Location: ../pages/home.php");
+        exit();
+    }
 
-$servername = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$database = "evala_db1"; 
+
+
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
 
 $con = mysqli_connect($servername, $username, $password, $database);
 
@@ -12,36 +20,48 @@ if (!$con) {
     die("Connection Failed: " . mysqli_connect_error());
 }
 
+$modalTitle = "";
+$modalMessage = "";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['e-mail']) && isset($_POST['password'])) {
         $email = mysqli_real_escape_string($con, $_POST['e-mail']);
         $pw = mysqli_real_escape_string($con, $_POST['password']);
 
-        $userQuery = "SELECT * FROM users WHERE email = '$email'";
+        // Fetch user from database
+        $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
         $result = mysqli_query($con, $userQuery);
 
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
+
+            // Check if the password matches
             if ($row['password'] == $pw) {
+                // Set session variables
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["first_name"] = $row["first_name"];
                 $_SESSION["last_name"] = $row["last_name"];
                 $_SESSION["emailaddress"] = $row["email"];
                 $_SESSION["role"] = $row["role"];
+                $_SESSION["student_number"] = $row["student_number"];
 
+                // Redirect based on role
                 if (in_array($row["role"], ["student", "alumni", "faculty"])) {
                     header("Location: ../pages/home.php");
                     exit();
                 }
             } else {
+                // Incorrect password
                 $modalTitle = "Login Error";
                 $modalMessage = "Incorrect password. Please try again.";
             }
         } else {
+            // Account not found
             $modalTitle = "Account Error";
             $modalMessage = "An account with this email doesn’t exist.";
         }
     } else {
+        // Missing fields
         $modalTitle = "Input Error";
         $modalMessage = "Please fill in all the fields.";
     }
@@ -102,16 +122,28 @@ mysqli_close($con);
 
         <?php include '../components/footer.php' ?>
     </div>
-
-    <div id="alertModal" class="modal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Alert</h2>
-            <p id="modalMessage">This is a message.</p>
-            <button class="close-btn" onclick="closeModal()">Close</button>
-        </div>
+<div id="alertModal" class="modal">
+  <div class="modal-content">
+    <!-- Alert Icon -->
+    <div class="modal-icon">
+      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.25 16.25H13.75V18.75H11.25V16.25ZM11.25 6.25H13.75V13.75H11.25V6.25ZM12.5 0C5.5875 0 0 5.625 0 12.5C0 15.8152 1.31696 18.9946 3.66117 21.3388C4.8219 22.4996 6.19989 23.4203 7.71646 24.0485C9.23303 24.6767 10.8585 25 12.5 25C15.8152 25 18.9946 23.683 21.3388 21.3388C23.683 18.9946 25 15.8152 25 12.5C25 10.8585 24.6767 9.23303 24.0485 7.71646C23.4203 6.19989 22.4996 4.8219 21.3388 3.66117C20.1781 2.50043 18.8001 1.57969 17.2835 0.951506C15.767 0.323322 14.1415 0 12.5 0ZM12.5 22.5C9.84783 22.5 7.3043 21.4464 5.42893 19.5711C3.55357 17.6957 2.5 15.1522 2.5 12.5C2.5 9.84783 3.55357 7.3043 5.42893 5.42893C7.3043 3.55357 9.84783 2.5 12.5 2.5C15.1522 2.5 17.6957 3.55357 19.5711 5.42893C21.4464 7.3043 22.5 9.84783 22.5 12.5C22.5 15.1522 21.4464 17.6957 19.5711 19.5711C17.6957 21.4464 15.1522 22.5 12.5 22.5Z" fill="#727271" />
+      </svg>
     </div>
 
+    <!-- Alert Message -->
+    <div class="modal-message">
+      Invalid username or password. Try Again.
+    </div>
 
+    <!-- Close Button -->
+    <button class="close-btn" onclick="closeModal()">
+      <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.83429 4.5L8 7.66572V8.5H7.16571L4 5.33429L0.834286 8.5H0V7.66572L3.16571 4.5L0 1.33429V0.5H0.834286L4 3.66571L7.16571 0.5H8V1.33429L4.83429 4.5Z" fill="#727271" />
+      </svg>
+    </button>
+  </div>
+</div>
 
     <!-- Scroll event for shadow -->
     <script>
@@ -125,34 +157,22 @@ mysqli_close($con);
     </script>
 
 <script>
-    const modal = document.getElementById("alertModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalMessage = document.getElementById("modalMessage");
-
-    // Function to show the modal
-    function showModal(title, message) {
-        modalTitle.innerText = title;
-        modalMessage.innerText = message;
-        modal.style.display = "block";
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    // Close the modal when clicking outside of it
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            closeModal();
+        function showModal(message) {
+            const modal = document.getElementById("alertModal");
+            const modalMessage = modal.querySelector(".modal-message");
+            modalMessage.textContent = message;
+            modal.style.display = "block";
         }
-    };
 
-    // Check for server-side modal trigger
-    <?php if ($modalTitle && $modalMessage): ?>
-        showModal("<?php echo $modalTitle; ?>", "<?php echo $modalMessage; ?>");
-    <?php endif; ?>
-</script>
+        function closeModal() {
+            const modal = document.getElementById("alertModal");
+            modal.style.display = "none";
+        }
+
+        <?php if ($modalTitle && $modalMessage): ?>
+        showModal("<?= htmlspecialchars($modalMessage) ?>");
+        <?php endif; ?>
+    </script>
 </body>
 
 </html>
