@@ -90,7 +90,7 @@ session_start();
                     if ($row['password'] == $pw) {
                         // Password is correct
                         if (($row["role"] == "student") || ($row["role"] == "alumni") || ($row["role"] == "faculty")) {
-                            header("Location: ../pages/home.php");
+                            header("Location: Revised-Evala/pages/home.php");
                         }
                     } else {
                         // Password is incorrect
