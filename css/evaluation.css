@@ -536,3 +536,32 @@ ol li {
     margin-bottom: 8px;
     line-height: 1.6;
 }
+
+.cancel-btn {
+    margin-top: 20px;
+    font-family: "Montserrat", Helvetica;
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background-color: #f0f0f0;
+    border: 1px solid;
+    font-size: 20px;
+    border-color: #342928;
+}
+
+.cancel-btn:hover {
+    background-color: #e0e0e0; /* Slightly darker background for hover effect */
+    border-color: #1f1a19; /* Adjusted border color on hover */
+    cursor: pointer; /* Pointer cursor for hover */
+}
+
+.cancel-btn.button:active {
+    background-color: #d0d0d0; /* Even darker for click feedback */
+    border-color: hsl(0, 0%, 0%); /* Darker border for active state */
+}

@@ -93,6 +93,7 @@
                         </tbody>
                     </table>
                     <button type="submit" class="submit-btn">Submit Evaluation</button>
+                    <button type="submit" class="cancel-btn">Cancel</button>
                 </form>
             </div>
 
