@@ -23,12 +23,13 @@ session_start();
         </div>
 
         <!-- Login Form -->
-        <div class="login-interface">
-            <div class="div-2">
-                <div class="text-wrapper-3">Log In</div>
-                <p class="p">Use the school email provided by your school.</p>
-            </div>
-            <form action="" method="post" class="form-group">
+        <form action="" method="post" class="form-group">
+            <div class="login-interface">
+                <div class="div-2">
+                    <div class="text-wrapper-3">Log In</div>
+                    <p class="p">Use the school email provided by your school.</p>
+                </div>
+
                 <div class="div-2">
                     <div class="div-3">
                         <div class="text-wrapper-4">Email Address</div>
@@ -47,7 +48,7 @@ session_start();
 
                     <div class="text-wrapper-8">Forgot your password?</div>
                 </div>
-        </div>
+            </div>
         </form>
         <!-- Include the footer -->
 
@@ -98,7 +99,7 @@ session_start();
                     }
                 } else {
                     // Email not present in the database
-                    echo "<script>alert('An account with this username doesn\'t exist');</script>";
+                    echo "<script>alert('An account with this email doesn\'t exist');</script>";
                 }
             } else {
                 // Fields are not filled
