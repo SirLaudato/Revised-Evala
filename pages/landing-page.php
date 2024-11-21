@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../css/landing-page.css" />
         <link rel="stylesheet" href="../components/all.css">
     </head>
-    <body>
+    <body>  
         <div class="landing-page">
             <?php include('../components/nav-login.php') ?>
 
