@@ -1,0 +1,82 @@
+.login-and-landing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 10px 40px;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: box-shadow 0.3s;
+}
+
+.login-and-landing .frame {
+    display: flex;
+    width: 1358px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.login-and-landing .div-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.login-and-landing .text-wrapper {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Montserrat", Helvetica;
+    font-weight: 700;
+    font-style: italic;
+    color: #727271;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.login-and-landing .svg {
+    width: 22px;
+    height: 25px;
+    fill: #727271;
+    transition: fill 0.3s ease;
+}
+
+.frame {
+    display: inline-flex;
+    align-items: center;
+    gap: 393px;
+    position: relative;
+    flex: 0 0 auto;
+    height: 60px;
+    gap: 93%;
+  }
+
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ensure specificity to target the SVG fill */
+.icon-button svg {
+    fill: #626261; /* Default color */
+    transition: fill 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Darken SVG on hover */
+.icon-button:hover svg {
+    fill: #342928; /* Darker color */
+}
+
+.shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }

@@ -7,8 +7,7 @@ body {
     border: none;
     background: none;
     cursor: pointer;
-    font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
     font-weight: 500;
     color: #727271;
     padding: 5px 10px;
@@ -21,8 +20,8 @@ body {
   }
   
   .icon-button svg {
-    width: 22px;
-    height: 25px;
+    width: 31px;
+    height: 21px;
     fill: #727271;
     transition: fill 0.3s ease;
   }
