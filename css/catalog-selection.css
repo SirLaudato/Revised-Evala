@@ -10,7 +10,7 @@
 .questionnaire .frame {
     display: inline-flex;
     align-items: center;
-    gap: 393px;
+    gap: 400px;
     position: relative;
     flex: 0 0 auto;
 }
@@ -24,18 +24,6 @@
     flex: 0 0 auto;
 }
 
-.questionnaire .text-wrapper {
-    width: fit-content;
-    color: #727271;
-    font-size: 24px;
-    position: relative;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    letter-spacing: 0;
-    line-height: normal;
-}
 
 .questionnaire .div {
     display: inline-flex;

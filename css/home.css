@@ -12,7 +12,7 @@
 .home-revised .frame {
     display: inline-flex;
     align-items: center;
-    gap: 393px;
+    gap: 400px;
     position: relative;
     flex: 0 0 auto;
 }
@@ -24,19 +24,6 @@
     gap: 10px;
     position: relative;
     flex: 0 0 auto;
-}
-
-.home-revised .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    color: #727271;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
 }
 
 .home-revised .div {

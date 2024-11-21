@@ -8,8 +8,7 @@
     </head>
     <body>
         <div class="landing-page">
-        <?php include '../components/nav-login.php' ?>
-
+            <?php include('../components/nav-login.php') ?>
 
             <div class="div">
                 <div class="nav-item">Smart Curriculum Evaluation</div>

@@ -20,7 +20,9 @@ if (!isset($_SESSION['emailaddress'])) {
 </head>
 <div>
 
-    <?php include '../components/nav.php' ?>
+    <div class="navigator">
+            <?php include('../components/nav.php') ?>
+        </div>
     <div class="containerism">
         <div class="account">
             <div class="tab-content" id="tab-content">

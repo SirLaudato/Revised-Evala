@@ -27,18 +27,6 @@
     flex: 0 0 auto;
 }
 
-.landing-page .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    color: #727271;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
-}
 
 .landing-page .img {
     position: relative;
