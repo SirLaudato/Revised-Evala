@@ -37,67 +37,132 @@
 
                     <!-- Section name for example: Curriculum Objectives -->
                     <!-- Section desc for example: In this section, ... -->
-                    <div class="frame-3">
-                        <div class="text-wrapper-3">Section Name</div>
-                        <p class="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                        </p>
-                    </div>
                 </div>
 
-                        <form action="/submit-evaluation" method="POST">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Question</th>
-                                <th>1<br></th>
-                                <th>2<br></th>
-                                <th>3<br></th>
-                                <th>4<br></th>
-                                <th>5<br></th>
-                            </tr>
-                        </thead>
-                        <tbody> 
-                            <tr>
-                                <td class="question">1. The quality of the product met my expectations.</td>
-                                <td><input type="radio" name="q1" value="1" required></td>
-                                <td><input type="radio" name="q1" value="2"></td>
-                                <td><input type="radio" name="q1" value="3"></td>
-                                <td><input type="radio" name="q1" value="4"></td>
-                                <td><input type="radio" name="q1" value="5"></td>
-                            </tr>
-                            <tr>
-                                <td class="question">2. The customer service experience was satisfactory.</td>
-                                <td><input type="radio" name="q2" value="1" required></td>
-                                <td><input type="radio" name="q2" value="2"></td>
-                                <td><input type="radio" name="q2" value="3"></td>
-                                <td><input type="radio" name="q2" value="4"></td>
-                                <td><input type="radio" name="q2" value="5"></td>
-                            </tr>
-                            <tr>
-                                <td class="question">3. The delivery process was efficient and timely.</td>
-                                <td><input type="radio" name="q3" value="1" required></td>
-                                <td><input type="radio" name="q3" value="2"></td>
-                                <td><input type="radio" name="q3" value="3"></td>
-                                <td><input type="radio" name="q3" value="4"></td>
-                                <td><input type="radio" name="q3" value="5"></td>
-                            </tr>
-                            <tr>
-                                <td class="question">4. Overall, I am satisfied with my experience.</td>
-                                <td><input type="radio" name="q4" value="1" required></td>
-                                <td><input type="radio" name="q4" value="2"></td>
-                                <td><input type="radio" name="q4" value="3"></td>
-                                <td><input type="radio" name="q4" value="4"></td>
-                                <td><input type="radio" name="q4" value="5"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="submit-btn">Submit Evaluation</button>
-                    <button type="submit" class="cancel-btn">Cancel</button>
-                </form>
+                    <form action="/submit-evaluation" method="POST">
+                        <div class="per-section">
+                                    <div class="frame-3">
+                                        <div class="text-wrapper-3">Section Name</div>
+                                            <p class="p">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                            </p>
+                                        </div>
+                            <div class="questionnaire-per-section">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Question</th>
+                                            <th>1<br></th>
+                                            <th>2<br></th>
+                                            <th>3<br></th>
+                                            <th>4<br></th>
+                                            <th>5<br></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr>
+                                            <td class="question">1. The quality of the product met my expectations.</td>
+                                            <td><input type="radio" name="q1" value="1" required></td>
+                                            <td><input type="radio" name="q1" value="2"></td>
+                                            <td><input type="radio" name="q1" value="3"></td>
+                                            <td><input type="radio" name="q1" value="4"></td>
+                                            <td><input type="radio" name="q1" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">2. The customer service experience was satisfactory.</td>
+                                            <td><input type="radio" name="q2" value="1" required></td>
+                                            <td><input type="radio" name="q2" value="2"></td>
+                                            <td><input type="radio" name="q2" value="3"></td>
+                                            <td><input type="radio" name="q2" value="4"></td>
+                                            <td><input type="radio" name="q2" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">3. The delivery process was efficient and timely.</td>
+                                            <td><input type="radio" name="q3" value="1" required></td>
+                                            <td><input type="radio" name="q3" value="2"></td>
+                                            <td><input type="radio" name="q3" value="3"></td>
+                                            <td><input type="radio" name="q3" value="4"></td>
+                                            <td><input type="radio" name="q3" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">4. Overall, I am satisfied with my experience.</td>
+                                            <td><input type="radio" name="q4" value="1" required></td>
+                                            <td><input type="radio" name="q4" value="2"></td>
+                                            <td><input type="radio" name="q4" value="3"></td>
+                                            <td><input type="radio" name="q4" value="4"></td>
+                                            <td><input type="radio" name="q4" value="5"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                            
+                        <div class="per-section">
+                                    <div class="frame-3">
+                                        <div class="text-wrapper-3">Section Name</div>
+                                            <p class="p">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                            </p>
+                                        </div>
+                            <div class="questionnaire-per-section">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Question</th>
+                                            <th>1<br></th>
+                                            <th>2<br></th>
+                                            <th>3<br></th>
+                                            <th>4<br></th>
+                                            <th>5<br></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr>
+                                            <td class="question">1. The quality of the product met my expectations.</td>
+                                            <td><input type="radio" name="q1" value="1" required></td>
+                                            <td><input type="radio" name="q1" value="2"></td>
+                                            <td><input type="radio" name="q1" value="3"></td>
+                                            <td><input type="radio" name="q1" value="4"></td>
+                                            <td><input type="radio" name="q1" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">2. The customer service experience was satisfactory.</td>
+                                            <td><input type="radio" name="q2" value="1" required></td>
+                                            <td><input type="radio" name="q2" value="2"></td>
+                                            <td><input type="radio" name="q2" value="3"></td>
+                                            <td><input type="radio" name="q2" value="4"></td>
+                                            <td><input type="radio" name="q2" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">3. The delivery process was efficient and timely.</td>
+                                            <td><input type="radio" name="q3" value="1" required></td>
+                                            <td><input type="radio" name="q3" value="2"></td>
+                                            <td><input type="radio" name="q3" value="3"></td>
+                                            <td><input type="radio" name="q3" value="4"></td>
+                                            <td><input type="radio" name="q3" value="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="question">4. Overall, I am satisfied with my experience.</td>
+                                            <td><input type="radio" name="q4" value="1" required></td>
+                                            <td><input type="radio" name="q4" value="2"></td>
+                                            <td><input type="radio" name="q4" value="3"></td>
+                                            <td><input type="radio" name="q4" value="4"></td>
+                                            <td><input type="radio" name="q4" value="5"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+
+                            
+    
+                            <button type="submit" class="submit-btn">Submit Evaluation</button>
+                            <button type="submit" class="cancel-btn">Cancel</button>
+                                
+                    </form>
             </div>
 
-<?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
+            <?php include 'C:\Users\Lawrence\Documents\Revised Evala\components\footer.php' ?>
         </div>
     </body>
 </html>
