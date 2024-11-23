@@ -1,160 +1,147 @@
 .questionnaire {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 87px;
-    position: relative;
-    background-color: #f4f4f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 87px;
+  position: relative;
+  background-color: var(--background-color);
 }
 
 .questionnaire .frame {
-    display: inline-flex;
-    align-items: center;
-    gap: 400px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 400px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .div-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
 }
-
 
 .questionnaire .div {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 33px;
-    position: relative;
-    flex: 0 0 auto;
-}
-
-.questionnaire .text-wrapper-2 {
-    position: relative;
-    width: fit-content;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #727271;
-    font-size: 16px;
-    letter-spacing: 0;
-    line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .img {
-    position: relative;
-    width: 92px;
+  position: relative;
+  width: 92px;
 }
 
 .questionnaire .catalog-container {
-    display: inline-flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 69px;
-    position: relative;
-    flex: 0 0 auto;
-    margin-top: 150px;
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 69px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: 150px;
 }
 
 .questionnaire .evaluation-pics-desc {
-    display: flex;
-    flex-direction: column;
-    width: 571px;
-    align-items: flex-start;
-    gap: 66px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 571px;
+  align-items: flex-start;
+  gap: 66px;
+  position: relative;
 }
 
 .questionnaire .evaluation-img {
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    height: 273px;
-    background-color: #ebebeb;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 273px;
+  background-color: var(--gray-color);
 }
 
 .questionnaire .eval-overview {
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    height: 138px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 138px;
 }
 
 .questionnaire .eva-name {
-    position: absolute;
-    top: -1px;
-    left: 0;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #342928;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .questionnaire .eval-desc {
-    position: absolute;
-    width: 551px;
-    top: 71px;
-    left: 0;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #727271;
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
+  position: absolute;
+  width: 551px;
+  top: 71px;
+  left: 0;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-gray);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .evaluation-navigator {
-    display: flex;
-    flex-direction: column;
-    width: 473px;
-    height: 281px;
-    align-items: flex-start;
-    gap: 83px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 473px;
+  height: 281px;
+  align-items: flex-start;
+  gap: 83px;
+  position: relative;
 }
 
 .questionnaire .evaluation-title {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 16px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .text-wrapper-3 {
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #342928;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .evaluation-status {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 9px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .text-wrapper-4 {
-    /* position: relative;
+  /* position: relative;
     align-self: stretch;
     width: 457px;
     margin-top: -1.00px;
@@ -165,452 +152,380 @@
     letter-spacing: 0;
     line-height: normal; */
 
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #342928;
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
-    opacity: 0.6;
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+  opacity: 0.6;
 }
 
 .questionnaire .text-wrapper-5 {
-    position: relative;
-    width: 457px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #727271;
-    font-size: 14px;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  width: 457px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #727271;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .buttons {
-    display: flex;
-    flex-direction: column;
-    width: 468px;
-    align-items: flex-start;
-    gap: 11px;
-    position: relative;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 468px;
+  align-items: flex-start;
+  gap: 11px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .start-eval-button {
-    display: flex;
-    height: 48px;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    background-color: #342928;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: var(--dark-button);
 }
 
 .questionnaire .text-wrapper-6 {
-    position: relative;
-    width: fit-content;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
+  position: relative;
+  width: fit-content;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .questionnaire .check-other-button {
-    display: flex;
-    height: 48px;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    background-color: #f0f0f0;
-    border: 1px solid;
-    border-color: #342928;
-}
-.questionnaire .check-other-button:hover {
-    background-color: #e0e0e0; /* Slightly darker background for hover effect */
-    border-color: #1f1a19; /* Adjusted border color on hover */
-    cursor: pointer; /* Pointer cursor for hover */
+  text-decoration: none;
+  height: 48px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid;
 }
 
-.questionnaire .check-other-button:active {
-    background-color: #d0d0d0; /* Even darker for click feedback */
-    border-color: #000000; /* Darker border for active state */
+.questionnaire .check-other-button:hover {
+  background-color: var(--hollow-button-hover);
+  border-color: var(--hollow-button); /* Adjusted border color on hover */
+  cursor: pointer; /* Pointer cursor for hover */
 }
 
 .questionnaire .start-eval-button {
-    display: flex;
-    height: 48px;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    background-color: #342928; /* Background color */
-    color: white; /* Ensure text is visible */
-    border: none; /* No border */
-    font-size: 16px; /* Optional: Font size */
-    cursor: pointer; /* Pointer cursor */
-
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: var(--dark-button); /* Background color */
+  color: white; /* Ensure text is visible */
+  border: none; /* No border */
+  font-size: 16px; /* Optional: Font size */
+  cursor: pointer; /* Pointer cursor */
 }
 
 /* Hover state for the Start Evaluation button */
 .questionnaire .start-eval-button:hover {
-    background-color: #3e2f2d; /* Slightly lighter shade on hover */
+  background-color: var(
+    --dark-button-hover
+  ); /* Slightly lighter shade on hover */
 }
 
 /* Active state for the Start Evaluation button */
-.questionnaire .start-eval-button:active {
-    background-color: #2a1e1d; /* Darker shade for click feedback */
-}
 
 .questionnaire .text-wrapper-7 {
-    position: relative;
-    width: fit-content;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #342928;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
-}
-
-.questionnaire .footer {
-    display: flex;
-    flex-wrap: wrap;
-    height: 1044px;
-    align-items: center;
-    justify-content: center;
-    gap: 120px 104px;
-    padding: 171px 227px 0px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    background-color: #ebebeb;
+  position: relative;
+  width: fit-content;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #342928;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  text-decoration: none;
 }
 
 .questionnaire .frame-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 105px;
-    position: relative;
-    flex: 1;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 105px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
 }
 
 .questionnaire .frame-3 {
-    display: flex;
-    flex-direction: column;
-    width: 889px;
-    align-items: center;
-    gap: 47px;
-    padding: 4px 0px 0px;
-    position: relative;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 889px;
+  align-items: center;
+  gap: 47px;
+  padding: 4px 0px 0px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .frame-4 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .text-wrapper-8 {
-    align-self: stretch;
-    height: 78px;
-    color: #59504fe6;
-    font-size: 64px;
-    text-align: center;
-    position: relative;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    letter-spacing: 0;
-    line-height: normal;
+  align-self: stretch;
+  height: 78px;
+  color: #59504fe6;
+  font-size: 64px;
+  text-align: center;
+  position: relative;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .p {
-    position: relative;
-    align-self: stretch;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #685f5f;
-    font-size: 36px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  align-self: stretch;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .frame-5 {
-    display: flex;
-    width: 406px;
-    height: 56px;
-    align-items: center;
-    gap: 10px;
-    padding: 27px 23px;
-    position: relative;
-    background-color: #ffffff;
+  display: flex;
+  width: 406px;
+  height: 56px;
+  align-items: center;
+  gap: 10px;
+  padding: 27px 23px;
+  position: relative;
+  background-color: #ffffff;
 }
 
 .questionnaire .text-wrapper-9 {
-    position: relative;
-    width: 190.59px;
-    margin-top: -9.00px;
-    margin-bottom: -7.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 600;
-    color: #858585;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  width: 190.59px;
+  margin-top: -9px;
+  margin-bottom: -7px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 600;
+  color: #858585;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .frame-6 {
-    display: flex;
-    align-items: center;
-    gap: 104px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 104px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .frame-7 {
-    display: flex;
-    flex-direction: column;
-    width: 192px;
-    height: 191px;
-    align-items: flex-start;
-    gap: 15px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
 }
 
 .questionnaire .frame-8 {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .text-wrapper-10 {
-    position: relative;
-    width: fit-content;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 400;
-    color: #685f5f;
-    font-size: 15px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .questionnaire .frame-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .frame-9 {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 23px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .text-wrapper-11 {
-    position: relative;
-    align-self: stretch;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #685f5f;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.questionnaire .text-wrapper-12 {
-    align-self: stretch;
-    color: #685f5f;
-    font-size: 20px;
-    position: relative;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 500;
+  color: #685f5f;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .questionnaire .frame-10 {
-    display: flex;
-    flex-direction: column;
-    width: 207px;
-    height: 191px;
-    align-items: flex-start;
-    gap: 15px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 207px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
 }
 
 .questionnaire .frame-11 {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
-    margin-bottom: -47.00px;
-}
-
-.questionnaire .text-wrapper-13 {
-    position: relative;
-    width: 191px;
-    margin-top: -1.00px;
-    margin-right: -4.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #685f5f;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
-.questionnaire .text-wrapper-14 {
-    position: relative;
-    width: 213px;
-    margin-right: -26.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 500;
-    color: #685f5f;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  margin-bottom: -47px;
 }
 
 .questionnaire .frame-12 {
-    display: flex;
-    flex-direction: column;
-    width: 192px;
-    height: 191px;
-    align-items: flex-start;
-    gap: 15px;
-    position: relative;
-    margin-right: -109.00px;
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+  margin-right: -109px;
 }
 
 .questionnaire .frame-13 {
-    display: flex;
-    flex-direction: column;
-    width: 1423px;
-    height: 136px;
-    align-items: center;
-    gap: 19px;
-    position: relative;
-    margin-left: -218.50px;
-    margin-right: -218.50px;
+  display: flex;
+  flex-direction: column;
+  width: 1423px;
+  height: 136px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -218.5px;
+  margin-right: -218.5px;
 }
 
 .questionnaire .frame-14 {
-    position: relative;
-    flex: 0 0 auto;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .line-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 1425px;
-    height: 39px;
-    align-items: center;
-    gap: 19px;
-    position: relative;
-    margin-left: -1.00px;
-    margin-right: -1.00px;
+  display: flex;
+  flex-direction: column;
+  width: 1425px;
+  height: 39px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -1px;
+  margin-right: -1px;
 }
 
 .questionnaire .line {
-    position: relative;
-    width: 1423.88px;
-    height: 1.88px;
-    margin-bottom: -1.00px;
-    object-fit: cover;
+  position: relative;
+  width: 1423.88px;
+  height: 1.88px;
+  margin-bottom: -1px;
+  object-fit: cover;
 }
 
 .questionnaire .frame-15 {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 153px;
-    position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 153px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 .questionnaire .frame-16 {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 9px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 9px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .questionnaire .frame-17 {
-    display: flex;
-    width: 275px;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-}
-
-.questionnaire .text-wrapper-15 {
-    position: relative;
-    flex: 1;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 600;
-    color: #685f5f;
-    font-size: 15px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: normal;
+  display: flex;
+  width: 275px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
 }
 
 .catalog-container a {
-    width: 100%;
+  width: 100%;
 }
