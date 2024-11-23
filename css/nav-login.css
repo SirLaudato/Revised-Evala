@@ -1,81 +1,100 @@
+body {
+  background-color: #f4f4f3;
+}
+
 .login-and-landing {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--background-color);
-    padding: 10px 40px;
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: box-shadow 0.3s;
+  background-color: var(--background-color);
+  padding: 10px 40px;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: box-shadow 0.3s;
 }
 
 .login-and-landing .frame {
-    display: flex;
-    width: 1358px;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex: 0 0 auto;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex: 0 0 auto;
+  gap: 100px;
 }
 
 .login-and-landing .div-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
 }
 
 .login-and-landing .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1.00px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    color: #727271;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  color: #727271;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .login-and-landing .svg {
-    width: 22px;
-    height: 25px;
-    fill: #727271;
-    transition: fill 0.3s ease;
+  width: 22px;
+  height: 25px;
+  fill: #727271;
+  transition: fill 0.3s ease;
 }
 
 .frame {
-    display: inline-flex;
-    align-items: center;
-    gap: 393px;
-    position: relative;
-    flex: 0 0 auto;
-    height: 60px;
-  }
-
-
-.icon-button {
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 393px;
+  position: relative;
+  flex: 0 0 auto;
+  height: 60px;
 }
 
 /* Ensure specificity to target the SVG fill */
-.icon-button svg {
-    fill: #626261; /* Default color */
-    transition: fill 0.3s ease; /* Smooth transition for color change */
+.icon-button {
+  fill: #626261; /* Default color */
+  transition: fill 0.3s ease; /* Smooth transition for color change */
 }
 
 /* Darken SVG on hover */
-.icon-button:hover svg {
-    fill: #342928; /* Darker color */
+.icon-button:hover {
+  fill: #342928; /* Darker color */
 }
 
 .shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  }
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #727271;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.login-button:hover {
+  color: var(--text-color);
+}

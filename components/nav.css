@@ -103,3 +103,56 @@ body {
   margin-top: -1px;
   line-height: normal;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: "Montserrat", Helvetica;
+}
+
+/* Dropdown Button */
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown Menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 10px;
+  z-index: 1;
+  font-size: 10px;
+  left: -20px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #727271;
+  padding: 16px 16px;
+  text-decoration: none;
+  display: block;
+  height: fit-content;
+  font-size: 14px;
+  background-color: var(--background-color);
+  justify-content: center;
+}
+
+/* Hover effect for links */
+.dropdown-content a:hover {
+  color: var(--text-color);
+}
+
+/* Show the dropdown when the button is clicked */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+hr {
+  border: 0; /* Remove default border */
+  height: 0.5px; /* Set height of the line */
+  background: #ccc; /* Set the color of the line */
+  width: 70%; /* Set the width of the line */
+  margin: auto; /* Center the <hr> horizontally within its parent */
+}
