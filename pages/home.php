@@ -60,7 +60,7 @@ if (!isset($_SESSION['emailaddress'])) {
                             <div class="frame-6">
                                 <div class="frame-7">
                                     <div class="frame-8">
-                                        <div class="text-wrapper-6">Total Completed</div>
+                                        <div class="text-wrapper-6">Total Pending</div>
                                     </div>
                                     <div class="frame-9">
                                         <div class="text-wrapper-7">0</div>

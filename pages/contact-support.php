@@ -32,7 +32,7 @@
                     <input class="input-field-2" placeholder="Your E-mail" type="text">
                     <input class="input-field" placeholder="Phone Number" type="tel" />
                     <input class="input-field-2" placeholder="Subject" type="text">
-                    <textarea class="input-field-3" placeholder="Message" type="text-area"></textarea>
+                    <textarea class="input-field-3" placeholder="Message" type="text"></textarea>
 
                     <div class="send-message">
                         <button class="button">

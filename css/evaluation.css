@@ -4,7 +4,7 @@
   align-items: center;
   gap: 100px;
   position: relative;
-  background-color: #f4f4f3;
+  background-color: var(--background-color);
   margin-top: 100px;
 }
 
@@ -104,7 +104,7 @@
   margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
-  color: #000000;
+  color: var(--text-color);
   font-size: 20px;
   letter-spacing: 0;
   line-height: normal;
@@ -116,7 +116,7 @@
   height: 94px;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
-  color: #000000;
+  color: var(--text-color);
   font-size: 14px;
   letter-spacing: 0;
   line-height: normal;
@@ -157,7 +157,7 @@
   height: 49px;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
-  color: #000000;
+  color: var(--text-color);
   font-size: 14px;
   letter-spacing: 0;
   line-height: normal;
@@ -471,6 +471,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 1000px;
+  color: var(--text-color);
 }
 
 thead th {
@@ -497,14 +498,19 @@ input[type="radio"] {
   width: 20px;
   height: 20px;
   border: 2px solid #666;
+  border-radius: 50%; /* Makes it circular */
   outline: none;
   cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.2s, border-color 0.3s;
 }
 
 input[type="radio"]:checked {
-  background-color: #342928;
-  border-color: #342928;
+  background-color: var(--text-color); /* Fill with the desired color */
+  border-color: var(--text-color); /* Optionally change the border */
+}
+
+:root {
+  --text-color: #007bff; /* Example color */
 }
 
 .submit-btn {
@@ -519,7 +525,7 @@ input[type="radio"]:checked {
   position: relative;
   align-self: stretch;
   width: 100%;
-  background-color: #342928; /* Background color */
+  background-color: var(--dark-button); /* Background color */
   color: white; /* Ensure text is visible */
   border: none; /* No border */
   font-size: 20px; /* Optional: Font size */
@@ -527,7 +533,9 @@ input[type="radio"]:checked {
 }
 
 .submit-btn:hover {
-  background-color: #3e2f2d; /* Slightly lighter shade on hover */
+  background-color: var(
+    --dark-button-hover
+  ); /* Slightly lighter shade on hover */
 }
 
 ol li {
@@ -535,6 +543,7 @@ ol li {
   font-size: 16px;
   margin-bottom: 8px;
   line-height: 1.6;
+  color: var(--text-color);
 }
 
 .cancel-btn {
@@ -552,16 +561,9 @@ ol li {
   background-color: #f0f0f0;
   border: 1px solid;
   font-size: 20px;
-  border-color: #342928;
-}
+  border-color: var(--hollow-button);
 
-.cancel-btn:hover {
-  background-color: #e0e0e0; /* Slightly darker background for hover effect */
-  border-color: #1f1a19; /* Adjusted border color on hover */
-  cursor: pointer; /* Pointer cursor for hover */
-}
-
-.cancel-btn.button:active {
-  background-color: #d0d0d0; /* Even darker for click feedback */
-  border-color: hsl(0, 0%, 0%); /* Darker border for active state */
+  &:hover {
+    background-color: var(--hollow-button-hover);
+  }
 }

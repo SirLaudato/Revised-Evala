@@ -9,10 +9,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/nav.css" />
     <link rel="stylesheet" href="../css/all.css" />
     <link rel="stylesheet" href="../components/nav.css" />
-</head>
+</head> 
 
 <body>
     <div class="navbar">

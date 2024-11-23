@@ -1,14 +1,14 @@
+
+
 .login {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 121px;
   position: relative;
-  background-color: #f4f4f3;
+  background-color: var(--background-color);
   margin-top: 200px;
 }
-
-
 
 .login .frame {
   display: inline-flex;
@@ -32,7 +32,7 @@
   color: #727271;
   font-size: 24px;
   position: relative;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 700;
   font-style: italic;
@@ -52,7 +52,7 @@
 .login .text-wrapper-2 {
   position: relative;
   width: fit-content;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
   color: #727271;
@@ -90,10 +90,10 @@
 .login .text-wrapper-3 {
   position: relative;
   align-self: stretch;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
-  color: #342928;
+  color: var(--text-color);
   font-size: 20px;
   letter-spacing: 0;
   line-height: normal;
@@ -104,10 +104,17 @@
   align-self: stretch;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
-  color: #727271;
+  color: var(--text-color);
   font-size: 14px;
   letter-spacing: 0;
   line-height: normal;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: var(--placeholder); /* Replace with your desired color */
+  opacity: 1; /* Ensure the color is fully visible */
 }
 
 .login .div-3 {
@@ -124,10 +131,10 @@
 .login .text-wrapper-4 {
   position: relative;
   align-self: stretch;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
-  color: #342928;
+  color: var(--text-color);
   font-size: 13px;
   letter-spacing: 0;
   line-height: normal;
@@ -143,23 +150,23 @@
   align-self: stretch;
   width: 100%;
   background-color: #ffffff;
-      font-family: "Montserrat", Helvetica, sans-serif;
-    font-weight: 500;
-    color: #858585;
-    font-size: 15px;
-    letter-spacing: 0;
-    outline: none;
-    line-height: normal;
-    border: none;
-    resize: none; /* Prevents the textarea from being resized */
-    overflow-y: auto; /* Adds vertical scroll if text exceeds height */
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 15px;
+  letter-spacing: 0;
+  outline: none;
+  line-height: normal;
+  border: none;
+  resize: none; /* Prevents the textarea from being resized */
+  overflow-y: auto; /* Adds vertical scroll if text exceeds height */
 }
 
 .login .text-wrapper-5 {
   position: relative;
   width: fit-content;
-  margin-top: -13.00px;
-  margin-bottom: -11.00px;
+  margin-top: -13px;
+  margin-bottom: -11px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
   color: #858585;
@@ -183,16 +190,14 @@
 .login .text-wrapper-6 {
   position: relative;
   flex: 1;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
-  color: #342928;
+  color: var(--text-color);
   font-size: 13px;
   letter-spacing: 0;
   line-height: normal;
 }
-
-
 
 .login .text-wrapper-7 {
   position: relative;
@@ -212,7 +217,7 @@
   align-self: stretch;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
-  color: #342928;
+  color: var(--text-color);
   font-size: 15px;
   text-align: center;
   letter-spacing: 0;
@@ -273,7 +278,7 @@
   font-size: 64px;
   text-align: center;
   position: relative;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat-BoldItalic", Helvetica;
   font-weight: 700;
   font-style: italic;
@@ -307,8 +312,8 @@
 .login .text-wrapper-11 {
   position: relative;
   width: 190.59px;
-  margin-top: -9.00px;
-  margin-bottom: -7.00px;
+  margin-top: -9px;
+  margin-bottom: -7px;
   font-family: "Montserrat", Helvetica;
   font-weight: 600;
   color: #858585;
@@ -350,7 +355,7 @@
 .login .text-wrapper-12 {
   position: relative;
   width: fit-content;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
   color: #685f5f;
@@ -388,7 +393,7 @@
   color: #685f5f;
   font-size: 20px;
   position: relative;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
   letter-spacing: 0;
@@ -426,14 +431,14 @@
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
-  margin-bottom: -47.00px;
+  margin-bottom: -47px;
 }
 
 .login .text-wrapper-15 {
   position: relative;
   width: 191px;
-  margin-top: -1.00px;
-  margin-right: -4.00px;
+  margin-top: -1px;
+  margin-right: -4px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
   color: #685f5f;
@@ -445,7 +450,7 @@
 .login .text-wrapper-16 {
   position: relative;
   width: 213px;
-  margin-right: -26.00px;
+  margin-right: -26px;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
   color: #685f5f;
@@ -462,7 +467,7 @@
   align-items: flex-start;
   gap: 15px;
   position: relative;
-  margin-right: -109.00px;
+  margin-right: -109px;
 }
 
 .login .frame-13 {
@@ -473,8 +478,8 @@
   align-items: center;
   gap: 19px;
   position: relative;
-  margin-left: -218.50px;
-  margin-right: -218.50px;
+  margin-left: -218.5px;
+  margin-right: -218.5px;
 }
 
 .login .frame-14 {
@@ -490,15 +495,15 @@
   align-items: center;
   gap: 19px;
   position: relative;
-  margin-left: -1.00px;
-  margin-right: -1.00px;
+  margin-left: -1px;
+  margin-right: -1px;
 }
 
 .login .line {
   position: relative;
   width: 1423.88px;
   height: 1.88px;
-  margin-bottom: -1.00px;
+  margin-bottom: -1px;
   object-fit: cover;
 }
 
@@ -533,7 +538,7 @@
 .login .text-wrapper-17 {
   position: relative;
   flex: 1;
-  margin-top: -1.00px;
+  margin-top: -1px;
   font-family: "Montserrat", Helvetica;
   font-weight: 600;
   color: #685f5f;
@@ -553,7 +558,7 @@
   position: relative;
   align-self: stretch;
   width: 100%;
-  background-color: #342928; /* Background color */
+  background-color: var(--dark-button); /* Background color */
   color: white; /* Ensure text is visible */
   border: none; /* No border */
   font-size: 16px; /* Optional: Font size */
@@ -562,7 +567,9 @@
 
 /* Hover state for the Start Evaluation button */
 .login .button:hover {
-  background-color: #3e2f2d; /* Slightly lighter shade on hover */
+  background-color: var(
+    --dark-button-hover
+  ); /* Slightly lighter shade on hover */
 }
 
 /* Active state for the Start Evaluation button */
@@ -573,11 +580,6 @@
 .login-button {
   width: 100%;
 }
-
-
-
-
-
 
 @keyframes slideDown {
   from {
@@ -603,7 +605,7 @@
 }
 
 .modal-content {
-  background-color: #EFA2A2;
+  background-color: #efa2a2;
   color: #666464;
   margin: 10% auto;
   padding: 15px 20px;

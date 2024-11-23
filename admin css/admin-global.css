@@ -1,25 +1,9 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700,600,italic");
 
-* {
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-html,
-body {
-  margin: 0px;
-  height: 100%;
-}
-/* a blue color as a generic focus style */
-
-body {
-  margin: 0;
-  line-height: normal;
-}
-
 :root {
   /* fonts */
-  --font-montserrat: Montserrat;
+  --font-montserrat: "Montserrat";
 
   /* font sizes */
   --font-size-mini: 15px;
