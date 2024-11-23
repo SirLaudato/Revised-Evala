@@ -1,10 +1,10 @@
 <?php
 session_start();
-// Redirect if already logged in
-if (isset($_SESSION['emailaddress'])) {
-    header("Location: ../pages/home.php");
-    exit();
-}
+ // Redirect if already logged in
+    if (isset($_SESSION['emailaddress'])) {
+        header("Location: ../pages/home.php");
+        exit();
+    }
 
 
 
@@ -35,60 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
 
-            // Check if the account is locked
-            if ($row["active_flag"] == 0) {
-                $modalTitle = "Account Error";
-                $modalMessage = "Your account has been locked. Please contact support for assistance.";
-            } else {
-                // Check if the password matches
-                if ($row['password'] == $pw) {
-                    // Set session variables
-                    $_SESSION["user_id"] = $row["user_id"];
-                    $_SESSION["first_name"] = $row["first_name"];
-                    $_SESSION["last_name"] = $row["last_name"];
-                    $_SESSION["emailaddress"] = $row["email"];
-                    $_SESSION["role"] = $row["role"];
-                    $_SESSION["student_number"] = $row["student_number"];
-                    $_SESSION["active_flag"] = $row["active_flag"];
-                    $_SESSION["attempts"] = $row["attempts"];
+            // Check if the password matches
+            if ($row['password'] == $pw) {
+                // Set session variables
+                $_SESSION["user_id"] = $row["user_id"];
+                $_SESSION["first_name"] = $row["first_name"];
+                $_SESSION["last_name"] = $row["last_name"];
+                $_SESSION["emailaddress"] = $row["email"];
+                $_SESSION["role"] = $row["role"];
+                $_SESSION["student_number"] = $row["student_number"];
 
-                    // Reset attempts on successful login
-                    $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
-                    mysqli_query($con, $sql_reset);
-
-                    // Redirect based on role
-                    if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
-                        header("Location: ../pages/home.php");
-                        exit();
-                    } else {
-                        $modalTitle = "Access Denied";
-                        $modalMessage = "Your role does not have access to this page.";
-                    }
-                } else {
-                    // Incorrect password
-                    if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
-                        $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
-                        mysqli_query($con, $sql_lock);
-                        $modalTitle = "Account Locked!";
-                        $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
-                        session_destroy(); // Destroy session to log out any logged-in user
-                    } else {
-                        $modalTitle = "Login Error";
-                        $modalMessage = "Incorrect password. Please try again.";
-                        $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
-                        mysqli_query($con, $sql_update);
-                    }
+                // Redirect based on role
+                if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
+                    header("Location: ../pages/home.php");
+                    exit();
                 }
+            } else {
+                // Incorrect password
+                $modalTitle = "Login Error";
+                $modalMessage = "Incorrect password. Please try again.";
             }
+        } else {
+            // Account not found
+            $modalTitle = "Account Error";
+            $modalMessage = "An account with this email doesn’t exist.";
         }
     } else {
-        // Account not found
-        $modalTitle = "Account Error";
-        $modalMessage = "An account with this email doesn’t exist.";
-    }
-
-    // Missing fields
-    if (empty($email) || empty($pw)) {
+        // Missing fields
         $modalTitle = "Input Error";
         $modalMessage = "Please fill in all the fields.";
     }
@@ -152,9 +125,7 @@ mysqli_close($con);
         <?php include '../components/footer.php' ?>
     </div>
 
-
-    
-<!-- Modal html -->
+ <!-- Modal html -->
 <div id="alertModal" class="modal">
   <div class="modal-content">
     <!-- Alert Icon -->
@@ -164,10 +135,10 @@ mysqli_close($con);
       </svg>
     </div>
 
-            <!-- Alert Message -->
-            <div class="modal-message">
-                Invalid username or password. Try Again.
-            </div>
+    <!-- Alert Message -->
+    <div class="modal-message">
+      Invalid username or password. Try Again.
+    </div>
 
     <!-- Close Button -->
     <button class="close-btn" onclick="closeModal()">
@@ -177,8 +148,6 @@ mysqli_close($con);
     </button>
   </div>
 </div>
-
-
 
     <!-- Scroll event for shadow -->
     <script>
@@ -191,7 +160,7 @@ mysqli_close($con);
         });
     </script>
 
-    <script>
+<script>
         function showModal(message) {
             const modal = document.getElementById("alertModal");
             const modalMessage = modal.querySelector(".modal-message");
@@ -205,7 +174,7 @@ mysqli_close($con);
         }
 
         <?php if ($modalTitle && $modalMessage): ?>
-            showModal("<?= htmlspecialchars($modalMessage) ?>");
+        showModal("<?= htmlspecialchars($modalMessage) ?>");
         <?php endif; ?>
     </script>
 </body>
