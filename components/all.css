@@ -1,356 +1,38 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-:root {
-    --background-color: #f4f4f3;
-    --text-color: #342928;
-    --hover-color: #555;
-    --logo-hover-color: #342928;
-    --footer-color: rgb(46, 45, 45);
-    --button-color: #2d3237;
-}
-
-
 
 body {
-    font-family: "Montserrat";
-    background-color: var(--background-color);
+  font-family: "Montserrat";
+  background-color: var(--background-color);
 }
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--background-color);
-    padding: 10px 40px;
-    z-index: 100;
-    position: fixed; /* Make the navbar fixed */
-    top: 0;
-    width: 100%; /* Ensure it spans the full width */
-    transition: box-shadow 0.3s; /* Smooth transition for shadow */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 10px 40px;
+  z-index: 100;
+  position: fixed; /* Make the navbar fixed */
+  top: 0;
+  width: 100%; /* Ensure it spans the full width */
+  transition: box-shadow 0.3s; /* Smooth transition for shadow */
 }
 
 .navbar.shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
-.nav-left, .nav-right {
-    display: flex;
+.nav-left,
+.nav-right {
+  display: flex;
 }
-
 
 .nav-center {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
-
-.nav-logo {
-    color: var(--text-color);
-    font-size: 24px;
-    text-decoration: none;
-    font-weight: 200;
-    position: relative; /* Added for pseudo-element positioning */
-
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -5px; /* Adjust this value to control the distance of the underline from the text */
-        width: 100%;
-        height: 2px; /* Adjust this value to control the thickness of the underline */
-        background-color: var(--text-color);
-        transform: scaleX(0);
-        transform-origin: bottom right;
-        transition: transform 0.3s ease-out;
-    }
-
-    &:hover::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-    }
-}
-
-.nav-item:hover {
-    color: var(--logo-hover-color);
-}
-
-.nav-item.active {
-    filter: brightness(1.2);
-    color: var(--logo-hover-color); /* Ensure active item is visible */
-}
-
-
-#cart-modal {
-    &.cart-modal {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 917px;
-        height: 100%;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-        transition: right 0.4s ease-in-out;
-        z-index: 1000;
-
-        &.open {
-            right: 0;
-        }
-
-        .cart-modal-content {
-            display: flex;
-            flex-direction: column;
-            padding: 95px;
-            height: 100%;
-            overflow-y: auto;
-
-            /* Custom Scrollbar */
-            &::-webkit-scrollbar {
-                width: 12px;
-            }
-
-            &::-webkit-scrollbar-track {
-                background: #f1f1f1; 
-                border-radius: 10px; /* Add border-radius to the track */
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background: var(--text-color); 
-                border-radius: 10px; /* Add border-radius to the thumb */
-            }
-
-            &::-webkit-scrollbar-thumb:hover {
-                background: #555; 
-            }
-
-            h2 {
-                font-weight: 600;
-                font-size: 32px;
-                margin-bottom: 42px;
-                border-bottom: 2px solid #000;
-                padding: 32px 0;
-            }
-
-            .close-button {
-                position: absolute;
-                top: 22px;
-                right: 40px;
-                font-size: 57px;
-                cursor: pointer;
-                color: var(--text-color);
-            }
-
-            .cart-items {
-                margin-top: 20px;
-                flex-grow: 1;  
-            }
-
-            .cart-item {
-                display: flex;
-                align-items: center;
-                padding: 26px 0;
-                border-bottom: 1px solid #ccc;
-                position: relative;
-
-                .cart-item-image {
-                    width: 154px;
-                    height: 80px;
-                    background-size: cover;
-                    background-position: center;
-                    margin-right: 15px;
-                    background-color: #b4b4b4;
-                }
-
-                .cart-item-details {
-                    flex-grow: 1;
-
-                    .cart-item-name {
-                        font-size: 19px;
-                        color: var(--text-color);
-                        margin-bottom: 8px;
-                        font-weight: 600;
-                    }
-
-                    .number-control {
-                        display: flex;
-                        align-items: center;
-
-                        .number-left::before,
-                        .number-right::after {
-                            content: attr(data-content);
-                            background-color: #ffffff;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 46px;
-                            height: 36px;
-                            color: var(--text-color);
-                            transition: background-color 0.3s;
-                            cursor: pointer;
-                            font-size: 30px;
-                        }
-
-                        .number-left::before {
-                            content: "-";
-                        }
-
-                        .number-right::after {
-                            content: "+";
-                        }
-
-                        .number-left:hover::before,
-                        .number-right:hover::after {
-                            background-color: #666666;
-                        }
-
-                        .number-quantity {
-                            padding: 0.4rem;
-                            height: 36px;
-                            border: 0;
-                            width: 50px;
-                            -moz-appearance: textfield;
-                            -webkit-appearance: none;
-                            appearance: none;
-                            outline: none;
-                            text-align: center;
-                            font: inherit;
-
-                            &::-webkit-outer-spin-button,
-                            &::-webkit-inner-spin-button {
-                                -webkit-appearance: none;
-                                margin: 0; /* Remove the margin for WebKit browsers */
-                            }
-
-                            &:focus {
-                                outline: none; /* Ensure the outline is removed when the element is focused */
-                            }
-                        }
-                    }
-                }
-
-                .cart-pay {
-                    text-align: right;
-                    position: relative;
-
-                    .remove-product {
-                        position: absolute;
-                        top: -44px;
-                        right: 0;
-                        font-size: 38px;
-                        cursor: pointer;
-                        color: var(--text-color);
-                        opacity: 0.6;
-                    }
-
-                    .cart-item-price {
-                        font-size: 22px;
-                        color: var(--text-color);
-                        white-space: nowrap;
-                        margin-left: 15px;
-                    }
-
-                    .cart-item-currency {
-                        font-size: 14px;
-                        color: var(--text-color);
-                        white-space: nowrap;
-                        margin-left: 15px;
-                    }
-                }
-            }
-
-            .payment-info {
-                display: flex;
-                flex-direction: column;
-                padding: 24px 0;
-                font-size: 18px;
-            }
-            
-            .payment-info .subtotal,
-            .payment-info .discount,
-            .payment-info .shipping,
-            .payment-info .total {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 0;
-            }
-            
-            .payment-info .subtotal .amount,
-            .payment-info .discount .amount,
-            .payment-info .shipping .amount,
-            .payment-info .total .amount {
-                text-align: right;
-                margin-left: auto; /* Ensures the amount is pushed to the right side */
-            }
-            
-            .payment-info .total {
-                font-size: 24px;
-                font-weight: 500;
-                border-top: 2px solid #000;
-                padding-top: 34px;
-                margin-top: 38px;
-            }
-
-            .buttons-modal {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                margin-top: auto;
-
-                .check-out, .con-shopping {
-                    --color: #f5f5f5;
-                    padding: 1em 1.7em;
-                    position: relative;
-                    overflow: hidden;
-                    cursor: pointer;
-                    transition: 0.5s;
-                    font-weight: 400;
-                    font-size: 17px;
-                    border: 1px solid;
-                    font-family: inherit;
-                    width: 100%;
-                    z-index: 1;
-
-                    &::before {
-                        top: -1em;
-                        left: -1em;
-                    }
-
-                    &:hover::before,
-                    &:hover::after {
-                        height: 410px;
-                        width: 410px;
-                    }
-
-                    &:active {
-                        filter: brightness(0.8);
-                    }
-                }
-
-                .check-out {
-                    background-color: var(--text-color);
-                    color: var(--color);
-
-                    &:hover {
-                        color: rgb(143, 143, 143);
-                    }
-                }
-
-                .con-shopping {
-                    background-color: transparent;
-                    color: var(--text-color);
-
-                    &:hover {
-                        color: rgb(143, 143, 143);
-                    }
-                }
-            }
-        }
-    }
-}
-
-
