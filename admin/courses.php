@@ -81,93 +81,88 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Course Management</title>
+    <link rel="stylesheet" href="../admin css/courses.css">
+    <link rel="stylesheet" href="../admin css/admin global  .css">
+    
 </head>
 <body>
-    <h1>Course Management</h1>
+    <header>
+        <h1>Course Management</h1>
+    </header>
+    <main>
+        <div class="course-management">
+            <h2><?php echo $course ? 'Edit Course' : 'Add New Course'; ?></h2>
+            <form method="POST" action="courses.php">
+                <?php if ($course): ?>
+                    <input type="hidden" name="id" value="<?php echo $course['id']; ?>" />
+                <?php endif; ?>
 
-    <!-- Create or Edit Course Form -->
-    <form method="POST" action="courses.php">
-        <?php if ($course): ?>
-            <h2>Edit Course</h2>
-            <input type="hidden" name="id" value="<?php echo $course['id']; ?>" />
-        <?php else: ?>
-            <h2>Add New Course</h2>
-        <?php endif; ?>
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="1" <?php echo ($course && $course['department_id'] == 1) ? 'selected' : ''; ?>>CAMS</option>
+                    <option value="2" <?php echo ($course && $course['department_id'] == 2) ? 'selected' : ''; ?>>CAS</option>
+                    <option value="3" <?php echo ($course && $course['department_id'] == 3) ? 'selected' : ''; ?>>CBA</option>
+                    <option value="4" <?php echo ($course && $course['department_id'] == 4) ? 'selected' : ''; ?>>COECSA</option>
+                    <option value="5" <?php echo ($course && $course['department_id'] == 5) ? 'selected' : ''; ?>>CFAD</option>
+                    <option value="6" <?php echo ($course && $course['department_id'] == 6) ? 'selected' : ''; ?>>CITHM</option>
+                    <option value="7" <?php echo ($course && $course['department_id'] == 7) ? 'selected' : ''; ?>>BSN</option>
+                </select>
 
-        <!-- Department Dropdown -->
-        <label for="department">Department:</label>
-        <select id="department" name="department" required>
-            <option value="">Select Department</option>
-            <option value="1" <?php echo ($course && $course['department_id'] == 1) ? 'selected' : ''; ?>>CAMS</option>
-            <option value="2" <?php echo ($course && $course['department_id'] == 2) ? 'selected' : ''; ?>>CAS</option>
-            <option value="3" <?php echo ($course && $course['department_id'] == 3) ? 'selected' : ''; ?>>CBA</option>
-            <option value="4" <?php echo ($course && $course['department_id'] == 4) ? 'selected' : ''; ?>>COECSA</option>
-            <option value="5" <?php echo ($course && $course['department_id'] == 5) ? 'selected' : ''; ?>>CFAD</option>
-            <option value="6" <?php echo ($course && $course['department_id'] == 6) ? 'selected' : ''; ?>>CITHM</option>
-            <option value="7" <?php echo ($course && $course['department_id'] == 7) ? 'selected' : ''; ?>>BSN</option>
-        </select><br><br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="BSCS - CS301" value="<?php echo ($course ? $course['name'] : ''); ?>" required>
 
-        <!-- Name Input -->
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="BSCS - CS301" value="<?php echo ($course ? $course['name'] : ''); ?>" required><br><br>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Bachelor of Computer Science" value="<?php echo ($course ? $course['description'] : ''); ?>" required>
 
-        <!-- Description Input -->
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" placeholder="Bachelor of Computer Science" value="<?php echo ($course ? $course['description'] : ''); ?>" required><br><br>
+                <input type="submit" value="<?php echo $course ? 'Update Course' : 'Create Course'; ?>">
+            </form>
+        </div>
 
-        <input type="submit" value="<?php echo $course ? 'Update Course' : 'Create Course'; ?>">
-    </form>
+        <div class="course-list">
+            <h2>Courses List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Department</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $sql = "SELECT * FROM courses";
+                    $result = $conn->query($sql);
 
-    <hr>
-
-    <!-- Display List of Courses -->
-    <h2>Courses List</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Department</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Fetch all courses
-            $sql = "SELECT * FROM courses";
-            $result = $conn->query($sql);
-
-            while ($row = $result->fetch_assoc()) {
-                // Get the department name from the department ID (hardcoded)
-                $department_name = '';
-                if ($row['department_id'] == 1) $department_name = 'CAMS';
-                if ($row['department_id'] == 2) $department_name = 'CAS';
-                if ($row['department_id'] == 3) $department_name = 'CBA';
-                if ($row['department_id'] == 4) $department_name = 'COECSA';
-                if ($row['department_id'] == 5) $department_name = 'CFAD';
-                if ($row['department_id'] == 6) $department_name = 'CITHM';
-                if ($row['department_id'] == 7) $department_name = 'BSN';
-            ?>
-            <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $department_name; ?></td>
-                <td><?php echo $row['name']; ?></td>
-                <td><?php echo $row['description']; ?></td>
-                <td>
-                    <a href="courses.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                    <a href="courses.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
-                </td>
-            </tr>
-            <?php
-            }
-            ?>
-        </tbody>
-    </table>
-
+                    while ($row = $result->fetch_assoc()) {
+                        $department_name = '';
+                        if ($row['department_id'] == 1) $department_name = 'CAMS';
+                        if ($row['department_id'] == 2) $department_name = 'CAS';
+                        if ($row['department_id'] == 3) $department_name = 'CBA';
+                        if ($row['department_id'] == 4) $department_name = 'COECSA';
+                        if ($row['department_id'] == 5) $department_name = 'CFAD';
+                        if ($row['department_id'] == 6) $department_name = 'CITHM';
+                        if ($row['department_id'] == 7) $department_name = 'BSN';
+                    ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $department_name; ?></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['description']; ?></td>
+                        <td>
+                            <a href="courses.php?id=<?php echo $row['id']; ?>">Edit</a> |
+                            <a href="courses.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>
-
 <?php
 $conn->close();  // Close the database connection at the end
 ?>

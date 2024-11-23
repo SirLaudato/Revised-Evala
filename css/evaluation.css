@@ -498,14 +498,19 @@ input[type="radio"] {
   width: 20px;
   height: 20px;
   border: 2px solid #666;
+  border-radius: 50%; /* Makes it circular */
   outline: none;
   cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.2s, border-color 0.3s;
 }
 
 input[type="radio"]:checked {
-  color: var(--text-color);
-  border-color: var(--text-color);
+  background-color: var(--text-color); /* Fill with the desired color */
+  border-color: var(--text-color); /* Optionally change the border */
+}
+
+:root {
+  --text-color: #007bff; /* Example color */
 }
 
 .submit-btn {

@@ -95,8 +95,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            </div>
-                            
+                        </div>
+
                         <div class="per-section">
                                     <div class="frame-3">
                                         <div class="text-wrapper-3">Section Name</div>
@@ -119,43 +119,41 @@
                                     <tbody> 
                                         <tr>
                                             <td class="question">1. The quality of the product met my expectations.</td>
-                                            <td><input type="radio" name="q1" value="1" required></td>
-                                            <td><input type="radio" name="q1" value="2"></td>
-                                            <td><input type="radio" name="q1" value="3"></td>
-                                            <td><input type="radio" name="q1" value="4"></td>
-                                            <td><input type="radio" name="q1" value="5"></td>
+                                            <td><input type="radio" name="q5" value="1" required></td>
+                                            <td><input type="radio" name="q5" value="2"></td>
+                                            <td><input type="radio" name="q5" value="3"></td>
+                                            <td><input type="radio" name="q5" value="4"></td>
+                                            <td><input type="radio" name="q5" value="5"></td>
                                         </tr>
                                         <tr>
                                             <td class="question">2. The customer service experience was satisfactory.</td>
-                                            <td><input type="radio" name="q2" value="1" required></td>
-                                            <td><input type="radio" name="q2" value="2"></td>
-                                            <td><input type="radio" name="q2" value="3"></td>
-                                            <td><input type="radio" name="q2" value="4"></td>
-                                            <td><input type="radio" name="q2" value="5"></td>
+                                            <td><input type="radio" name="q6" value="1" required></td>
+                                            <td><input type="radio" name="q6" value="2"></td>
+                                            <td><input type="radio" name="q6" value="3"></td>
+                                            <td><input type="radio" name="q6" value="4"></td>
+                                            <td><input type="radio" name="q6" value="5"></td>
                                         </tr>
                                         <tr>
                                             <td class="question">3. The delivery process was efficient and timely.</td>
-                                            <td><input type="radio" name="q3" value="1" required></td>
-                                            <td><input type="radio" name="q3" value="2"></td>
-                                            <td><input type="radio" name="q3" value="3"></td>
-                                            <td><input type="radio" name="q3" value="4"></td>
-                                            <td><input type="radio" name="q3" value="5"></td>
+                                            <td><input type="radio" name="q7" value="1" required></td>
+                                            <td><input type="radio" name="q7" value="2"></td>
+                                            <td><input type="radio" name="q7" value="3"></td>
+                                            <td><input type="radio" name="q7" value="4"></td>
+                                            <td><input type="radio" name="q7" value="5"></td>
                                         </tr>
                                         <tr>
                                             <td class="question">4. Overall, I am satisfied with my experience.</td>
-                                            <td><input type="radio" name="q4" value="1" required></td>
-                                            <td><input type="radio" name="q4" value="2"></td>
-                                            <td><input type="radio" name="q4" value="3"></td>
-                                            <td><input type="radio" name="q4" value="4"></td>
-                                            <td><input type="radio" name="q4" value="5"></td>
+                                            <td><input type="radio" name="q8" value="1" required></td>
+                                            <td><input type="radio" name="q8" value="2"></td>
+                                            <td><input type="radio" name="q8" value="3"></td>
+                                            <td><input type="radio" name="q8" value="4"></td>
+                                            <td><input type="radio" name="q8" value="5"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            </div>
-
+                        </div>
                             
-    
                             <button type="submit" class="submit-btn">Submit Evaluation</button>
                             <button type="submit" class="cancel-btn">Cancel</button>
                                 

@@ -1,0 +1,53 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700,600,italic");
+
+:root {
+  /* fonts */
+  --font-montserrat: "Montserrat";
+
+  /* font sizes */
+  --font-size-mini: 15px;
+  --font-size-xl: 20px;
+
+  /* Colors */
+  --color-dimgray-100: #685f5f;
+
+  /* Gaps */
+  --gap-mini: 15px;
+  --gap-4xl: 23px;
+
+  /* Paddings */
+  --padding-11xs: 2px;
+  --padding-3xs: 10px;
+}
+
+/* MAIN COLORS */
+
+:root {
+  /* For text, navigator icons. */
+  --text-color: #342928;
+
+  /* Backround color, navigator color. */
+  --background-color: #f4f4f3;
+
+  /* Footer color, picture color, container color, placeholder color. */
+  --gray-color: #ebebeb;
+
+  /* Placeholder text color */
+  --placeholder: #a6a6a6;
+
+  /* For small gray texts. */
+  --text-gray: #727271;
+}
+
+/* For filled buttons. */
+:root {
+  --dark-button: #342928;
+  --dark-button-hover: #523f3e;
+}
+
+/* For hollow buttons. */
+:root {
+  --hollow-button: #342928;
+  --hollow-button-hover: #e8e8e7;
+}
