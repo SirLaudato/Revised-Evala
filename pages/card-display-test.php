@@ -38,7 +38,7 @@
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo '<div class="card" data-aos="flip-right" data-aos-duration="500">';
+                    echo '<div class="frame-6" data-aos="flip-right" data-aos-duration="500">';
                     echo '<img src = "' . $row['EmployeePicture'] . '" alt = ""></img>';
                     echo '<h4> Name: Dr. ' . $row['AccountName'] . '</h4>';
                     echo '<p>Specialty: ' . $row['EmployeeSpecialty'] . '</p>';
