@@ -6,8 +6,6 @@ if (isset($_SESSION['emailaddress'])) {
     exit();
 }
 
-
-
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -24,10 +22,14 @@ $modalTitle = "";
 $modalMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['e-mail']) && isset($_POST['password'])) {
-        $email = mysqli_real_escape_string($con, $_POST['e-mail']);
-        $pw = mysqli_real_escape_string($con, $_POST['password']);
+    $email = isset($_POST['e-mail']) ? mysqli_real_escape_string($con, $_POST['e-mail']) : null;
+    $pw = isset($_POST['password']) ? mysqli_real_escape_string($con, $_POST['password']) : null;
 
+    // Missing fields
+    if (empty($email) || empty($pw)) {
+        $modalTitle = "Input Error";
+        $modalMessage = "Please fill in all the fields.";
+    } else {
         // Fetch user from database
         $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
         $result = mysqli_query($con, $userQuery);
@@ -80,22 +82,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 }
             }
+        } else {
+            // Account not found
+            $modalTitle = "Account Error";
+            $modalMessage = "An account with this email doesn’t exist.";
         }
-    } else {
-        // Account not found
-        $modalTitle = "Account Error";
-        $modalMessage = "An account with this email doesn’t exist.";
-    }
-
-    // Missing fields
-    if (empty($email) || empty($pw)) {
-        $modalTitle = "Input Error";
-        $modalMessage = "Please fill in all the fields.";
     }
 }
 
 mysqli_close($con);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
