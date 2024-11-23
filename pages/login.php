@@ -43,42 +43,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $modalMessage = "Your account has been locked. Please contact support for assistance.";
             } else {
                 // Check if the password matches
-                if ($row['password'] == $pw) {
-                    // Set session variables
-                    $_SESSION["user_id"] = $row["user_id"];
-                    $_SESSION["first_name"] = $row["first_name"];
-                    $_SESSION["last_name"] = $row["last_name"];
-                    $_SESSION["emailaddress"] = $row["email"];
-                    $_SESSION["role"] = $row["role"];
-                    $_SESSION["student_number"] = $row["student_number"];
-                    $_SESSION["active_flag"] = $row["active_flag"];
-                    $_SESSION["attempts"] = $row["attempts"];
+                if ($row["password"] == '1234') {
+                    if ($row['password'] == $pw) {
+                        // Set session variables
+                        $_SESSION["user_id"] = $row["user_id"];
+                        $_SESSION["password"] = $row["password"];
+                        $_SESSION["first_name"] = $row["first_name"];
+                        $_SESSION["last_name"] = $row["last_name"];
+                        $_SESSION["emailaddress"] = $row["email"];
+                        $_SESSION["role"] = $row["role"];
+                        $_SESSION["student_number"] = $row["student_number"];
+                        $_SESSION["active_flag"] = $row["active_flag"];
+                        $_SESSION["attempts"] = $row["attempts"];
 
-                    // Reset attempts on successful login
-                    $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
-                    mysqli_query($con, $sql_reset);
+                        // Reset attempts on successful login
+                        $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
+                        mysqli_query($con, $sql_reset);
 
-                    // Redirect based on role
-                    if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
-                        header("Location: ../pages/home.php");
-                        exit();
+                        // Redirect based on role
+                        if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
+                            header("Location: ../pages/home.php");
+                            exit();
+                        } else {
+                            $modalTitle = "Access Denied";
+                            $modalMessage = "Your role does not have access to this page.";
+                        }
                     } else {
-                        $modalTitle = "Access Denied";
-                        $modalMessage = "Your role does not have access to this page.";
+                        // Incorrect password
+                        if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
+                            $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
+                            mysqli_query($con, $sql_lock);
+                            $modalTitle = "Account Locked!";
+                            $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
+                            session_destroy(); // Destroy session to log out any logged-in user
+                        } else {
+                            $modalTitle = "Login Error";
+                            $modalMessage = "Incorrect password. Please try again.";
+                            $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
+                            mysqli_query($con, $sql_update);
+                        }
                     }
                 } else {
-                    // Incorrect password
-                    if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
-                        $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
-                        mysqli_query($con, $sql_lock);
-                        $modalTitle = "Account Locked!";
-                        $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
-                        session_destroy(); // Destroy session to log out any logged-in user
+                    if (password_verify($pw, $row['password'])) {
+                        // Set session variables
+                        $_SESSION["user_id"] = $row["user_id"];
+                        $_SESSION["password"] = $row["password"];
+                        $_SESSION["first_name"] = $row["first_name"];
+                        $_SESSION["last_name"] = $row["last_name"];
+                        $_SESSION["emailaddress"] = $row["email"];
+                        $_SESSION["role"] = $row["role"];
+                        $_SESSION["student_number"] = $row["student_number"];
+                        $_SESSION["active_flag"] = $row["active_flag"];
+                        $_SESSION["attempts"] = $row["attempts"];
+
+                        // Reset attempts on successful login
+                        $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
+                        mysqli_query($con, $sql_reset);
+
+                        // Redirect based on role
+                        if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
+                            header("Location: ../pages/home.php");
+                            exit();
+                        } else {
+                            $modalTitle = "Access Denied";
+                            $modalMessage = "Your role does not have access to this page.";
+                        }
                     } else {
-                        $modalTitle = "Login Error";
-                        $modalMessage = "Incorrect password. Please try again.";
-                        $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
-                        mysqli_query($con, $sql_update);
+                        // Incorrect password
+                        if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
+                            $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
+                            mysqli_query($con, $sql_lock);
+                            $modalTitle = "Account Locked!";
+                            $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
+                            session_destroy(); // Destroy session to log out any logged-in user
+                        } else {
+                            $modalTitle = "Login Error";
+                            $modalMessage = "Incorrect password. Please try again.";
+                            $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
+                            mysqli_query($con, $sql_update);
+                        }
                     }
                 }
             }
