@@ -1,13 +1,11 @@
-
-
 .login {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 121px;
+  gap: 200px;
   position: relative;
   background-color: var(--background-color);
-  margin-top: 200px;
+  margin-top: 156px;
 }
 
 .login .frame {
@@ -590,54 +588,4 @@ input[type="password"]::placeholder {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.modal {
-  font-family: "Montserrat", Helvetica, sans-serif;
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: -16%;
-  width: 100%;
-  /* height: 100%; */
-  overflow: auto;
-}
-
-.modal-content {
-  background-color: #efa2a2;
-  color: #666464;
-  margin: 10% auto;
-  padding: 15px 20px;
-  width: 90%;
-  max-width: 440px;
-  height: 80px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  animation: slideDown 0.5s ease forwards; /* Add the animation here */
-}
-
-.modal-icon {
-  margin-right: 15px;
-}
-
-.modal-message {
-  font-size: 14px;
-  flex: 1;
-  text-align: center;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin-left: 10px;
-  cursor: pointer;
-  align-self: flex-start; /* Align button to the top */
-}
-
-.close-btn:hover svg path {
-  fill: #5a5a5a; /* Slightly darker on hover */
 }
