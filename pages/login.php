@@ -124,6 +124,10 @@ mysqli_close($con);
 
         <?php include '../components/footer.php' ?>
     </div>
+
+
+    
+<!-- Modal html -->
 <div id="alertModal" class="modal">
   <div class="modal-content">
     <!-- Alert Icon -->
@@ -146,6 +150,8 @@ mysqli_close($con);
     </button>
   </div>
 </div>
+
+
 
     <!-- Scroll event for shadow -->
     <script>
