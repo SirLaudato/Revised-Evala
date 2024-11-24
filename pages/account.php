@@ -3,8 +3,41 @@ session_start();
 if (!isset($_SESSION['emailaddress'])) {
     header("Location: ../pages/login.php");
     exit();
-
 }
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
+
+$con = mysqli_connect($servername, $username, $password, $database);
+
+if (!$con) {
+    die("Connection Failed: " . mysqli_connect_error());
+}
+
+$modalTitle = "";
+$modalMessage = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $cp = isset($_POST['current_password']) ? mysqli_real_escape_string($con, $_POST['current_password']) : null;
+    $np = isset($_POST['new_password']) ? mysqli_real_escape_string($con, $_POST['new_password']) : null;
+    $cnp = isset($_POST['confirm_password']) ? mysqli_real_escape_string($con, $_POST['confirm_password']) : null;
+    if ($cp == $_SESSION['password']) {
+        if ($np == $cnp) {
+            $hashed = password_hash($np, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET password = '$hashed' WHERE email = '" . $_SESSION['emailaddress'] . "'";
+            if (mysqli_query($con, $sql)) {
+                $modalTitle = "Success";
+                $modalMessage = "Password changed successfully.";
+            }
+        }
+
+    } else {
+    }
+}
+
+mysqli_close($con);
 ?>
 
 <!DOCTYPE html>
@@ -21,20 +54,19 @@ if (!isset($_SESSION['emailaddress'])) {
 <div>
 
     <div class="navigator">
-            <?php include('../components/nav.php') ?>
-        </div>
+        <?php include('../components/nav.php') ?>
+    </div>
     <div class="containerism">
         <div class="account">
             <div class="tab-content" id="tab-content">
                 <div id="tab-account" class="tab active">
-                    <form action="save_account.php" method="POST">
+                    <form action="" method="POST">
                         <div class="input-field">
                             <h4>Personal Information</h4>
                             <h>Full Name</h>
                             <div class="form-row">
                                 <div>
-                                    <input type="text" id="first_name" name="first_name" readonly
-                                        placeholder= <?php echo $_SESSION['first_name']; ?>>
+                                    <input type="text" id="first_name" name="first_name" readonly placeholder=<?php echo $_SESSION['first_name']; ?>>
                                 </div>
                                 <div>
                                     <input type="text" id="last_name" name="last_name" readonly placeholder=<?php echo $_SESSION['last_name']; ?>>
@@ -57,29 +89,22 @@ if (!isset($_SESSION['emailaddress'])) {
                         <div class="input-field">
                             <h>Password</h>
                             <div class="widefield">
-                                <input type="text" id="first_name" name="first_name" required
+                                <input type="password" id="current_password" name="current_password" required
                                     placeholder="Current Password">
                             </div>
                             <div class="form-row">
                                 <div>
-                                    <input type="password" id="first_name" name="first_name" required
+                                    <input type="password" id="new_password" name="new_password" required
                                         placeholder="New Password">
                                 </div>
                                 <div>
-                                    <input type="password" id="last_name" name="last_name" required
-                                        placeholder="New Password">
+                                    <input type="password" id="confirm_password" name="confirm_password" required
+                                        placeholder="Confirm Password">
                                 </div>
                             </div>
                         </div>
                         <button type="submit">Save</button>
                     </form>
-
-
-
-
-                    <form>
-                    </form>
-
                     <form>
                         <div class="input-field">
                             <h4>Privacy Settings</h4>
