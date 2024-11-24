@@ -185,6 +185,26 @@ mysqli_close($con);
     <?php include '../components/footer.php' ?>
 
     </body>
+    <?php include('modal.php') ?>
+
+
+    <script>
+        function showModal(message) {
+            const modal = document.getElementById("alertModal");
+            const modalMessage = modal.querySelector(".modal-message");
+            modalMessage.textContent = message;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("alertModal");
+            modal.style.display = "none";
+        }
+
+        <?php if ($modalTitle && $modalMessage): ?>
+            showModal("<?= htmlspecialchars($modalMessage) ?>");
+        <?php endif; ?>
+    </script>
 
 </html>
 
