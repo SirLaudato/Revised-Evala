@@ -65,10 +65,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     <!-- Dropdown Menu -->
                     <div class="dropdown-content">
                         <a href="account.php">Account</a>
-                        <hr>
                         <a href="termsandconditions.php">T&C</a>
-                        <hr>
-                        <a href="logout.php">Logout</a>
+                        <a href="session-destroy.php">Logout</a>
                     </div>
                 </div>
 
