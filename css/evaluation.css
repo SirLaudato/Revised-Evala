@@ -567,3 +567,44 @@ ol li {
     background-color: var(--hollow-button-hover);
   }
 }
+
+.submit-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Progress Modal */
+#progress-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 4.8em;
+  left: 0;
+  width: 40%;
+  padding: 10px;
+  color: var(--text-color);
+  z-index: 1000;
+  left: 450px;
+  background-color: var(--background-color);
+}
+
+#progress-bar {
+  width: 100%;
+  background-color: #ebebeb;
+  height: 10px;
+  overflow: hidden;
+}
+
+#progress-bar > div {
+  height: 100%;
+  background-color: var(--text-color);
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  margin-right: 15px;
+}

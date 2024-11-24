@@ -196,22 +196,38 @@ mysqli_close($con);
 <?php include('modal.php') ?>
 
 
-    <script>
-        function showModal(message) {
-            const modal = document.getElementById("alertModal");
-            const modalMessage = modal.querySelector(".modal-message");
-            modalMessage.textContent = message;
-            modal.style.display = "block";
-        }
+<script>
+    function showModal(message) {
+        const modal = document.getElementById("alertModal");
+        const modalMessage = modal.querySelector(".modal-message");
+        const modalContent = modal.querySelector(".modal-content");
 
-        function closeModal() {
-            const modal = document.getElementById("alertModal");
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+        modalContent.style.animation = "slideDown 0.5s ease forwards"; // Apply slideDown animation
+
+        // Automatically hide the modal after 5 seconds
+        setTimeout(() => {
+            closeModal();
+        }, 2500); // 5000 milliseconds = 5 seconds
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("alertModal");
+        const modalContent = modal.querySelector(".modal-content");
+
+        // Apply slideUp animation before hiding
+        modalContent.style.animation = "slideUp 0.5s ease forwards";
+
+        // Wait for the animation to complete before hiding
+        setTimeout(() => {
             modal.style.display = "none";
-        }
+        }, 500); // Match the duration of the slideUp animation
+    }
 
-        <?php if ($modalTitle && $modalMessage): ?>
-            showModal("<?= htmlspecialchars($modalMessage) ?>");
-        <?php endif; ?>
+    <?php if ($modalTitle && $modalMessage): ?>
+        showModal("<?= htmlspecialchars($modalMessage) ?>");
+    <?php endif; ?>
 </script>
 </body>
 

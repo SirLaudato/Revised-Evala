@@ -156,3 +156,66 @@ hr {
   width: 70%; /* Set the width of the line */
   margin: auto; /* Center the <hr> horizontally within its parent */
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Adjust body background for mobile if needed */
+  body {
+    background-color: #ffffff; /* Example adjustment */
+  }
+
+  /* Navigator */
+  .navigator {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+  }
+
+  .frame {
+    flex-direction: column;
+    gap: 20px; /* Reduce gap for smaller screens */
+    height: auto; /* Allow height to adjust */
+  }
+
+  .div-wrapper {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .text-wrapper {
+    font-size: 18px; /* Adjust text size for readability */
+    text-align: center; /* Center-align text */
+  }
+
+  .text-wrapper-2 {
+    font-size: 14px; /* Smaller font size */
+    text-align: center;
+  }
+
+  /* Buttons */
+  .nav-button,
+  .icon-button {
+    font-size: 14px; /* Adjust font size for buttons */
+    padding: 8px 12px; /* Increase padding for better touch targets */
+  }
+
+  .icon-button svg {
+    width: 24px; /* Smaller icon sizes */
+    height: 24px;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-content {
+    min-width: 150px; /* Increase width for better usability */
+    left: 0; /* Align dropdown to button for mobile */
+  }
+
+  .dropdown-content a {
+    padding: 12px; /* Adjust padding */
+    font-size: 12px;
+  }
+
+  /* Reduce the width of the horizontal line */
+  hr {
+    width: 90%;
+  }
+}

@@ -589,3 +589,108 @@ input[type="password"]::placeholder {
     transform: translateY(0);
   }
 }
+
+/* Base styles (unchanged) */
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 200px;
+  position: relative;
+  background-color: var(--background-color);
+  margin-top: 156px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .login {
+    gap: 50px; /* Reduce gap for smaller screens */
+    margin-top: 100px;
+    padding: 0 20px; /* Add padding for better spacing */
+  }
+
+  .login .frame {
+    flex-direction: column; /* Stack items vertically */
+    gap: 50px;
+  }
+
+  .login .login-interface {
+    width: 100%; /* Make it responsive */
+    padding: 20px;
+  }
+
+  .login .footer {
+    padding: 50px 20px; /* Adjust footer padding */
+    gap: 50px;
+  }
+
+  .login .text-wrapper,
+  .login .text-wrapper-2,
+  .login .text-wrapper-3,
+  .login .text-wrapper-4,
+  .login .text-wrapper-5,
+  .login .text-wrapper-6,
+  .login .text-wrapper-7,
+  .login .text-wrapper-8,
+  .login .text-wrapper-9,
+  .login .text-wrapper-10 {
+    font-size: calc(12px + 1vw); /* Adjust font size relative to screen width */
+  }
+
+  .login .input-field,
+  .login .button {
+    width: 100%; /* Ensure full width */
+    padding: 15px; /* Reduce padding */
+  }
+
+  .login .frame-2,
+  .login .frame-3,
+  .login .frame-4,
+  .login .frame-5,
+  .login .frame-6,
+  .login .frame-7,
+  .login .frame-8 {
+    gap: 20px; /* Reduce gaps between elements */
+  }
+
+  .login .frame-13,
+  .login .line-wrapper {
+    width: 100%; /* Ensure responsiveness */
+  }
+
+  .login .line {
+    width: 100%; /* Adjust width to match container */
+  }
+}
+
+@media (max-width: 480px) {
+  .login {
+    margin-top: 80px;
+    gap: 30px;
+  }
+
+  .login .frame {
+    gap: 30px;
+  }
+
+  .login .footer {
+    gap: 30px; /* Further reduce spacing */
+  }
+
+  .login .text-wrapper,
+  .login .text-wrapper-2,
+  .login .text-wrapper-3,
+  .login .text-wrapper-4,
+  .login .text-wrapper-5,
+  .login .text-wrapper-6,
+  .login .text-wrapper-7,
+  .login .text-wrapper-8,
+  .login .text-wrapper-9,
+  .login .text-wrapper-10 {
+    font-size: calc(10px + 1vw); /* Smaller font size for very small screens */
+  }
+
+  .login .button {
+    padding: 10px;
+  }
+}
