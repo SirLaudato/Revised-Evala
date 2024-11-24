@@ -30,12 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (mysqli_query($con, $sql)) {
                 $modalTitle = "Success";
                 $modalMessage = "Password changed successfully.";
+                
             }
+            //UPDATE evaluation_results SET rate = '$rate' WHERE question_id = '$question_id'
         }
 
     } else {
+        $modalTitle = "Error";
+        $modalMessage = "Current password is incorrect.";
     }
 }
+
 
 mysqli_close($con);
 ?>
@@ -46,13 +51,14 @@ mysqli_close($con);
 <head>
     <title>Account</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../components/modal.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/account.css">
     <link rel="stylesheet" href="../components/all.css">
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 </head>
 <div>
-
+    
     <div class="navigator">
         <?php include('../components/nav.php') ?>
     </div>
@@ -175,9 +181,78 @@ mysqli_close($con);
         </div>
     </div>
 
-
+    <?php include('modal.php') ?>
     <?php include '../components/footer.php' ?>
 
     </body>
 
 </html>
+
+<script>
+function showModal(type, message) {
+    // Determine the correct modal ID based on type
+    const modalId = type === 'success' ? 'successModal' : 'failModal';
+    const modal = document.getElementById(modalId);
+
+    if (modal) {
+        const modalMessage = modal.querySelector('.modal-message');
+
+        // Set the message and make the modal visible
+        if (modalMessage) modalMessage.textContent = message;
+
+        modal.style.display = 'block';
+        const modalContent = modal.querySelector('.modal-content');
+
+        if (modalContent) {
+            modalContent.style.animation = 'slideDown 0.5s ease forwards';
+        }
+    } else {
+        console.error(`Modal with ID "${modalId}" not found.`);
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+
+    if (modal) {
+        const modalContent = modal.querySelector('.modal-content');
+
+        // Apply slide-up animation before hiding
+        if (modalContent) {
+            modalContent.style.animation = 'slideUp 0.5s ease forwards';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 200); // Match the animation duration
+        }
+    } else {
+        console.error(`Modal with ID "${modalId}" not found.`);
+    }
+}
+</script>
+
+
+<?php if (!empty($modalTitle) && !empty($modalMessage)): ?>
+    <script>
+        showModal('<?php echo strtolower($modalTitle); ?>', '<?php echo $modalMessage; ?>');
+    </script>
+<?php endif; ?>
+
+<script>
+    window.addEventListener('click', function(event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) {
+                    // Apply slide-up animation
+                    modalContent.style.animation = 'slideUp 0.5s ease forwards';
+                    
+                    // Wait for the animation to complete before hiding the modal
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 200); // Match the animation duration
+                }
+            }
+        });
+    });
+</script>

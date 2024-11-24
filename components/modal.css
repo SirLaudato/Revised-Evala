@@ -1,18 +1,16 @@
-.fail-modal .modal {
+/* Shared Modal Styles */
+.modal {
   font-family: "Montserrat", Helvetica, sans-serif;
-  display: none;
+  display: none; /* Hidden by default */
   position: fixed;
   z-index: 1000;
   left: 0;
   top: -16%;
   width: 100%;
-  /* height: 100%; */
   overflow: auto;
 }
 
-.fail-modal .modal-content {
-  background-color: #efa2a2;
-  color: #666464;
+.modal-content {
   margin: 10% auto;
   padding: 15px 20px;
   width: 90%;
@@ -22,20 +20,20 @@
   display: flex;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  animation: slideDown 0.5s ease forwards; /* Add the animation here */
+  animation: slideDown 0.5s ease forwards; /* Default slide-down animation */
 }
 
-.fail-modal .modal-icon {
+.modal-icon {
   margin-right: 15px;
 }
 
-.fail-modal .modal-message {
+.modal-message {
   font-size: 14px;
   flex: 1;
   text-align: center;
 }
 
-.fail-modal .close-btn {
+.close-btn {
   background: none;
   border: none;
   padding: 0;
@@ -44,58 +42,19 @@
   align-self: flex-start; /* Align button to the top */
 }
 
-.fail-modal .close-btn:hover svg path {
+.close-btn:hover svg path {
   fill: #5a5a5a; /* Slightly darker on hover */
 }
 
-.success-modal .modal {
-  font-family: "Montserrat", Helvetica, sans-serif;
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: -16%;
-  width: 100%;
-  /* height: 100%; */
-  overflow: auto;
+/* Specific Modal Styles */
+.fail-modal .modal-content {
+  background-color: #efa2a2;
+  color: #666464;
 }
 
 .success-modal .modal-content {
   background-color: #caefa2;
   color: #666464;
-  margin: 10% auto;
-  padding: 15px 20px;
-  width: 90%;
-  max-width: 440px;
-  height: 80px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  animation: slideDown 0.5s ease forwards; /* Add the animation here */
-}
-
-.success-modal .modal-icon {
-  margin-right: 15px;
-}
-
-.success-modal .modal-message {
-  font-size: 14px;
-  flex: 1;
-  text-align: center;
-}
-
-.success-modal .close-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  margin-left: 10px;
-  cursor: pointer;
-  align-self: flex-start; /* Align button to the top */
-}
-
-.success-modal .close-btn:hover svg path {
-  fill: #5a5a5a; /* Slightly darker on hover */
 }
 
 /* Animation for showing the modal */
@@ -120,10 +79,4 @@
     opacity: 0;
     transform: translateY(-100%);
   }
-}
-
-/* Update modal content to handle both animations */
-.fail-modal .modal-content,
-.success-modal .modal-content {
-  animation: slideDown 0.5s ease forwards; /* Default slide-down animation */
 }
