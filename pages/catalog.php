@@ -1,3 +1,50 @@
+<?php
+session_start();
+if (!isset($_SESSION['emailaddress'])) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+$evaluation_status = "Pending"; // Example: "Completed", "Pending", etc.
+$curriculum_name = "BS Computer Science"; // Example curriculum name
+$evaluation_deadline = "2024-12-15"; // Example deadline
+
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
+
+$con = mysqli_connect($servername, $username, $password, $database);
+
+if (!$con) {
+  die("Connection Failed: " . mysqli_connect_error());
+}
+
+$modalTitle = "";
+$modalMessage = "";
+$count_evaluations = "SELECT 
+                                    COUNT(*) AS active_evaluations
+                                    FROM 
+                                    evaluations
+                                    LEFT JOIN 
+                                    user_evaluations ON user_evaluations.`evaluation_id` = evaluations.`evaluation_id`
+                                    LEFT JOIN 
+                                    users ON user_evaluations.`user_id` = users.`user_id`
+                                    WHERE 
+                                    evaluations.`active_flag` = 1
+                                    AND users.`user_id` = " . $_SESSION["user_id"] . ";";
+
+$course = "SELECT DISTINCT `courses`.`course_id`
+                        FROM `users` 
+	                      LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
+	                      LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
+	                      LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
+                        WHERE users.user_id = " . $_SESSION["user_id"] . ";";
+
+
+mysqli_close($con);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -31,68 +78,133 @@
 
             <div class="frame-6">
 
-            <?php
-            // Dynamic values
-            $evaluation_status = "Pending"; // Example: "Completed", "Pending", etc.
-            $curriculum_name = "BS Computer Science"; // Example curriculum name
-            $evaluation_deadline = "2024-12-15"; // Example deadline
+              <?php
+              // Dynamic values
+              $servername = "localhost";
+              $username = "root";
+              $password = "";
+              $database = "evala_db1";
 
-            // Echo the HTML structure
-            echo '
-            <div class="curriculum-container">
-                <div class="frame-7"></div>
-                <div class="frame-8">
-                    <div class="frame-9">
+              // Establish connection
+              $con = mysqli_connect($servername, $username, $password, $database);
+              if (!$con) {
+                die("Connection Failed: " . mysqli_connect_error());
+              }
+
+              // Check if user_id is set in the session
+              if (!isset($_SESSION["user_id"])) {
+                die("Error: User not logged in.");
+              }
+
+              // Query to get the course for the logged-in user
+              $course_query = "
+    SELECT DISTINCT `courses`.`course_id`
+    FROM `users` 
+    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
+    LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
+    LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
+    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+
+              $result = $con->query($course_query);
+
+              // Check if the query returned any results
+              if ($result && $result->num_rows > 0) {
+                // Fetch the first course_id and store it in the session
+                $row = $result->fetch_assoc();
+                $_SESSION["course_id"] = $row["course_id"];
+
+                // Query to get course details using the fetched course_id
+                $select_course = "
+        SELECT * 
+        FROM `courses` 
+        WHERE `course_id` = '" . mysqli_real_escape_string($con, $_SESSION["course_id"]) . "';";
+
+                $course_result = $con->query($select_course);
+
+                if ($course_result && $course_result->num_rows > 0) {
+                  while ($course_row = $course_result->fetch_assoc()) {
+                    $active_evaluation_query = "SELECT 
+                                                COUNT(*) AS `active_evaluations`
+                                                FROM 
+                                                `evaluations`
+                                                LEFT JOIN 
+                                                `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
+                                                LEFT JOIN 
+                                                `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
+                                                WHERE 
+                                                `evaluations`.`active_flag` = 1
+                                                AND `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+
+                    $total_evaluation_query = "SELECT 
+                                                COUNT(*) AS `total_evaluations`
+                                                FROM 
+                                                `evaluations`
+                                                LEFT JOIN 
+                                                `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
+                                                LEFT JOIN 
+                                                `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
+                                                WHERE 
+                                                `evaluations`.`course_id` = 1
+                                                AND `users`.`user_id`= " . intval($_SESSION["user_id"]) . ";";
+
+                    $total_result = mysqli_query($con, $total_evaluation_query);
+                    if ($total_result) {
+                      $row = mysqli_fetch_assoc($total_result);
+                      $total_evaluations = $row['total_evaluations'];
+                    } else {
+                      echo "Query failed: " . mysqli_error($con);
+                      continue; // Skip to next iteration
+                    }
+
+                    // Execute active evaluations query
+                    $active_result = mysqli_query($con, $active_evaluation_query);
+                    if ($active_result) {
+                      $row = mysqli_fetch_assoc($active_result);
+                      $active_evaluations = $row['active_evaluations'];
+                    } else {
+                      echo "Query failed: " . mysqli_error($con);
+                      continue; // Skip to next iteration
+                    }
+
+
+                    if ($active_evaluations === $total_evaluations) {
+                      $status = "Active";
+                    } else if ($active_evaluations === 0) {
+                      $status = "Inactive";
+                    } else {
+                      $status = "Pending";
+
+                    }
+
+
+                    echo '
+                <div class="curriculum-container">
+                    <div class="frame-7"></div>
+                    <div class="frame-8">
+                        <div class="frame-9">
+                            <div class="div-wrapper">
+                                <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                            </div>
+                            <div class="frame-3">
+                                <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                            </div>
+                        </div>
                         <div class="div-wrapper">
-                            <div class="text-wrapper-5">' . htmlspecialchars($evaluation_status) . '</div>
-                        </div>
-                        <div class="frame-3">
-                            <div class="text-wrapper-4">' . htmlspecialchars($curriculum_name) . '</div>
+                            <div class="text-wrapper-6">' . htmlspecialchars("") . '</div>
                         </div>
                     </div>
-                    <div class="div-wrapper">
-                        <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
-                    </div>
-                </div>
-            </div>';
-            ?>
+                </div>';
+                  }
+                } else {
+                  echo "No course details found.";
+                }
+              } else {
+                echo "No courses found for the user.";
+              }
 
-              <div class="curriculum-container">
-                <div class="frame-7"></div>
-                <div class="frame-8">
-                  <div class="frame-9">
-                    <div class="div-wrapper">
-                      <div class="text-wrapper-5">Evaluation Status</div>
-                    </div>
-                    <div class="frame-3">
-                      <div class="text-wrapper-4">Curriculum Name</div>
-                    </div>
-                  </div>
-                  <div class="div-wrapper">
-                    <div class="text-wrapper-6">Evaluation Deadline</div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="curriculum-container">
-                <div class="frame-7"></div>
-                <div class="frame-8">
-                  <div class="frame-9">
-                    <div class="div-wrapper">
-                      <div class="text-wrapper-5">Evaluation Status</div>
-                    </div>
-                    <div class="frame-3">
-                      <div class="text-wrapper-4">Curriculum Name</div>
-                    </div>
-                  </div>
-                  <div class="div-wrapper">
-                    <div class="text-wrapper-6">Evaluation Deadline</div>
-                  </div>
-                </div>
-              </div>
-
-
+              // Close the database connection
+              mysqli_close($con);
+              ?>
             </div>
           </div>
 
@@ -140,7 +252,7 @@
                   </div>
                 </div>
 
-                
+
 
 
                 <div class="curriculum-container">
