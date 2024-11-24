@@ -56,7 +56,8 @@
                 </div>
             </div>';
             ?>
-
+            
+            <a href="catalog-selection.php">
               <div class="curriculum-container">
                 <div class="frame-7"></div>
                 <div class="frame-8">
@@ -73,7 +74,7 @@
                   </div>
                 </div>
               </div>
-
+            </a>
 
               <div class="curriculum-container">
                 <div class="frame-7"></div>
