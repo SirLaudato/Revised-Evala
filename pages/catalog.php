@@ -1,9 +1,13 @@
+
+
+
 <?php
 session_start();
 if (!isset($_SESSION['emailaddress'])) {
   header("Location: ../pages/login.php");
   exit();
 }
+
 $evaluation_status = "Pending"; // Example: "Completed", "Pending", etc.
 $curriculum_name = "BS Computer Science"; // Example curriculum name
 $evaluation_deadline = "2024-12-15"; // Example deadline
@@ -23,23 +27,24 @@ if (!$con) {
 $modalTitle = "";
 $modalMessage = "";
 $count_evaluations = "SELECT 
-                                    COUNT(*) AS active_evaluations
-                                    FROM 
-                                    evaluations
-                                    LEFT JOIN 
-                                    user_evaluations ON user_evaluations.`evaluation_id` = evaluations.`evaluation_id`
-                                    LEFT JOIN 
-                                    users ON user_evaluations.`user_id` = users.`user_id`
-                                    WHERE 
-                                    evaluations.`active_flag` = 1
-                                    AND users.`user_id` = " . $_SESSION["user_id"] . ";";
+                      COUNT(*) AS active_evaluations
+                      FROM 
+                      evaluations
+                      LEFT JOIN 
+                      user_evaluations ON user_evaluations.`evaluation_id` = evaluations.`evaluation_id`
+                      LEFT JOIN 
+                      users ON user_evaluations.`user_id` = users.`user_id`
+                      WHERE 
+                      evaluations.`active_flag` = 1
+                      AND users.`user_id` = " . $_SESSION["user_id"] . ";";
 
 $course = "SELECT DISTINCT `courses`.`course_id`
-                        FROM `users` 
-	                      LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
-	                      LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
-	                      LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
-                        WHERE users.user_id = " . $_SESSION["user_id"] . ";";
+                      FROM `users` 
+	                    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
+	                    LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
+	                    LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
+                      WHERE users.user_id = " . $_SESSION["user_id"] . ";";
+
 
 
 mysqli_close($con);
@@ -177,26 +182,28 @@ mysqli_close($con);
                     }
 
 
-                  echo '
-                    <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
-                      <div class="curriculum-container">
-                          <div class="frame-7"></div>
-                          <div class="frame-8">
-                              <div class="frame-9">
-                                  <div class="div-wrapper">
-                                      <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
-                                  </div>
-                                  <div class="frame-3">
-                                      <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
-                                  </div>
-                              </div>
-                              <div class="div-wrapper">
-                                  <div class="text-wrapper-6">' . htmlspecialchars("") . '</div>
-                              </div>
-                          </div>
-                      </div>
-                    </a>
-                  ';
+            echo '
+                <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                    <div class="curriculum-container">
+                        <div class="frame-7"></div>
+                        <div class="frame-8">
+                            <div class="frame-9">
+                                <div class="div-wrapper">
+                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                </div>
+                                <div class="frame-3">
+                                    <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                </div>
+                            </div>
+                            <div class="div-wrapper">
+                                <span class="evaluation-label">Deadline:</span>
+                                <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            ';
+
 
                     
                   }
@@ -209,6 +216,10 @@ mysqli_close($con);
 
               // Close the database connection
               mysqli_close($con);
+
+
+
+              
               ?>
             </div>
           </div>

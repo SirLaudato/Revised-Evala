@@ -11,7 +11,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
   position: relative;
   flex: 0 0 auto;
 }
@@ -166,7 +166,7 @@
 }
 
 .catalog .text-wrapper-5 {
-  color: var(--text-color);
+  color: var(--text-gray);
   position: relative;
   width: fit-content;
   margin-top: -1px;
@@ -411,4 +411,16 @@
 
 a {
   text-decoration: none;
+}
+
+.evaluation-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px; /* Adjust font size as needed */
+  color: var(--text-gray); /* Optional: Adjust color as desired */
+}
+
+.status-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px; /* Match the size of "Evaluation deadline" */
+  color: var(--text-gray); /* Optional: Adjust to the desired color */
 }

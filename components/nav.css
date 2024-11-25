@@ -69,7 +69,6 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   position: relative;
   flex: 0 0 auto;
 }

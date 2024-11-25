@@ -1,6 +1,60 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
+$con = new mysqli($servername, $username, $password, $database);
+
+if ($con->connect_error) {
+    die("Connection Failed: " . $con->connect_error);
+}
+
+// Check if course_id is set
+if (isset($_GET['course_id'])) {
+    $course_id = $_GET['course_id'];
+
+    // Query to fetch course_name and course_description
+    $course_query = "SELECT course_name, course_description FROM courses WHERE course_id = ?";
+    $stmt = $con->prepare($course_query);
+    $stmt->bind_param("i", $course_id);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($course_name, $course_description);
+    $stmt->fetch();
+
+    // Check if course was found
+    if (!$course_name) {
+        die("Error: Course not found.");
+    }
+} else {
+    die("Error: course_id is not set.");
+}
+?>
+
+
+
+<?php
+// Fetch the course name using course_id
+$course_query = "SELECT course_name FROM courses WHERE course_id = ?";
+$course_stmt = $con->prepare($course_query);
+$course_stmt->bind_param("i", $course_id); // Bind the course_id parameter
+$course_stmt->execute();
+$course_result = $course_stmt->get_result();
+
+// Check if the course is found
+if ($course_result->num_rows > 0) {
+    $course_row = $course_result->fetch_assoc();
+    $course_name = $course_row['course_name']; // Get the course name
+} else {
+    die("Error: Course not found.");
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../css/global.css" />
@@ -18,11 +72,19 @@
         <div class="frame-2">
             <div class="frame-wrapper">
                 <div class="frame-3">
-                    <div class="text-wrapper-3">Evaluation Name</div>
-                    <p class="p">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam
-                    </p>
+                    <!-- The Course name (ex. Computer Science) -->
+            <div class="text-wrapper-3">
+                <?php
+                // Output the course name
+                echo htmlspecialchars($course_name);
+                ?>
+            </div>
+            <p class="p">
+                <?php
+                // Output the course description
+                echo htmlspecialchars($course_description);
+                ?>
+            </p>
                 </div>
                 <div class="frame-3">
                     <ol>
@@ -35,239 +97,169 @@
                 </div>
             </div>
         </div>
+
         <div class="questionnaire-evaluation">
-            <div class="frame-wrapper">
-
-                <!-- Section name for example: Curriculum Objectives -->
-                <!-- Section desc for example: In this section, ... -->
-            </div>
-
             <form action="/submit-evaluation" method="POST">
+                <?php
+                // Ensure the course_id and evaluation_id are passed
+                if (!isset($_GET['course_id']) || !isset($_GET['evaluation_id'])) {
+                    die("Error: course_id or evaluation_id is not set.");
+                }
+
+                $course_id = $_GET['course_id'];
+                $evaluation_id = $_GET['evaluation_id'];
+
+                // Fetch the evaluation based on evaluation_id and course_id
+                $evaluation_query = "SELECT * FROM evaluations WHERE evaluation_id = ? AND course_id = ?";
+                $stmt = $con->prepare($evaluation_query);
+                $stmt->bind_param("ii", $evaluation_id, $course_id);
+                $stmt->execute();
+                $evaluation_result = $stmt->get_result();
+
+                if ($evaluation_result->num_rows > 0) {
+                    $evaluation_row = $evaluation_result->fetch_assoc();
+                    $evaluator_type = $evaluation_row['evaluator_type'];
+                } else {
+                    die("Error: Evaluation not found.");
+                }
+
+                // Fetch criteria based on evaluation_id
+                $criteria_query = "SELECT * FROM criteria WHERE evaluator_type = ? AND active_flag = 1";
+                $criteria_stmt = $con->prepare($criteria_query);
+                $criteria_stmt->bind_param("s", $evaluator_type);
+                $criteria_stmt->execute();
+                $criteria_result = $criteria_stmt->get_result();
+
+                // Check if we have criteria for this evaluation
+                if ($criteria_result->num_rows > 0) {
+                    while ($criteria_row = $criteria_result->fetch_assoc()) {
+                        $criteria_id = $criteria_row['criteria_id'];
+                        $criteria_name = $criteria_row['criteria_name'];
+                        ?>
+
+                        <!-- Per Section -->
+                        <div class="per-section">
+                            <div class="frame-3">
+                                <!-- Section name -->
+                                <div class="text-wrapper-3"><?php echo htmlspecialchars($criteria_name); ?></div>
+
+                                <p class="p">
+                                    Answer the following questions based on your experience. Good luck!
+                                </p>
+                                <div id="progress-modal">
+                                    <div class="progress-text"><span id="progress-percentage">0%</span></div>
+                                    <div id="progress-bar">
+                                        <div style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fetch and display questions for this criteria -->
+                            <div class="questionnaire-per-section">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Question</th>
+                                            <th>1<br></th>
+                                            <th>2<br></th>
+                                            <th>3<br></th>
+                                            <th>4<br></th>
+                                            <th>5<br></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    // Fetch questions for the current criteria
+                                    $questions_query = "SELECT * FROM questionnaire WHERE criteria_id = ?";
+                                    $questions_stmt = $con->prepare($questions_query);
+                                    $questions_stmt->bind_param("i", $criteria_id);
+                                    $questions_stmt->execute();
+                                    $questions_result = $questions_stmt->get_result();
+
+                                    if ($questions_result->num_rows > 0) {
+                                        // Loop through questions and display them
+                                        $question_number = 1;
+                                        while ($question_row = $questions_result->fetch_assoc()) {
+                                            ?>
+                                            <tr>
+                                                <td class="question"><?php echo htmlspecialchars($question_row['question']); ?></td>
+                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="1" required></td>
+                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="2"></td>
+                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="3"></td>
+                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="4"></td>
+                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="5"></td>
+                                            </tr>
+                                            <?php
+                                            $question_number++;
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='6'>No questions available for this section.</td></tr>";
+                                    }
+                                    ?>
 
 
-
-                <div class="per-section">
-                    <div class="frame-3">
-                        <div class="text-wrapper-3">Section Name</div>
-                        <p class="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam
-                        </p>
-                        <div id="progress-modal">
-                            <div class="progress-text"><span id="progress-percentage">0%</span></div>
-                            <div id="progress-bar">
-                                <div style="width: 0%"></div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="questionnaire-per-section">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>1<br></th>
-                                    <th>2<br></th>
-                                    <th>3<br></th>
-                                    <th>4<br></th>
-                                    <th>5<br></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="question">1. The quality of the product met my expectations.</td>
-                                    <td><input type="radio" name="q1" value="1" required></td>
-                                    <td><input type="radio" name="q1" value="2"></td>
-                                    <td><input type="radio" name="q1" value="3"></td>
-                                    <td><input type="radio" name="q1" value="4"></td>
-                                    <td><input type="radio" name="q1" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">2. The customer service experience was satisfactory.</td>
-                                    <td><input type="radio" name="q2" value="1" required></td>
-                                    <td><input type="radio" name="q2" value="2"></td>
-                                    <td><input type="radio" name="q2" value="3"></td>
-                                    <td><input type="radio" name="q2" value="4"></td>
-                                    <td><input type="radio" name="q2" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">3. The delivery process was efficient and timely.</td>
-                                    <td><input type="radio" name="q3" value="1" required></td>
-                                    <td><input type="radio" name="q3" value="2"></td>
-                                    <td><input type="radio" name="q3" value="3"></td>
-                                    <td><input type="radio" name="q3" value="4"></td>
-                                    <td><input type="radio" name="q3" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">4. Overall, I am satisfied with my experience.</td>
-                                    <td><input type="radio" name="q4" value="1" required></td>
-                                    <td><input type="radio" name="q4" value="2"></td>
-                                    <td><input type="radio" name="q4" value="3"></td>
-                                    <td><input type="radio" name="q4" value="4"></td>
-                                    <td><input type="radio" name="q4" value="5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-
-
-                <div class="per-section">
-                    <div class="frame-3">
-                        <div class="text-wrapper-3">Section Name</div>
-                        <p class="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam
-                        </p>
-                    </div>
-                    <div class="questionnaire-per-section">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>1<br></th>
-                                    <th>2<br></th>
-                                    <th>3<br></th>
-                                    <th>4<br></th>
-                                    <th>5<br></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="question">1. The quality of the product met my expectations.</td>
-                                    <td><input type="radio" name="q5" value="1" required></td>
-                                    <td><input type="radio" name="q5" value="2"></td>
-                                    <td><input type="radio" name="q5" value="3"></td>
-                                    <td><input type="radio" name="q5" value="4"></td>
-                                    <td><input type="radio" name="q5" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">2. The customer service experience was satisfactory.</td>
-                                    <td><input type="radio" name="q6" value="1" required></td>
-                                    <td><input type="radio" name="q6" value="2"></td>
-                                    <td><input type="radio" name="q6" value="3"></td>
-                                    <td><input type="radio" name="q6" value="4"></td>
-                                    <td><input type="radio" name="q6" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">3. The delivery process was efficient and timely.</td>
-                                    <td><input type="radio" name="q7" value="1" required></td>
-                                    <td><input type="radio" name="q7" value="2"></td>
-                                    <td><input type="radio" name="q7" value="3"></td>
-                                    <td><input type="radio" name="q7" value="4"></td>
-                                    <td><input type="radio" name="q7" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">4. Overall, I am satisfied with my experience.</td>
-                                    <td><input type="radio" name="q8" value="1" required></td>
-                                    <td><input type="radio" name="q8" value="2"></td>
-                                    <td><input type="radio" name="q8" value="3"></td>
-                                    <td><input type="radio" name="q8" value="4"></td>
-                                    <td><input type="radio" name="q8" value="5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="per-section">
-                    <div class="frame-3">
-                        <div class="text-wrapper-3">Section Name</div>
-                        <p class="p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam
-                        </p>
-                    </div>
-                    <div class="questionnaire-per-section">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>1<br></th>
-                                    <th>2<br></th>
-                                    <th>3<br></th>
-                                    <th>4<br></th>
-                                    <th>5<br></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="question">1. The quality of the product met my expectations.</td>
-                                    <td><input type="radio" name="q9" value="1" required></td>
-                                    <td><input type="radio" name="q9" value="2"></td>
-                                    <td><input type="radio" name="q9" value="3"></td>
-                                    <td><input type="radio" name="q9" value="4"></td>
-                                    <td><input type="radio" name="q9" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">2. The customer service experience was satisfactory.</td>
-                                    <td><input type="radio" name="q10" value="1" required></td>
-                                    <td><input type="radio" name="q10" value="2"></td>
-                                    <td><input type="radio" name="q10" value="3"></td>
-                                    <td><input type="radio" name="q10" value="4"></td>
-                                    <td><input type="radio" name="q10" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">3. The delivery process was efficient and timely.</td>
-                                    <td><input type="radio" name="q11" value="1" required></td>
-                                    <td><input type="radio" name="q11" value="2"></td>
-                                    <td><input type="radio" name="q11" value="3"></td>
-                                    <td><input type="radio" name="q11" value="4"></td>
-                                    <td><input type="radio" name="q11" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="question">4. Overall, I am satisfied with my experience.</td>
-                                    <td><input type="radio" name="q12" value="1" required></td>
-                                    <td><input type="radio" name="q12" value="2"></td>
-                                    <td><input type="radio" name="q12" value="3"></td>
-                                    <td><input type="radio" name="q12" value="4"></td>
-                                    <td><input type="radio" name="q12" value="5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        <?php
+                    }
+                } else {
+                    echo "No criteria found for this evaluation.";
+                }
+                ?>
 
                 <button type="submit" class="submit-btn" disabled>Submit Evaluation</button>
-                <button type="submit" class="cancel-btn">Cancel</button>
-
+                <button type="button" class="cancel-btn" onclick="window.location.href='course_list.php'">Cancel</button>
             </form>
         </div>
 
         <script>
-            const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length;
-            const progressBar = document.querySelector('#progress-bar > div');
-            const progressPercentage = document.getElementById('progress-percentage');
-            const submitButton = document.querySelector('.submit-btn');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length;
+        const progressBar = document.querySelector('#progress-bar > div');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const submitButton = document.querySelector('.submit-btn');
 
-            function updateProgress() {
-                const answeredQuestions = Array.from(
-                    document.querySelectorAll('input[type="radio"]:checked')
-                ).filter(input => input.name.startsWith('q')).length;
+        // Check if the progress bar elements exist
+        if (!progressBar || !progressPercentage) {
+            console.error("Progress bar elements not found.");
+            return;
+        }
 
-                const progress = Math.round((answeredQuestions / totalQuestions) * 100);
-                progressBar.style.width = `${progress}%`;
-                progressPercentage.textContent = `${progress}%`;
+        // Function to update the progress
+        function updateProgress() {
+            const answeredQuestions = Array.from(
+                document.querySelectorAll('input[type="radio"]:checked')
+            ).filter(input => input.name.startsWith('q')).length;
 
-                // Enable submit button if all questions are answered
-                submitButton.disabled = answeredQuestions < totalQuestions;
-            }
+            const progress = Math.round((answeredQuestions / totalQuestions) * 100);
 
-            // Attach event listeners to radio buttons
-            const radios = document.querySelectorAll('input[type="radio"]');
-            radios.forEach(radio => {
-                radio.addEventListener('change', updateProgress);
-            });
+            console.log(`Answered questions: ${answeredQuestions}`);
+            console.log(`Total questions: ${totalQuestions}`);
+            console.log(`Progress: ${progress}%`);
 
-            // Initialize progress
-            updateProgress();
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${progress}%`;
+
+            submitButton.disabled = answeredQuestions < totalQuestions;
+        }
+
+        // Attach event listeners to radio buttons
+        const radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        // Initialize progress
+        updateProgress();
+    });
+</script>
         </script>
-
 
         <?php include '../components/footer.php' ?>
     </div>
 </body>
-
 </html>
