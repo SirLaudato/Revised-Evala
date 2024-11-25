@@ -202,16 +202,102 @@ $articles = $conn->query("SELECT articles.id, articles.title, categories.name AS
     <!-- Include TinyMCE -->
     <script src="tinymce/js/tinymce/tinymce.min.js"></script>
     <script>
-        tinymce.init({
-            selector: 'textarea#editor_content',
-            height: 300,
-            plugins: 'advlist autolink link image lists charmap preview anchor pagebreak table', // Add 'table' plugin here
-            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
-                    'bullist numlist outdent indent | link image | table | print preview media', // Add 'table' to toolbar
-            menubar: false,
-            table_toolbar: 'tableprops | cellprops | merge | split', // Optional: For controlling table cells and rows
-        });
-    </script>
+    tinymce.init({
+        selector: 'textarea#editor_content',
+        height: 700,
+        plugins: 'advlist autolink link image lists charmap preview anchor pagebreak table',
+        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+                 'bullist numlist outdent indent | link image | table | print preview media',
+        menubar: false,
+        table_toolbar: 'tableprops | cellprops | rowprops | merge | split | row rowdelete rowinsertrowbefore rowinsertrowafter col coldelete colinsertbefore colinsertafter',
+        setup: function (editor) {
+            editor.on('init', function () {
+                editor.setContent(`
+                    <div style="text-align: center; font-weight: bold; margin-bottom: 10px;">
+                        Curriculum Validation Format<br>
+                        ACTION PLAN<br>
+                        For the 2<sup>nd</sup> Semester / AY 22-23<br>
+                        College of Engineering, Computer Studies, and Architecture - Department of Computer Studies<br>
+                        Information Technology Program
+                    </div>
+
+                    <table border="1" width="100%" style="border-collapse: collapse; margin-top: 10px;">
+                        <tr>
+                            <th style="padding: 5px; text-align: center;">No.</th>
+                            <th style="padding: 5px; text-align: center;">Areas for Opportunities and Suggestions</th>
+                            <th style="padding: 5px; text-align: center;">Action to be done/taken</th>
+                            <th style="padding: 5px; text-align: center;">Required Resources</th>
+                            <th style="padding: 5px; text-align: center;">Persons Responsible</th>
+                            <th style="padding: 5px; text-align: center;">Timeline/Target date of completion</th>
+                            <th style="padding: 5px; text-align: center;">Remarks</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1</td>
+                            <td>Curriculum Relevance and Alignment: Foster stronger partnerships with industry stakeholders to gather insights on current trends, skills requirements, and technological advancements.</td>
+                            <td>Establish a formal review cycle that includes industry stakeholders to analyze collected feedback and make necessary curriculum adjustments.</td>
+                            <td>Manpower</td>
+                            <td>Internship Coordinator, CS and IT Program Chair</td>
+                            <td>1st and 2nd Sem of AY2024-2025</td>
+                            <td>To be done at the end of semester</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">2</td>
+                            <td>Evaluation and Feedback Mechanisms: Students suggested that some grading components must be adjusted to provide them more opportunities to improve their performance.</td>
+                            <td>Propose new grading components that will ensure student assessment.</td>
+                            <td>Manpower</td>
+                            <td>CS and IT Program Chair</td>
+                            <td>1st and 2nd Sem of AY2024-2025</td>
+                            <td>Done for 1st Semester</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">3</td>
+                            <td>Resource Availability and Utilization: Ensure no delays in accessing essential software and issues with laboratory scheduling.</td>
+                            <td>Pre-install all necessary software on laboratory computers before the semester starts.</td>
+                            <td>Manpower</td>
+                            <td>Program Chair, COECSA Laboratory Coordinator</td>
+                            <td>1st and 2nd Sem of AY2024-2025</td>
+                            <td>Done for 1st Semester</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">4</td>
+                            <td>Continuous Improvement and Professional Relevance: Create opportunities for faculty to engage in professional development that focuses on emerging trends keeping them informed and relevant.</td>
+                            <td>Partner with industry professionals for guest lectures and training sessions.</td>
+                            <td>Money, Manpower</td>
+                            <td>Internship Coordinator, CS and IT Program Chair</td>
+                            <td>2nd Semester AY2024-2025</td>
+                            <td>Ongoing Meeting with Accenture</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">5</td>
+                            <td>Integration of New Technologies: Proactively integrate new technologies and trends into the curriculum.</td>
+                            <td>Incorporate popular modern frameworks and APIs into laboratory subjects.</td>
+                            <td>Manpower</td>
+                            <td>IT Faculty Member</td>
+                            <td>2nd Semester AY2024-2025</td>
+                            <td>Ongoing Revision</td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-top: 20px;">
+                        <div style="float: left; width: 50%; text-align: left;">
+                            <strong>Prepared by:</strong><br>
+                            [ full name ], [position]<br>
+                            Date: mm/dd/yy
+                        </div>
+                        <div style="float: right; width: 50%; text-align: right;">
+                            <strong>Noted by:</strong><br>
+                            [ full name ], [position]<br>
+                            Dept./Unit Head mm/dd/yy
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                `);
+            });
+        }
+    });
+</script>
+
+
 
 </body>
 </html>
