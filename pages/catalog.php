@@ -169,7 +169,7 @@ mysqli_close($con);
 
                     if ($active_evaluations === $total_evaluations) {
                       $status = "Active";
-                    } else if ($active_evaluations === 0) {
+                    } elseif (empty($active_evaluations)) {
                       $status = "Inactive";
                     } else {
                       $status = "Pending";

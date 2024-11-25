@@ -10,34 +10,62 @@ $username = "root";
 $password = "";
 $database = "evala_db1";
 
+// Establishing a database connection
 $con = mysqli_connect($servername, $username, $password, $database);
 
 if (!$con) {
     die("Connection Failed: " . mysqli_connect_error());
 }
 
+// Fetching the logged-in user's email
+session_start();
+$email = $_SESSION['emailaddress'];
+
+// Query to fetch user information
+$userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email'";
+$result = mysqli_query($con, $userQuery);
+
 $modalTitle = "";
 $modalMessage = "";
 
+// Checking if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cp = isset($_POST['current_password']) ? mysqli_real_escape_string($con, $_POST['current_password']) : null;
     $np = isset($_POST['new_password']) ? mysqli_real_escape_string($con, $_POST['new_password']) : null;
     $cnp = isset($_POST['confirm_password']) ? mysqli_real_escape_string($con, $_POST['confirm_password']) : null;
-    if ($cp == $_SESSION['password']) {
-        if ($np == $cnp) {
-            $hashed = password_hash($np, PASSWORD_DEFAULT);
-            $sql = "UPDATE users SET password = '$hashed' WHERE email = '" . $_SESSION['emailaddress'] . "'";
-            if (mysqli_query($con, $sql)) {
-                $modalTitle = "Success";
-                $modalMessage = "Password changed successfully.";
-                
-            }
-            //UPDATE evaluation_results SET rate = '$rate' WHERE question_id = '$question_id'
-        }
 
+    // Ensure data is fetched from the database
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $storedPasswordHash = $row['password']; // Assume password is hashed in DB
+
+        // Verify the current password
+        if (password_verify($cp, $storedPasswordHash)) {
+            // Check if new password and confirm password match
+            if ($np === $cnp) {
+                $hashed = password_hash($np, PASSWORD_DEFAULT);
+
+                // Update the password in the database
+                $sql = "UPDATE users SET password = '$hashed' WHERE email = '$email'";
+                if (mysqli_query($con, $sql)) {
+                    $modalTitle = "Success";
+                    $modalMessage = "Password changed successfully.";
+                    $_SESSION['password'] = $hashed; // Update session password if needed
+                } else {
+                    $modalTitle = "Error";
+                    $modalMessage = "Failed to update password. Please try again.";
+                }
+            } else {
+                $modalTitle = "Error";
+                $modalMessage = "New password and confirm password do not match.";
+            }
+        } else {
+            $modalTitle = "Error";
+            $modalMessage = "Current password is incorrect.";
+        }
     } else {
         $modalTitle = "Error";
-        $modalMessage = "Current password is incorrect.";
+        $modalMessage = "User not found.";
     }
 }
 
@@ -58,7 +86,7 @@ mysqli_close($con);
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 </head>
 <div>
-    
+
     <div class="navigator">
         <?php include('../components/nav.php') ?>
     </div>
@@ -209,45 +237,45 @@ mysqli_close($con);
 </html>
 
 <script>
-function showModal(type, message) {
-    // Determine the correct modal ID based on type
-    const modalId = type === 'success' ? 'successModal' : 'failModal';
-    const modal = document.getElementById(modalId);
+    function showModal(type, message) {
+        // Determine the correct modal ID based on type
+        const modalId = type === 'success' ? 'successModal' : 'failModal';
+        const modal = document.getElementById(modalId);
 
-    if (modal) {
-        const modalMessage = modal.querySelector('.modal-message');
+        if (modal) {
+            const modalMessage = modal.querySelector('.modal-message');
 
-        // Set the message and make the modal visible
-        if (modalMessage) modalMessage.textContent = message;
+            // Set the message and make the modal visible
+            if (modalMessage) modalMessage.textContent = message;
 
-        modal.style.display = 'block';
-        const modalContent = modal.querySelector('.modal-content');
+            modal.style.display = 'block';
+            const modalContent = modal.querySelector('.modal-content');
 
-        if (modalContent) {
-            modalContent.style.animation = 'slideDown 0.5s ease forwards';
+            if (modalContent) {
+                modalContent.style.animation = 'slideDown 0.5s ease forwards';
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
         }
-    } else {
-        console.error(`Modal with ID "${modalId}" not found.`);
     }
-}
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
 
-    if (modal) {
-        const modalContent = modal.querySelector('.modal-content');
+        if (modal) {
+            const modalContent = modal.querySelector('.modal-content');
 
-        // Apply slide-up animation before hiding
-        if (modalContent) {
-            modalContent.style.animation = 'slideUp 0.5s ease forwards';
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 200); // Match the animation duration
+            // Apply slide-up animation before hiding
+            if (modalContent) {
+                modalContent.style.animation = 'slideUp 0.5s ease forwards';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 200); // Match the animation duration
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
         }
-    } else {
-        console.error(`Modal with ID "${modalId}" not found.`);
     }
-}
 </script>
 
 
@@ -258,7 +286,7 @@ function closeModal(modalId) {
 <?php endif; ?>
 
 <script>
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             if (event.target === modal) {
@@ -266,7 +294,7 @@ function closeModal(modalId) {
                 if (modalContent) {
                     // Apply slide-up animation
                     modalContent.style.animation = 'slideUp 0.5s ease forwards';
-                    
+
                     // Wait for the animation to complete before hiding the modal
                     setTimeout(() => {
                         modal.style.display = 'none';
