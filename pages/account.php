@@ -30,6 +30,7 @@ $modalMessage = "";
 
 // Checking if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve and sanitize input
     $cp = isset($_POST['current_password']) ? mysqli_real_escape_string($con, $_POST['current_password']) : null;
     $np = isset($_POST['new_password']) ? mysqli_real_escape_string($con, $_POST['new_password']) : null;
     $cnp = isset($_POST['confirm_password']) ? mysqli_real_escape_string($con, $_POST['confirm_password']) : null;
@@ -37,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Ensure data is fetched from the database
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $storedPasswordHash = $row['password']; // Assume password is hashed in DB
+        $storedPasswordHash = $row['password']; // Assume the password is hashed in the database
 
         // Verify the current password
         if (password_verify($cp, $storedPasswordHash)) {
-            // Check if new password and confirm password match
+            // Check if the new password matches the confirmation password
             if ($np === $cnp) {
-                $hashed = password_hash($np, PASSWORD_DEFAULT);
+                $hashed = password_hash($np, PASSWORD_DEFAULT); // Hash the new password
 
                 // Update the password in the database
                 $sql = "UPDATE users SET password = '$hashed' WHERE email = '$email'";
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modalMessage = "User not found.";
     }
 }
+
 
 
 mysqli_close($con);

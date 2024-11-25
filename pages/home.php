@@ -25,10 +25,11 @@ $modalMessage = "";
 if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $_SESSION['password'] = $row['password'];
-    if ($_SESSION['password'] === '1234') {
+    if (password_verify('1234', $row['password'])) {
         $modalTitle = "Change Password";
         $modalMessage = "Please change your password immediately.";
     }
+
 }
 
 ?>
