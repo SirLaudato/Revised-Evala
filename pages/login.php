@@ -157,7 +157,7 @@ mysqli_close($con);
     <div class="login">
         <!-- Include the navigation bar -->
 
-            <?php include('../components/nav-login.php') ?>
+        <?php include('../components/nav-login.php') ?>
 
         <!-- Login Form -->
         <form action="" method="post" class="form-group">
@@ -193,6 +193,10 @@ mysqli_close($con);
     </div>
 
 
+    <?php include('..pages/modal.php') ?>
+
+
+</body>
 <?php include('modal.php') ?>
 
 
@@ -200,35 +204,87 @@ mysqli_close($con);
     function showModal(message) {
         const modal = document.getElementById("alertModal");
         const modalMessage = modal.querySelector(".modal-message");
-        const modalContent = modal.querySelector(".modal-content");
-
         modalMessage.textContent = message;
         modal.style.display = "block";
-        modalContent.style.animation = "slideDown 0.5s ease forwards"; // Apply slideDown animation
-
-        // Automatically hide the modal after 5 seconds
-        setTimeout(() => {
-            closeModal();
-        }, 2500); // 5000 milliseconds = 5 seconds
     }
 
     function closeModal() {
         const modal = document.getElementById("alertModal");
-        const modalContent = modal.querySelector(".modal-content");
-
-        // Apply slideUp animation before hiding
-        modalContent.style.animation = "slideUp 0.5s ease forwards";
-
-        // Wait for the animation to complete before hiding
-        setTimeout(() => {
-            modal.style.display = "none";
-        }, 500); // Match the duration of the slideUp animation
+        modal.style.display = "none";
     }
 
     <?php if ($modalTitle && $modalMessage): ?>
         showModal("<?= htmlspecialchars($modalMessage) ?>");
     <?php endif; ?>
 </script>
-</body>
 
 </html>
+
+<script>
+    function showModal(type, message) {
+        // Determine the correct modal ID based on type
+        const modalId = type === 'success' ? 'successModal' : 'failModal';
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalMessage = modal.querySelector('.modal-message');
+
+            // Set the message and make the modal visible
+            if (modalMessage) modalMessage.textContent = message;
+
+            modal.style.display = 'block';
+            const modalContent = modal.querySelector('.modal-content');
+
+            if (modalContent) {
+                modalContent.style.animation = 'slideDown 0.5s ease forwards';
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalContent = modal.querySelector('.modal-content');
+
+            // Apply slide-up animation before hiding
+            if (modalContent) {
+                modalContent.style.animation = 'slideUp 0.5s ease forwards';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 200); // Match the animation duration
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+</script>
+
+
+<?php if (!empty($modalTitle) && !empty($modalMessage)): ?>
+    <script>
+        showModal('<?php echo strtolower($modalTitle); ?>', '<?php echo $modalMessage; ?>');
+    </script>
+<?php endif; ?>
+
+<script>
+    window.addEventListener('click', function (event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) {
+                    // Apply slide-up animation
+                    modalContent.style.animation = 'slideUp 0.5s ease forwards';
+
+                    // Wait for the animation to complete before hiding the modal
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 200); // Match the animation duration
+                }
+            }
+        });
+    });
+</script>

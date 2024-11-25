@@ -1,10 +1,36 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['emailaddress'])) {
     header("Location: ../pages/login.php");
     exit();
-
 }
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
+
+$con = mysqli_connect($servername, $username, $password, $database);
+
+if (!$con) {
+    die("Connection Failed: " . mysqli_connect_error());
+}
+$email = $_SESSION['emailaddress'];
+$userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
+$result = mysqli_query($con, $userQuery);
+$modalTitle = "";
+$modalMessage = "";
+
+
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['password'] = $row['password'];
+    if ($_SESSION['password'] === '1234') {
+        $modalTitle = "Change Password";
+        $modalMessage = "Please change your password immediately.";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +42,8 @@ if (!isset($_SESSION['emailaddress'])) {
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/home.css" />
     <link rel="stylesheet" href="../components/all.css">
+    <link rel="stylesheet" href="../components/modal.css">
+
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 </head>
 
@@ -84,9 +112,98 @@ if (!isset($_SESSION['emailaddress'])) {
                 </div>
             </div>
         </div>
-        
+
         <?php include '../components/footer.php' ?>
     </div>
 </body>
+<?php include('modal.php') ?>
+
+
+<script>
+    function showModal(message) {
+        const modal = document.getElementById("alertModal");
+        const modalMessage = modal.querySelector(".modal-message");
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("alertModal");
+        modal.style.display = "none";
+    }
+
+    <?php if ($modalTitle && $modalMessage): ?>
+        showModal("<?= htmlspecialchars($modalMessage) ?>");
+    <?php endif; ?>
+</script>
 
 </html>
+
+<script>
+    function showModal(type, message) {
+        // Determine the correct modal ID based on type
+        const modalId = type === 'success' ? 'successModal' : 'failModal';
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalMessage = modal.querySelector('.modal-message');
+
+            // Set the message and make the modal visible
+            if (modalMessage) modalMessage.textContent = message;
+
+            modal.style.display = 'block';
+            const modalContent = modal.querySelector('.modal-content');
+
+            if (modalContent) {
+                modalContent.style.animation = 'slideDown 0.5s ease forwards';
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalContent = modal.querySelector('.modal-content');
+
+            // Apply slide-up animation before hiding
+            if (modalContent) {
+                modalContent.style.animation = 'slideUp 0.5s ease forwards';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 200); // Match the animation duration
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+</script>
+
+
+<?php if (!empty($modalTitle) && !empty($modalMessage)): ?>
+    <script>
+        showModal('<?php echo strtolower($modalTitle); ?>', '<?php echo $modalMessage; ?>');
+    </script>
+<?php endif; ?>
+
+<script>
+    window.addEventListener('click', function (event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) {
+                    // Apply slide-up animation
+                    modalContent.style.animation = 'slideUp 0.5s ease forwards';
+
+                    // Wait for the animation to complete before hiding the modal
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 200); // Match the animation duration
+                }
+            }
+        });
+    });
+</script>
