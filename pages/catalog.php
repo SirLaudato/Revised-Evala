@@ -177,23 +177,28 @@ mysqli_close($con);
                     }
 
 
-                    echo '
-                <div class="curriculum-container">
-                    <div class="frame-7"></div>
-                    <div class="frame-8">
-                        <div class="frame-9">
-                            <div class="div-wrapper">
-                                <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
-                            </div>
-                            <div class="frame-3">
-                                <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
-                            </div>
-                        </div>
-                        <div class="div-wrapper">
-                            <div class="text-wrapper-6">' . htmlspecialchars("") . '</div>
-                        </div>
-                    </div>
-                </div>';
+                  echo '
+                    <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                      <div class="curriculum-container">
+                          <div class="frame-7"></div>
+                          <div class="frame-8">
+                              <div class="frame-9">
+                                  <div class="div-wrapper">
+                                      <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                  </div>
+                                  <div class="frame-3">
+                                      <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                  </div>
+                              </div>
+                              <div class="div-wrapper">
+                                  <div class="text-wrapper-6">' . htmlspecialchars("") . '</div>
+                              </div>
+                          </div>
+                      </div>
+                    </a>
+                  ';
+
+                    
                   }
                 } else {
                   echo "No course details found.";

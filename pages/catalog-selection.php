@@ -1,3 +1,10 @@
+<?php 
+if (isset($_GET['course_id'])) {
+    $course_id = $_GET['course_id'];
+    // You can now use $course_id to fetch specific evaluation data related to this course
+}
+?>
+
 <!DOCTYPE html>
 <html>
 

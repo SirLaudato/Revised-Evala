@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['emailaddress'])) {
     header("Location: ../pages/login.php");
+    session_destroy();
     exit();
 }
 // Database connection
@@ -18,7 +19,6 @@ if (!$con) {
 }
 
 // Fetching the logged-in user's email
-session_start();
 $email = $_SESSION['emailaddress'];
 
 // Query to fetch user information
