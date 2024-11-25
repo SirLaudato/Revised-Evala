@@ -287,5 +287,11 @@ mysqli_close($con);
     <?php include('../components/footer.php') ?>
   </div>
 </body>
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="m2no5re7gKnDgnq30Logf"
+domain="www.chatbase.co"
+defer>
+</script>
 
 </html>

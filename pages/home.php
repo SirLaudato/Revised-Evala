@@ -208,3 +208,16 @@ if (mysqli_num_rows($result) > 0) {
         });
     });
 </script>
+
+<script>
+window.embeddedChatbotConfig = {
+chatbotId: "m2no5re7gKnDgnq30Logf",
+domain: "www.chatbase.co"
+}
+</script>
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="m2no5re7gKnDgnq30Logf"
+domain="www.chatbase.co"
+defer>
+</script>
