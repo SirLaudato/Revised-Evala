@@ -177,7 +177,7 @@ mysqli_close($con);
                     }
 
 
-                  echo '
+                    echo '
                     <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
                       <div class="curriculum-container">
                           <div class="frame-7"></div>
@@ -198,7 +198,7 @@ mysqli_close($con);
                     </a>
                   ';
 
-                    
+
                   }
                 } else {
                   echo "No course details found.";
@@ -287,11 +287,7 @@ mysqli_close($con);
     <?php include('../components/footer.php') ?>
   </div>
 </body>
-<script
-src="https://www.chatbase.co/embed.min.js"
-chatbotId="m2no5re7gKnDgnq30Logf"
-domain="www.chatbase.co"
-defer>
+<script src="https://www.chatbase.co/embed.min.js" chatbotId="m2no5re7gKnDgnq30Logf" domain="www.chatbase.co" defer>
 </script>
 
 </html>
