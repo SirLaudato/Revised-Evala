@@ -62,17 +62,21 @@ body {
 
 /* Ensure specificity to target the SVG fill */
 .icon-button {
-  fill: #626261; /* Default color */
-  transition: fill 0.3s ease; /* Smooth transition for color change */
+  fill: #626261;
+  /* Default color */
+  transition: fill 0.3s ease;
+  /* Smooth transition for color change */
 }
 
 /* Darken SVG on hover */
 .icon-button:hover {
-  fill: #342928; /* Darker color */
+  fill: #342928;
+  /* Darker color */
 }
 
 .shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Shadow effect */
 }
 
 .div {
@@ -163,16 +167,20 @@ body {
 }
 
 .icon-button {
-  fill: #626261; /* Default color */
-  transition: fill 0.3s ease; /* Smooth transition for color change */
+  fill: #626261;
+  /* Default color */
+  transition: fill 0.3s ease;
+  /* Smooth transition for color change */
 }
 
 .icon-button:hover {
-  fill: #342928; /* Darker color */
+  fill: #342928;
+  /* Darker color */
 }
 
 .shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Shadow effect */
 }
 
 .div {
@@ -202,36 +210,43 @@ body {
 /* Responsive styles */
 @media (max-width: 768px) {
   .login-and-landing {
-    padding: 10px 20px; /* Reduce padding for smaller screens */
+    padding: 10px 20px;
+    /* Reduce padding for smaller screens */
   }
 
   .login-and-landing .frame {
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column;
+    /* Stack elements vertically */
     gap: 20px;
   }
 
   .login-and-landing .text-wrapper {
-    font-size: 18px; /* Adjust font size */
+    font-size: 18px;
+    /* Adjust font size */
   }
 
   .login-and-landing .svg {
     width: 18px;
-    height: 20px; /* Reduce icon size */
+    height: 20px;
+    /* Reduce icon size */
   }
 
   .frame {
-    gap: 50px; /* Reduce spacing */
+    gap: 50px;
+    /* Reduce spacing */
   }
 
   .icon-button {
     width: 20px;
-    height: 20px; /* Adjust size for smaller screens */
+    height: 20px;
+    /* Adjust size for smaller screens */
   }
 }
 
 @media (max-width: 480px) {
   .login-and-landing {
-    padding: 10px; /* Further reduce padding */
+    padding: 10px;
+    /* Further reduce padding */
   }
 
   .login-and-landing .frame {
@@ -239,8 +254,10 @@ body {
   }
 
   .login-and-landing .text-wrapper {
-    font-size: 16px; /* Further adjust font size */
-    text-align: center; /* Center-align for smaller screens */
+    font-size: 16px;
+    /* Further adjust font size */
+    text-align: center;
+    /* Center-align for smaller screens */
   }
 
   .login-and-landing .svg {
@@ -254,7 +271,9 @@ body {
   }
 
   .login-button {
-    padding: 5px; /* Reduce padding */
-    font-size: 14px; /* Adjust font size */
+    padding: 5px;
+    /* Reduce padding */
+    font-size: 14px;
+    /* Adjust font size */
   }
 }

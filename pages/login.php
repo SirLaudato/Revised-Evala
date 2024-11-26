@@ -150,6 +150,7 @@ mysqli_close($con);
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/login.css" />
     <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/nav-login.css" />
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
@@ -195,7 +196,7 @@ mysqli_close($con);
     </div>
 
 
-    <?php include('..pages/modal.php') ?>
+    <?php include('../pages/modal.php') ?>
 
 
 </body>
