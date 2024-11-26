@@ -16,7 +16,59 @@ if (!$con) {
     die("Connection Failed: " . mysqli_connect_error());
 }
 $email = $_SESSION['emailaddress'];
-$userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
+if ($_SESSION['role'] == 'Alumni') {
+    $userQuery = "SELECT * FROM users INNER JOIN alumni ON users.user_id = alumni.user_id WHERE email = '$email';";
+    $result = mysqli_query($con, $userQuery);
+    $modalTitle = "";
+    $modalMessage = "";
+
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['password'] = $row['password'];
+        if (password_verify('1234', $row['password'])) {
+            $modalTitle = "Change Password";
+            $modalMessage = "Please change your password immediately.";
+        }
+
+    }
+} elseif ($_SESSION['role'] == 'Faculty') {
+    $userQuery = "SELECT * FROM users INNER JOIN faculty ON users.user_id = faculty.user_id WHERE email = '$email';";
+    $result = mysqli_query($con, $userQuery);
+    $modalTitle = "";
+    $modalMessage = "";
+
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['faculty_id'] = $row['faculty_id'];
+        $_SESSION['Department'] = $row['department'];
+        if (password_verify('1234', $row['password'])) {
+            $modalTitle = "Change Password";
+            $modalMessage = "Please change your password immediately.";
+        }
+
+    }
+} elseif ($_SESSION['role'] == 'Student') {
+    $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
+    $result = mysqli_query($con, $userQuery);
+    $modalTitle = "";
+    $modalMessage = "";
+
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['student_number'] = $row['student_number'];
+        if (password_verify('1234', $row['password'])) {
+            $modalTitle = "Change Password";
+            $modalMessage = "Please change your password immediately.";
+        }
+
+    }
+}
+
 $result = mysqli_query($con, $userQuery);
 $modalTitle = "";
 $modalMessage = "";

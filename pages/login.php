@@ -31,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modalMessage = "Please fill in all the fields.";
     } else {
         // Fetch user from database
-        $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
+        // $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
+        $userQuery = "SELECT * FROM users WHERE email = '$email';";
+
         $result = mysqli_query($con, $userQuery);
 
         if (mysqli_num_rows($result) > 0) {
