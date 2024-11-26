@@ -60,12 +60,24 @@
     height: 60px;
   }
 
+/* Ensure specificity to target the SVG fill */
+.icon-button {
+  fill: #626261;
+  /* Default color */
+  transition: fill 0.3s ease;
+  /* Smooth transition for color change */
+}
   /* Ensure specificity to target the SVG fill */
   .icon-button {
     fill: #626261; /* Default color */
     transition: fill 0.3s ease; /* Smooth transition for color change */
   }
 
+/* Darken SVG on hover */
+.icon-button:hover {
+  fill: #342928;
+  /* Darker color */
+}
   /* Darken SVG on hover */
   .icon-button:hover {
     fill: #342928; /* Darker color */

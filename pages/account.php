@@ -22,7 +22,13 @@ if (!$con) {
 $email = $_SESSION['emailaddress'];
 
 // Query to fetch user information
-$userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email'";
+if ($_SESSION['role'] == 'Alumni') {
+    $userQuery = "SELECT * FROM users INNER JOIN alumni ON users.user_id = alumni.user_id WHERE email = '$email'";
+} elseif ($_SESSION['role'] == 'Faculty') {
+    $userQuery = "SELECT * FROM users INNER JOIN faculty ON users.user_id = faculty.user_id WHERE email = '$email'";
+} elseif ($_SESSION['role'] == 'Student') {
+    $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email'";
+}
 $result = mysqli_query($con, $userQuery);
 
 $modalTitle = "";
@@ -113,8 +119,14 @@ mysqli_close($con);
                             <h>Contact Information</h>
                             <div class="form-row">
                                 <div>
-                                    <input type="text" id="student_number" name="student_number" required readonly
-                                        placeholder=<?php echo $_SESSION['student_number']; ?>>
+                                    <?php if ($_SESSION['role'] == 'Faculty') {
+                                        echo '<input type="text" id="department" name="department" readonly placeholder=' . $_SESSION['Department'] . '>';
+                                    } else {
+                                        echo '<input type="text" id="student_number" name="student_number" readonly placeholder=' . $_SESSION['student_number'] . '>';
+                                    }
+                                    ?>
+
+
                                 </div>
                                 <div>
                                     <input type="text" id="email_address" name="email_address" required readonly
