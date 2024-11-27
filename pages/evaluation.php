@@ -28,7 +28,11 @@ if (isset($_GET['course_id'])) {
         die("Error: Course not found.");
     }
 } else {
-    die("Error: course_id is not set.");
+    session_start();
+    session_destroy();
+
+    header("Location: ../pages/login.php");
+    exit();
 }
 ?>
 
@@ -55,6 +59,7 @@ if ($course_result->num_rows > 0) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../css/global.css" />
@@ -73,18 +78,18 @@ if ($course_result->num_rows > 0) {
             <div class="frame-wrapper">
                 <div class="frame-3">
                     <!-- The Course name (ex. Computer Science) -->
-            <div class="text-wrapper-3">
-                <?php
-                // Output the course name
-                echo htmlspecialchars($course_name);
-                ?>
-            </div>
-            <p class="p">
-                <?php
-                // Output the course description
-                echo htmlspecialchars($course_description);
-                ?>
-            </p>
+                    <div class="text-wrapper-3">
+                        <?php
+                        // Output the course name
+                        echo htmlspecialchars($course_name);
+                        ?>
+                    </div>
+                    <p class="p">
+                        <?php
+                        // Output the course description
+                        echo htmlspecialchars($course_description);
+                        ?>
+                    </p>
                 </div>
                 <div class="frame-3">
                     <ol>
@@ -168,34 +173,45 @@ if ($course_result->num_rows > 0) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
-                                    // Fetch questions for the current criteria
-                                    $questions_query = "SELECT * FROM questionnaire WHERE criteria_id = ?";
-                                    $questions_stmt = $con->prepare($questions_query);
-                                    $questions_stmt->bind_param("i", $criteria_id);
-                                    $questions_stmt->execute();
-                                    $questions_result = $questions_stmt->get_result();
+                                        <?php
+                                        // Fetch questions for the current criteria
+                                        $questions_query = "SELECT * FROM questionnaire WHERE criteria_id = ?";
+                                        $questions_stmt = $con->prepare($questions_query);
+                                        $questions_stmt->bind_param("i", $criteria_id);
+                                        $questions_stmt->execute();
+                                        $questions_result = $questions_stmt->get_result();
 
-                                    if ($questions_result->num_rows > 0) {
-                                        // Loop through questions and display them
-                                        $question_number = 1;
-                                        while ($question_row = $questions_result->fetch_assoc()) {
-                                            ?>
-                                            <tr>
-                                                <td class="question"><?php echo htmlspecialchars($question_row['question']); ?></td>
-                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="1" required></td>
-                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="2"></td>
-                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="3"></td>
-                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="4"></td>
-                                                <td><input type="radio" name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>" value="5"></td>
-                                            </tr>
-                                            <?php
-                                            $question_number++;
+                                        if ($questions_result->num_rows > 0) {
+                                            // Loop through questions and display them
+                                            $question_number = 1;
+                                            while ($question_row = $questions_result->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td class="question"><?php echo htmlspecialchars($question_row['question']); ?></td>
+                                                    <td><input type="radio"
+                                                            name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>"
+                                                            value="1" required></td>
+                                                    <td><input type="radio"
+                                                            name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>"
+                                                            value="2"></td>
+                                                    <td><input type="radio"
+                                                            name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>"
+                                                            value="3"></td>
+                                                    <td><input type="radio"
+                                                            name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>"
+                                                            value="4"></td>
+                                                    <td><input type="radio"
+                                                            name="q<?php echo $criteria_id; ?>_<?php echo $question_number; ?>"
+                                                            value="5"></td>
+
+                                                </tr>
+                                                <?php
+                                                $question_number++;
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='6'>No questions available for this section.</td></tr>";
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='6'>No questions available for this section.</td></tr>";
-                                    }
-                                    ?>
+                                        ?>
 
 
                                     </tbody>
@@ -211,55 +227,57 @@ if ($course_result->num_rows > 0) {
                 ?>
 
                 <button type="submit" class="submit-btn" disabled>Submit Evaluation</button>
-                <button type="button" class="cancel-btn" onclick="window.location.href='course_list.php'">Cancel</button>
+                <button type="button" class="cancel-btn"
+                    onclick="window.location.href='course_list.php'">Cancel</button>
             </form>
         </div>
 
         <script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
         const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length;
         const progressBar = document.querySelector('#progress-bar > div');
-        const progressPercentage = document.getElementById('progress-percentage');
-        const submitButton = document.querySelector('.submit-btn');
+                const progressPercentage = document.getElementById('progress-percentage');
+                const submitButton = document.querySelector('.submit-btn');
 
-        // Check if the progress bar elements exist
-        if (!progressBar || !progressPercentage) {
-            console.error("Progress bar elements not found.");
-            return;
+                // Check if the progress bar elements exist
+                if (!progressBar || !progressPercentage) {
+                    console.error("Progress bar elements not found.");
+                return;
         }
 
-        // Function to update the progress
-        function updateProgress() {
+                // Function to update the progress
+                function updateProgress() {
             const answeredQuestions = Array.from(
                 document.querySelectorAll('input[type="radio"]:checked')
             ).filter(input => input.name.startsWith('q')).length;
 
-            const progress = Math.round((answeredQuestions / totalQuestions) * 100);
+                const progress = Math.round((answeredQuestions / totalQuestions) * 100);
 
-            console.log(`Answered questions: ${answeredQuestions}`);
-            console.log(`Total questions: ${totalQuestions}`);
-            console.log(`Progress: ${progress}%`);
+                console.log(`Answered questions: ${answeredQuestions}`);
+                console.log(`Total questions: ${totalQuestions}`);
+                console.log(`Progress: ${progress}%`);
 
-            progressBar.style.width = `${progress}%`;
-            progressPercentage.textContent = `${progress}%`;
+                progressBar.style.width = `${progress}%`;
+                progressPercentage.textContent = `${progress}%`;
 
-            submitButton.disabled = answeredQuestions < totalQuestions;
+                submitButton.disabled = answeredQuestions < totalQuestions;
         }
 
-        // Attach event listeners to radio buttons
-        const radios = document.querySelectorAll('input[type="radio"]');
+                // Attach event listeners to radio buttons
+                const radios = document.querySelectorAll('input[type="radio"]');
         radios.forEach(radio => {
-            radio.addEventListener('change', updateProgress);
+                    radio.addEventListener('change', updateProgress);
         });
 
-        // Initialize progress
-        updateProgress();
+                // Initialize progress
+                updateProgress();
     });
-</script>
+        </script>
         </script>
 
         <?php include '../components/footer.php' ?>
     </div>
 </body>
+
 </html>
