@@ -82,7 +82,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <title>Course Management</title>
     <link rel="stylesheet" href="../admin css/courses.css">
-    <link rel="stylesheet" href="../admin css/admin global  .css">
+    <link rel="stylesheet" href="../admin css/admin global.css">
     
 </head>
 <body>

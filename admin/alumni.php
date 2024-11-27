@@ -3,7 +3,8 @@
 include('db_conn_people.php');
 
 // Initialize message variable for feedback
-$message = "";
+$modal_message = "";
+$modal_type = ""; // "success" or "fail"
 
 // Handle form submission (for Create and Update operations)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -50,9 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the SQL query and check for success
     if ($conn->query($sql) === TRUE) {
-        $message = $id ? "Record updated successfully." : "New record created successfully.";
+        $modal_message = $id ? "Record updated successfully." : "New record created successfully.";
+        $modal_type = "success";
+
+        // Redirect to avoid duplicate submission on page refresh
+        header("Location: alumni.php");
+        exit; // Stop further script execution
+
     } else {
-        $message = "Error: " . $conn->error;  // Display error message if query fails
+        $modal_message = "Error: " . $conn->error;
+        $modal_type = "fail";
     }
 }
 
@@ -63,11 +71,13 @@ if (isset($_GET['delete'])) {
 
     // Execute the delete query and check for success
     if ($conn->query($sql) === TRUE) {
-        $message = "Record deleted successfully.";
+        $modal_message = "Record deleted successfully.";
+        $modal_type = "success";
     } else {
-        $message = "Error: " . $conn->error;  // Display error message if query fails
+        $modal_message = "Error: " . $conn->error;
+        $modal_type = "fail";
     }
-}
+}   
 
 // Fetch all alumni records for displaying in the table
 $sql = "SELECT * FROM alumni";
@@ -92,146 +102,115 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Alumni Management</title>
+    <link rel="stylesheet" href="../admin css/alumni.css">
+    <link rel="stylesheet" href="../admin css/admin global.css">
+    <link rel="stylesheet" href="../components/admin-modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* General styles for the table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        /* Styling for image upload container */
-        #image-drop-zone {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            background-color: #f7f7f7;
-        }
-        #image-drop-zone:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Preview of the uploaded image */
-        #preview {
-            margin-top: 10px;
-            max-width: 100%;
-            max-height: 150px;
-        }
-
-        /* Styling for upload instructions */
-        .upload-container p {
-            margin: 10px 0;
-        }
     </style>
 </head>
 <body>
-    <h1>Alumni Management</h1>
+<div class="parent-alumni-div">
 
-    <p><?php echo $message; ?></p> <!-- Display success or error messages -->
+    <div class="alumni-add">
 
-    <!-- Create or Edit Alumni Form -->
-    <form method="POST" action="alumni.php" enctype="multipart/form-data">
-        <h2><?php echo $edit_record ? "Edit Alumni" : "Add New Alumni"; ?></h2>
-        
-        <!-- Hidden field for storing alumni ID when editing -->
-        <input type="hidden" name="id" value="<?php echo $edit_record['id'] ?? ''; ?>">
+        <!-- Create or Edit Alumni Form -->
+        <form method="POST" action="alumni.php" enctype="multipart/form-data">
+            <h2><?php echo $edit_record ? "Edit Alumni" : "Add New Alumni"; ?></h2>
+            
+            <!-- Hidden field for storing alumni ID when editing -->
+            <input type="hidden" name="id" value="<?php echo $edit_record['id'] ?? ''; ?>">
 
-        <label for="old_school_id">Old School ID:</label>
-        <input type="text" id="old_school_id" name="old_school_id" value="<?php echo $edit_record['old_school_id'] ?? ''; ?>" required><br><br>
+            <label for="old_school_id">Old School ID:</label>
+            <input type="text" id="old_school_id" name="old_school_id" value="<?php echo $edit_record['old_school_id'] ?? ''; ?>" required><br><br>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo $edit_record['name'] ?? ''; ?>" required><br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?php echo $edit_record['name'] ?? ''; ?>" required><br><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo $edit_record['email'] ?? ''; ?>" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo $edit_record['email'] ?? ''; ?>" required><br><br>
 
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="<?php echo $edit_record['phone_number'] ?? ''; ?>" required><br><br>
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="<?php echo $edit_record['phone_number'] ?? ''; ?>" required><br><br>
 
-        <label for="image">Image:</label>
-        <!-- Image upload with drag & drop or click to select -->
-        <div id="image-drop-zone" class="upload-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-            <p>Drag & Drop an image here or click to select</p>
-            <img id="preview" src="<?php echo $edit_record['image'] ?? 'default.jpg'; ?>" width="150" height="150" alt="Preview">
-        </div><br><br>
+            <label for="image">Image:</label>
+            <!-- Image upload with drag & drop or click to select -->
+            <div id="image-drop-zone" class="upload-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                <p>Drag & Drop an image here or click to select</p>
+                <img id="preview" src="<?php echo $edit_record['image'] ?? 'default.jpg'; ?>" width="150" height="150" alt="Preview">
+            </div><br><br>
 
-        <label for="graduate_career_field">Graduate Career Field:</label>
-        <!-- Dropdown for career fields -->
-        <select id="graduate_career_field" name="graduate_career_field" required>
-            <option value="Business Management" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Business Management' ? 'selected' : ''; ?>>Business Management</option>
-            <option value="Engineering" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Engineering' ? 'selected' : ''; ?>>Engineering</option>
-            <option value="Health and Medical Fields" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Health and Medical Fields' ? 'selected' : ''; ?>>Health and Medical Fields</option>
-            <option value="Education" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Education' ? 'selected' : ''; ?>>Education</option>
-            <option value="Social Sciences" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Social Sciences' ? 'selected' : ''; ?>>Social Sciences</option>
-            <!-- Add more career fields as needed -->
-        </select><br><br>
+            <label for="graduate_career_field">Graduate Career Field:</label>
+            <!-- Dropdown for career fields -->
+            <select id="graduate_career_field" name="graduate_career_field" required>
+                <option value="Business Management" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Business Management' ? 'selected' : ''; ?>>Business Management</option>
+                <option value="Engineering" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Engineering' ? 'selected' : ''; ?>>Engineering</option>
+                <option value="Health and Medical Fields" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Health and Medical Fields' ? 'selected' : ''; ?>>Health and Medical Fields</option>
+                <option value="Education" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Education' ? 'selected' : ''; ?>>Education</option>
+                <option value="Social Sciences" <?php echo isset($edit_record['graduate_career_field']) && $edit_record['graduate_career_field'] === 'Social Sciences' ? 'selected' : ''; ?>>Social Sciences</option>
+                <!-- Add more career fields as needed -->
+            </select><br><br>
 
-        <label for="status">Status:</label>
-        <!-- Dropdown for active/inactive status -->
-        <select id="status" name="status" required>
-            <option value="active" <?php echo isset($edit_record['status']) && $edit_record['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
-            <option value="inactive" <?php echo isset($edit_record['status']) && $edit_record['status'] === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
-        </select><br><br>
+            <label for="status">Status:</label>
+            <!-- Dropdown for active/inactive status -->
+            <select id="status" name="status" required>
+                <option value="active" <?php echo isset($edit_record['status']) && $edit_record['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
+                <option value="inactive" <?php echo isset($edit_record['status']) && $edit_record['status'] === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
+            </select><br><br>
 
-        <!-- Submit button -->
-        <input type="submit" value="<?php echo $edit_record ? 'Update Alumni' : 'Create Alumni'; ?>">
-    </form>
+            <!-- Submit button -->
+            <input type="submit" value="<?php echo $edit_record ? 'Update Alumni' : 'Create Alumni'; ?>">
+        </form>
+    </div>
 
-    <!-- Alumni Records Table -->
-    <h2>Alumni List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Old School ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Career Field</th>
-                <th>Status</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['old_school_id']; ?></td>
-                        <td><?php echo $row['name']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td><?php echo $row['phone_number']; ?></td>
-                        <td><?php echo $row['graduate_career_field']; ?></td>
-                        <td><?php echo $row['status']; ?></td>
-                        <td><img src="<?php echo $row['image']; ?>" width="50" height="50" alt="Image"></td>
-                        <td>
-                            <a href="alumni.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                            <a href="alumni.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
+    <div class="alumni-records">
+        <!-- Alumni Records Table -->
+        <h2>Alumni List</h2>
+
+        <table>
+            <thead>
                 <tr>
-                    <td colspan="9">No alumni found</td>
+                    <th>ID</th>
+                    <th>Old School ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Career Field</th>
+                    <th>Status</th>
+                    <th>Image</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['old_school_id']; ?></td>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['email']; ?></td>
+                            <td><?php echo $row['phone_number']; ?></td>
+                            <td><?php echo $row['graduate_career_field']; ?></td>
+                            <td><?php echo $row['status']; ?></td>
+                            <td><img src="<?php echo $row['image']; ?>" width="50" height="50" alt="Image"></td>
+                            <td>
+                                <a href="alumni.php?id=<?php echo $row['id']; ?>">Edit</a> |
+                                <a href="alumni.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="9">No alumni found</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<?php include '../components/modal-admin.php' ?>
 
     <script>
         // Allow file to be dropped
@@ -266,6 +245,36 @@ if (isset($_GET['id'])) {
             }
         }
     </script>
+
+    <script>
+        const modalMessage = "<?php echo $modal_message; ?>";
+        const modalType = "<?php echo $modal_type; ?>";
+    </script>
+
+    <script>
+        function showModal(type, message) {
+            const modalId = type === "success" ? "successModal" : "failModal";
+            const modal = document.getElementById(modalId);
+            const modalMessageElement = modal.querySelector(".modal-message");
+
+            // Set the modal message
+            modalMessageElement.textContent = message;
+
+            // Show the modal
+            modal.style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        // Automatically trigger the modal if there's a message
+        if (modalMessage && modalType) {
+            showModal(modalType, modalMessage);
+        }
+    </script>
+
 </body>
 </html>
 

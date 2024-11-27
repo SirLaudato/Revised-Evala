@@ -1,0 +1,82 @@
+/* Shared Modal Styles */
+.modal {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: -16%;
+  width: 100%;
+  overflow: auto;
+}
+
+.modal-content {
+  margin: 10% auto;
+  padding: 15px 20px;
+  width: 90%;
+  max-width: 440px;
+  height: 40px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  animation: slideDown 0.5s ease forwards; /* Default slide-down animation */
+}
+
+.modal-icon {
+  margin-right: 15px;
+}
+
+.modal-message {
+  font-size: 14px;
+  flex: 1;
+  text-align: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
+  cursor: pointer;
+  align-self: flex-start; /* Align button to the top */
+}
+
+.close-btn:hover svg path {
+  fill: #5a5a5a; /* Slightly darker on hover */
+}
+
+/* Specific Modal Styles */
+.fail-modal .modal-content {
+  background-color: #efa2a2;
+  color: #666464;
+}
+
+.success-modal .modal-content {
+  background-color: #caefa2;
+  color: #666464;
+}
+
+/* Animation for showing the modal */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation for hiding the modal */
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
