@@ -52,7 +52,7 @@ if (isset($_GET['delete'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        header("Location: courses.php");  // Redirect after successful deletion
+        header("Location: admin/courses.php");  // Redirect after successful deletion
         exit;
     } else {
         echo "Error deleting course: " . $conn->error;
@@ -86,10 +86,9 @@ if (isset($_GET['id'])) {
     
 </head>
 <body>
-    <header>
-        <h1>Course Management</h1>
-    </header>
-    <main>
+
+    <div class="parent-course-div">
+
         <div class="course-management">
             <h2><?php echo $course ? 'Edit Course' : 'Add New Course'; ?></h2>
             <form method="POST" action="courses.php">
@@ -160,7 +159,10 @@ if (isset($_GET['id'])) {
                 </tbody>
             </table>
         </div>
-    </main>
+    
+    </div>
+
+
 </body>
 </html>
 <?php
