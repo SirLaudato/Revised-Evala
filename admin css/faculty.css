@@ -37,6 +37,11 @@ table {
   font-size: 14px;
   color: var(--text-color);
   font-family: var(--font-family);
+  outline: none;
+  line-height: normal;
+  border: none;
+  resize: none;
+  overflow-y: auto;
 }
 
 input,
@@ -103,6 +108,7 @@ a:hover {
   background-color: var(--background-color);
   color: var(--placeholder);
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 #image-drop-zone:hover {
@@ -142,7 +148,7 @@ a:hover {
   background-color: var(--gray-color);
   padding: 15px;
   color: var(--text-color);
-  width: 60%;
+  width: 70%;
   padding: 40px;
 }
 
@@ -150,7 +156,7 @@ a:hover {
   background-color: var(--gray-color);
   padding: 15px;
   color: var(--text-color);
-  width: 40%;
+  width: 30%;
   padding: 40px;
 }
 

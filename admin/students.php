@@ -86,45 +86,6 @@
     <link rel="stylesheet" href="../admin css/admin global.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Styling for the table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        /* Styling for the image upload area */
-        #image-drop-zone {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            background-color: #f7f7f7;
-        }
-        #image-drop-zone:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Styling for the image preview */
-        #preview {
-            margin-top: 10px;
-            max-width: 100%;
-            max-height: 150px;
-        }
-        .upload-container p {
-            margin: 10px 0;
-        }
     </style>
 </head>
 <body>
