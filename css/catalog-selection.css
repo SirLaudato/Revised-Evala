@@ -208,6 +208,7 @@
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .questionnaire .check-other-button {
@@ -223,8 +224,10 @@
 
 .questionnaire .check-other-button:hover {
   background-color: var(--hollow-button-hover);
-  border-color: var(--hollow-button); /* Adjusted border color on hover */
-  cursor: pointer; /* Pointer cursor for hover */
+  border-color: var(--hollow-button);
+  /* Adjusted border color on hover */
+  cursor: pointer;
+  /* Pointer cursor for hover */
 }
 
 .questionnaire .start-eval-button {
@@ -237,18 +240,23 @@
   position: relative;
   align-self: stretch;
   width: 100%;
-  background-color: var(--dark-button); /* Background color */
-  color: white; /* Ensure text is visible */
-  border: none; /* No border */
-  font-size: 16px; /* Optional: Font size */
-  cursor: pointer; /* Pointer cursor */
+  background-color: var(--dark-button);
+  /* Background color */
+  color: white;
+  /* Ensure text is visible */
+  border: none;
+  /* No border */
+  font-size: 16px;
+  /* Optional: Font size */
+  cursor: pointer;
+  /* Pointer cursor */
+  text-decoration: none;
 }
 
 /* Hover state for the Start Evaluation button */
 .questionnaire .start-eval-button:hover {
-  background-color: var(
-    --dark-button-hover
-  ); /* Slightly lighter shade on hover */
+  background-color: var(--dark-button-hover);
+  /* Slightly lighter shade on hover */
 }
 
 /* Active state for the Start Evaluation button */

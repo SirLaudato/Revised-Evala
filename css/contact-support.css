@@ -196,16 +196,20 @@
   outline: none;
   line-height: normal;
   border: none;
-  resize: none; /* Prevents the textarea from being resized */
-  overflow-y: auto; /* Adds vertical scroll if text exceeds height */
+  resize: none;
+  /* Prevents the textarea from being resized */
+  overflow-y: auto;
+  /* Adds vertical scroll if text exceeds height */
 }
 
 input[type="text"]::placeholder,
 input[type="email"]::placeholder,
 input[type="password"]::placeholder,
 input[type="tel"]::placeholder {
-  color: var(--placeholder); /* Replace with your desired color */
-  opacity: 1; /* Ensure the color is fully visible */
+  color: var(--placeholder);
+  /* Replace with your desired color */
+  opacity: 1;
+  /* Ensure the color is fully visible */
 }
 
 textarea.input-field-3::placeholder {
@@ -468,12 +472,23 @@ textarea.input-field-3::placeholder {
   position: relative;
   align-self: stretch;
   width: 100%;
-  background-color: #f0f0f0;
-  border: 1px solid;
-  border-color: var(--hollow-button);
+  background-color: var(--dark-button);
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50px;
 
   &:hover {
     background-color: var(--hollow-button-hover);
+    border: 1px solid var(--text-color);
+
+
+    .text-wrapper-7 {
+      color: var(--text-color);
+      border-color: var(--text-color);
+
+    }
   }
 }
 
@@ -482,11 +497,12 @@ textarea.input-field-3::placeholder {
   width: fit-content;
   font-family: "Montserrat", Helvetica;
   font-weight: 500;
-  color: var(--text-color);
+  color: #ffffff;
   font-size: 20px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+
 }
 
 .send-message {
