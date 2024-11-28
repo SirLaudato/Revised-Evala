@@ -102,6 +102,7 @@ if (mysqli_num_rows($result) > 0) {
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 </head>
 
+
 <body>
     <div class="home-revised">
         <div class="navigator">

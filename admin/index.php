@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Professional Sidebar Design</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --text-color: #342928;
+            --background-color: #f4f4f3;
+            --gray-color: #ebebeb;
+            --placeholder: #a6a6a6;
+            --text-gray: #727271;
+            --font-family: "Montserrat", sans-serif;
+        }
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #eaeaea; /* Light grey for contrast */
-            color: #333; /* Dark grey for text */
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
         }
         .sidebar {
             width: 250px;
@@ -18,17 +27,18 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #1c1c1c; /* Black background */
+            background-color: var(--text-color); /* Black background */
             color: #f0f0f0; /* Light grey text */
             padding-top: 20px;
             padding-left: 15px;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
             transition: all 0.3s ease;
         }
         .sidebar h4 {
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
             color: #fff; /* White heading */
+            font-size: 30px;
+            font-style: italic;
         }
         .content {
             margin-left: 250px;
@@ -47,12 +57,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background 0.3s ease, color 0.3s ease;
+            font-family: inherit;
         }
         .dropdown-btn:hover {
-            background-color: #333; /* Darker grey on hover */
-            color: #fff; /* White text */
-        }
+            color: var(--text-gray); /* White text */
+        }  
+
         .dropdown-container {
             display: none;
             padding-left: 10px;
@@ -63,11 +73,9 @@
             padding: 8px 15px;
             display: flex;
             align-items: center;
-            transition: background 0.3s ease, color 0.3s ease;
         }
         .nav-link:hover {
-            background-color: #333; /* Darker grey */
-            color: #fff;
+            color: var(--text-gray); /* White text */
         }
         .nav-link i {
             margin-right: 8px;
@@ -81,11 +89,13 @@
         .content p {
             color: #4a4a4a; /* Medium grey for readability */
         }
+
+  
     </style>
 </head>
 <body>
 <div class="sidebar">
-    <h4>IAB</h4>
+    <img src="image-url.jpg" alt="Description of image">
     <button class="dropdown-btn">Home <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-container">
         <a href="criteria.php" class="nav-link"><i class="fas fa-star"></i> Criteria</a>
@@ -112,12 +122,7 @@
         <a href="evaluation.php" class="nav-link"><i class="fas fa-chart-line"></i> Evaluation</a>
     </div>
 </div>
-<div class="content">
-    <h2>Sidebar Dropdown</h2>
-    <p>Click on the dropdown button to open the dropdown menu inside the side navigation.</p>
-    <p>This sidebar is of full height (100%) and always shown.</p>
-    <p>Some random text..</p>
-</div>
+
 <script>
     var dropdown = document.getElementsByClassName("dropdown-btn");
     for (var i = 0; i < dropdown.length; i++) {
@@ -128,5 +133,7 @@
         });
     }
 </script>
+
+
 </body>
 </html>

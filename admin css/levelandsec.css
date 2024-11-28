@@ -27,6 +27,7 @@ h2 {
 
 form {
   background-color: var(--gray-color);
+  overflow-x: clip;
 }
 
 input,
