@@ -1,6 +1,3 @@
-
-
-
 <?php
 session_start();
 if (!isset($_SESSION['emailaddress'])) {
@@ -105,10 +102,13 @@ mysqli_close($con);
               $course_query = "
     SELECT DISTINCT `courses`.`course_id`
     FROM `users` 
-    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
-    LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
+    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
+    LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
+    LEFT JOIN `courses` ON `courses`.`course_id` = IFNULL(`students`.`course_id`, `alumni`.`course_id`)
     LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
-    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
+";
+
 
               $result = $con->query($course_query);
 
@@ -137,7 +137,7 @@ mysqli_close($con);
                                                 LEFT JOIN 
                                                 `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
                                                 WHERE 
-                                                `evaluations`.`active_flag` = 1
+                                                `user_evaluations`.`has_answered` = 1
                                                 AND `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
 
                     $total_evaluation_query = "SELECT 
@@ -149,7 +149,7 @@ mysqli_close($con);
                                                 LEFT JOIN 
                                                 `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
                                                 WHERE 
-                                                `evaluations`.`course_id` = 1
+                                                `evaluations`.`course_id` = " . intval($course_row["course_id"]) . "
                                                 AND `users`.`user_id`= " . intval($_SESSION["user_id"]) . ";";
 
                     $total_result = mysqli_query($con, $total_evaluation_query);
@@ -171,18 +171,38 @@ mysqli_close($con);
                       continue; // Skip to next iteration
                     }
 
+                    $_SESSION["course_id"] = $course_id = $course_row["course_id"];
+                    $_SESSION["course_name"] = $course_name = $course_row["course_name"];
+
 
                     if ($active_evaluations === $total_evaluations) {
                       $status = "Active";
+                      echo '
+                <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                    <div class="curriculum-container">
+                        <div class="frame-7"></div>
+                        <div class="frame-8">
+                            <div class="frame-9">
+                                <div class="div-wrapper">
+                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                </div>
+                                <div class="frame-3">
+                                    <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                </div>
+                            </div>
+                            <div class="div-wrapper">
+                                <span class="evaluation-label">Deadline:</span>
+                                <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            ';
                     } elseif (empty($active_evaluations)) {
                       $status = "Inactive";
                     } else {
                       $status = "Pending";
-
-                    }
-
-
-            echo '
+                      echo '
                 <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
                     <div class="curriculum-container">
                         <div class="frame-7"></div>
@@ -204,6 +224,10 @@ mysqli_close($con);
                 </a>
             ';
 
+                    }
+
+
+
 
 
                   }
@@ -219,7 +243,7 @@ mysqli_close($con);
 
 
 
-              
+
               ?>
             </div>
           </div>
@@ -232,63 +256,31 @@ mysqli_close($con);
               </div>
               <div class="frame-6">
 
-
-                <div class="curriculum-container">
-                  <div class="frame-7"></div>
-                  <div class="frame-8">
-                    <div class="frame-9">
-                      <div class="div-wrapper">
-                        <div class="text-wrapper-5">Evaluation Status</div>
-                      </div>
-                      <div class="frame-3">
-                        <div class="text-wrapper-4">Curriculum Name</div>
-                      </div>
+                <?php if ($status === "Inactive") {
+                  echo '
+                <a href="catalog-selection.php?course_id=' . urlencode($_SESSION["course_id"]) . '">
+                    <div class="curriculum-container">
+                        <div class="frame-7"></div>
+                        <div class="frame-8">
+                            <div class="frame-9">
+                                <div class="div-wrapper">
+                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                </div>
+                                <div class="frame-3">
+                                    <div class="text-wrapper-4">' . htmlspecialchars($_SESSION["course_name"]) . '</div>
+                                </div>
+                            </div>
+                            <div class="div-wrapper">
+                                <span class="evaluation-label">Deadline:</span>
+                                <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="div-wrapper">
-                      <div class="text-wrapper-6">Evaluation Deadline</div>
-                    </div>
-                  </div>
-                </div>
+                </a>
+            ';
+                }
 
-
-                <div class="curriculum-container">
-                  <div class="frame-7"></div>
-                  <div class="frame-8">
-                    <div class="frame-9">
-                      <div class="div-wrapper">
-                        <div class="text-wrapper-5">Evaluation Status</div>
-                      </div>
-                      <div class="frame-3">
-                        <di class="text-wrapper-4">Curriculum Name</di v>
-                      </div>
-                    </div>
-                    <div class="div-wrapper">
-                      <div class="text-wrapper-6">Evaluation Deadline</div>
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-                <div class="curriculum-container">
-                  <div class="frame-7"></div>
-                  <div class="frame-8">
-                    <div class="frame-9">
-                      <div class="div-wrapper">
-                        <div class="text-wrapper-5">Evaluation Status</div>
-                      </div>
-                      <div class="frame-3">
-                        <div class="text-wrapper-4">Curriculum Name</div>
-                      </div>
-                    </div>
-                    <div class="div-wrapper">
-                      <div class="text-wrapper-6">Evaluation Deadline</div>
-                    </div>
-                  </div>
-
-
-                </div>
+                ?>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $_SESSION["student_number"] = $row["student_number"];
                         $_SESSION["active_flag"] = $row["active_flag"];
                         $_SESSION["attempts"] = $row["attempts"];
-
+                        $_SESSION["user_id"] = $row["user_id"];
                         // Reset attempts on successful login
                         $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
                         mysqli_query($con, $sql_reset);
@@ -97,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $_SESSION["student_number"] = $row["student_number"];
                         $_SESSION["active_flag"] = $row["active_flag"];
                         $_SESSION["attempts"] = $row["attempts"];
+                        $_SESSION["user_id"] = $row["user_id"];
 
                         // Reset attempts on successful login
                         $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
