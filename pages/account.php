@@ -121,6 +121,8 @@ mysqli_close($con);
                                 <div>
                                     <?php if ($_SESSION['role'] == 'Faculty') {
                                         echo '<input type="text" id="department" name="department" readonly placeholder=' . $_SESSION['Department'] . '>';
+                                    } elseif ($_SESSION['role'] == 'Alumni') {
+                                        echo '<input type="text" id="course_name" name="course_name" readonly placeholder=' . $_SESSION['student_number'] . '>';
                                     } else {
                                         echo '<input type="text" id="student_number" name="student_number" readonly placeholder=' . $_SESSION['student_number'] . '>';
                                     }

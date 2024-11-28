@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../components/all.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,700&display=swap" />
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
+
 </head>
 
 <body>

@@ -26,6 +26,8 @@ if ($_SESSION['role'] == 'Alumni') {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $_SESSION['password'] = $row['password'];
+        $_SESSION['student_number'] = $row['student_number'];
+
         if (password_verify('1234', $row['password'])) {
             $modalTitle = "Change Password";
             $modalMessage = "Please change your password immediately.";

@@ -479,7 +479,7 @@ tbody td {
   border-bottom: 1px solid #ddd;
 }
 
-td.question {
+.question {
   text-align: left;
   width: 40%;
 }
@@ -490,19 +490,23 @@ input[type="radio"] {
   width: 20px;
   height: 20px;
   border: 2px solid #666;
-  border-radius: 50%; /* Makes it circular */
+  border-radius: 50%;
+  /* Makes it circular */
   outline: none;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.3s;
 }
 
 input[type="radio"]:checked {
-  background-color: var(--text-color); /* Fill with the desired color */
-  border-color: var(--text-color); /* Optionally change the border */
+  background-color: var(--text-color);
+  /* Fill with the desired color */
+  border-color: var(--text-color);
+  /* Optionally change the border */
 }
 
 :root {
-  --text-color: #007bff; /* Example color */
+  --text-color: #007bff;
+  /* Example color */
 }
 
 .submit-btn {
@@ -517,17 +521,21 @@ input[type="radio"]:checked {
   position: relative;
   align-self: stretch;
   width: 100%;
-  background-color: var(--dark-button); /* Background color */
-  color: white; /* Ensure text is visible */
-  border: none; /* No border */
-  font-size: 20px; /* Optional: Font size */
-  cursor: pointer; /* Pointer cursor */
+  background-color: var(--dark-button);
+  /* Background color */
+  color: white;
+  /* Ensure text is visible */
+  border: none;
+  /* No border */
+  font-size: 20px;
+  /* Optional: Font size */
+  cursor: pointer;
+  /* Pointer cursor */
 }
 
 .submit-btn:hover {
-  background-color: var(
-    --dark-button-hover
-  ); /* Slightly lighter shade on hover */
+  background-color: var(--dark-button-hover);
+  /* Slightly lighter shade on hover */
 }
 
 ol li {
@@ -573,10 +581,12 @@ ol li {
   top: 5.8em;
   left: 0;
   width: 40%;
-  color: var(--text-color, black); /* Add a fallback color */
+  color: var(--text-color, black);
+  /* Add a fallback color */
   z-index: 1000;
   left: 450px;
-  background-color: var(--background-color, #f9f9f9); /* Add a fallback */
+  background-color: var(--background-color, #f9f9f9);
+  /* Add a fallback */
 }
 
 #progress-bar {
@@ -584,13 +594,16 @@ ol li {
   background-color: #ebebeb;
   height: 10px;
   overflow: hidden;
-  border-radius: 5px; /* Optional: Make it rounded */
+  border-radius: 5px;
+  /* Optional: Make it rounded */
 }
 
-#progress-bar > div {
+#progress-bar>div {
   height: 100%;
-  background-color: var(--text-color, black); /* Add a fallback color */
-  transition: width 0.4s ease; /* Smooth transition */
+  background-color: var(--text-color, black);
+  /* Add a fallback color */
+  transition: width 0.4s ease;
+  /* Smooth transition */
 }
 
 .progress-text {
