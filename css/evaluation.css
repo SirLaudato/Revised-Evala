@@ -12,14 +12,6 @@
   margin-top: 150px;
 }
 
-.questionnaire .frame {
-  display: inline-flex;
-  align-items: center;
-  gap: 400px;
-  position: relative;
-  flex: 0 0 auto;
-}
-
 .questionnaire .div-wrapper {
   display: inline-flex;
   align-items: center;

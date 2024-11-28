@@ -1,0 +1,163 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700,600,italic");
+
+:root {
+  --text-color: #342928;
+  --background-color: #f4f4f3;
+  --gray-color: #ebebeb;
+  --placeholder: #a6a6a6;
+  --text-gray: #727271;
+  --font-family: "Montserrat", sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+}
+
+h1,
+h2 {
+  font-size: 20px;
+  margin: 0 0 15px;
+  color: var(--text-color);
+}
+
+p,
+label,
+select,
+input,
+table {
+  font-size: 14px;
+  color: var(--text-color);
+  font-family: var(--font-family);
+  outline: none;
+  line-height: normal;
+  border: none;
+  resize: none; /* Prevents the textarea from being resized */
+  overflow-y: auto;
+}
+
+form {
+  background-color: var(--gray-color);
+  border: none;
+  overflow-x: hidden;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  /* margin-top: 5px; */
+  /* margin-bottom: 15px; */
+  border: 1px solid var(--gray-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder);
+}
+
+input[type="submit"] {
+  width: auto;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 300;
+  font-family: var(--font-family);
+}
+
+input[type="submit"]:hover {
+  background-color: var(--text-gray);
+}
+
+#image-drop-zone {
+  border: 2px dashed var(--gray-color);
+  padding: 20px;
+  text-align: center;
+  background-color: var(--background-color);
+  color: var(--placeholder);
+  cursor: pointer;
+}
+
+#image-drop-zone:hover {
+  background-color: var(--gray-color);
+}
+
+#preview {
+  margin-top: 10px;
+  max-width: 100%;
+  max-height: 150px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: var(--background-color);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid var(--gray-color);
+}
+
+th {
+  background-color: var(--gray-color);
+  font-weight: 400;
+}
+
+tr:nth-child(even) {
+  background-color: var(--gray-color);
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-gray);
+}
+
+.parent-alumni-div {
+  display: flex;
+  gap: 20px; /* Space between the two containers */
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.alumni-add {
+  background-color: var(--gray-color);
+  /* padding: 15px; */
+  color: var(--text-color);
+  width: 40%;
+  padding: 40px;
+}
+
+.alumni-records {
+  background-color: var(--gray-color);
+  padding: 15px;
+  color: var(--text-color);
+  width: 60%;
+  padding: 40px;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: var(--placeholder); /* Replace with your desired color */
+  opacity: 1; /* Ensure the color is fully visible */
+}
