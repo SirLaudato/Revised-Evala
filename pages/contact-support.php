@@ -52,37 +52,45 @@ require __DIR__ . '/../vendor/autoload.php';
     <?php
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    require __DIR__ . '/../vendor/autoload.php';
 
-    $mail = new PHPMailer(true);
+        require __DIR__ . '/../vendor/autoload.php';
 
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Correct Gmail SMTP server
-        $mail->SMTPAuth = true;
-        $mail->Username = 'evala2406@gmail.com'; // Your Gmail email address
-        $mail->Password = 'ojrc bcjp mmzl ujpr'; // Your App Password (if 2FA is enabled)
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587; // For TLS, 465 for SSL
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // Correct Gmail SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'evala2406@gmail.com'; // Your Gmail email address
+            $mail->Password = 'ojrc bcjp mmzl ujpr'; // Your App Password (if 2FA is enabled)
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587; // For TLS, 465 for SSL
     
-
-        // Recipients
-        $mail->setFrom('innovatio.evala@gmail.com', $_POST['name']);
-        $mail->addAddress('innovatio.evala@gmail.com', 'Innovatio');
-        $mail->addReplyTo($_POST['email'], $_POST['name']);
-
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = $_POST['subject'];
-        $mail->Body = $_POST['message'];
-        $mail->send();
-        echo "Message has been sent successfully!";
-    } catch (Exception $e) {
-        echo "Mailer Error: {$mail->ErrorInfo}";
+            // Recipients
+            $mail->setFrom('innovatio.evala@gmail.com', $_POST['name']); // Default from address
+            $mail->addAddress('innovatio.evala@gmail.com', 'Innovatio');
+            $mail->addReplyTo($_POST['email'], $_POST['name']); // Make sure 'email' and 'name' are sanitized
+    
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = htmlspecialchars($_POST['subject']); // Ensure special chars are escaped
+            $mail->Body = nl2br(htmlspecialchars($_POST['message'])); // Escape message and preserve line breaks
+    
+            // Send the email
+            $mail->send();
+            echo "Message has been sent successfully!";
+        } catch (Exception $e) {
+            echo "Mailer Error: {$mail->ErrorInfo}";
+        }
+    } else {
+        // It's better to return a proper response instead of just exiting
+        exit;
     }
     ?>
+
 
 
 
