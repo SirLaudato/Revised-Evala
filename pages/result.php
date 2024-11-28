@@ -1,3 +1,8 @@
+<?php
+session_start();
+ob_start(); // Turn on output buffering
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,17 +11,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/evaluation.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="../components/modal.css">
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
+
+    <title>View Results</title>
 </head>
 
 <body>
     <div class="questionnaire-evaluation">
         <?php
+
         // Ensure the course_id and evaluation_id are passed
         if (!isset($_GET['course_id']) || !isset($_GET['evaluation_id'])) {
             die("Error: course_id or evaluation_id is not set.");
         }
-
+        $modalTitle = "";
+        $modalMessage = "";
         $course_id = $_GET['course_id'];
         $evaluation_id = $_GET['evaluation_id'];
         $user_id = $_SESSION['user_id'];  // Assuming session contains user_id
@@ -69,13 +79,30 @@
                     $update_flag_stmt->execute();
                 }
             }
+            $modalTitle = "Success";
+            $modalMessage = "Responses saved successfully!";
+            $_SESSION['status'] = "Completed";
+            echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            showModal('success', '$modalMessage');
+                            setTimeout(function() {
+                                window.location.href = '../pages/catalog-selection.php?course_id=" . urlencode($course_id) . "';
+                            }, 3000); // Redirect after 3 seconds
+                        });
+                    </script>";
 
-
-
-            echo "<div class='success-message'>Responses saved successfully and statuses updated!</div>";
         }
-
+        ob_end_flush(); // End output buffering
         // Fetch evaluation and criteria to render the form
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "evala_db1";
+        $con = new mysqli($servername, $username, $password, $database);
+
+        if ($con->connect_error) {
+            die("Connection Failed: " . $con->connect_error);
+        }
         $evaluation_query = "SELECT * FROM evaluations WHERE evaluation_id = ? AND course_id = ?";
         $stmt = $con->prepare($evaluation_query);
         $stmt->bind_param("ii", $evaluation_id, $course_id);
@@ -115,41 +142,34 @@
                                 <thead>
                                     <tr>
                                         <th>Question</th>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>4</th>
-                                        <th>5</th>
+                                        <th>Rate</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $questions_query = "SELECT * FROM questionnaire WHERE criteria_id = ?";
+                                    // Query to get questions and their ratings
+                                    $questions_query = "
+                                SELECT q.question, q.question_id, er.rate 
+                                FROM questionnaire q
+                                LEFT JOIN evaluation_results er ON q.question_id = er.question_id
+                                WHERE q.criteria_id = ? AND er.user_id = ?"; // Assuming user_id is needed for personalized results
                                     $questions_stmt = $con->prepare($questions_query);
-                                    $questions_stmt->bind_param("i", $criteria_id);
+                                    $questions_stmt->bind_param("ii", $criteria_id, $user_id); // Bind criteria_id and user_id
                                     $questions_stmt->execute();
                                     $questions_result = $questions_stmt->get_result();
 
                                     if ($questions_result->num_rows > 0) {
                                         while ($question_row = $questions_result->fetch_assoc()) {
+                                            $rate = $question_row['rate'] ?? 'Not Rated'; // Default if no rate is found
                                             ?>
                                             <tr>
                                                 <td class="question"><?php echo htmlspecialchars($question_row['question']); ?></td>
-                                                <td><input type="radio" name="answers[<?php echo $question_row['question_id']; ?>]"
-                                                        value="1" required></td>
-                                                <td><input type="radio" name="answers[<?php echo $question_row['question_id']; ?>]"
-                                                        value="2"></td>
-                                                <td><input type="radio" name="answers[<?php echo $question_row['question_id']; ?>]"
-                                                        value="3"></td>
-                                                <td><input type="radio" name="answers[<?php echo $question_row['question_id']; ?>]"
-                                                        value="4"></td>
-                                                <td><input type="radio" name="answers[<?php echo $question_row['question_id']; ?>]"
-                                                        value="5"></td>
+                                                <td class="rate"><?php echo htmlspecialchars($rate); ?></td>
                                             </tr>
                                             <?php
                                         }
                                     } else {
-                                        echo "<tr><td colspan='6'>No questions available for this section.</td></tr>";
+                                        echo "<tr><td colspan='2'>No questions or ratings available for this section.</td></tr>";
                                     }
                                     ?>
                                 </tbody>
@@ -162,8 +182,8 @@
                 echo "No active criteria found for this evaluation.";
             }
             ?>
-            <button type="submit" class="submit-btn">Submit Evaluation</button>
-            <button type="button" class="cancel-btn" onclick="window.location.href='course_list.php'">Cancel</button>
+            <button type="button" class="cancel-btn"
+                onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Cancel</button>
         </form>
 
 

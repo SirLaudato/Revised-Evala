@@ -72,7 +72,48 @@ if ($evaluation_result->num_rows > 0) {
     $evaluation_end_date = "N/A";
 }
 
+// Prepare the SQL query
+$sql_query = "
+                SELECT 
+                    `users`.`user_id`, 
+                    `user_evaluations`.`user_eval_id`, 
+                    `user_evaluations`.`has_answered`, 
+                    `evaluations`.`evaluation_id`, 
+                    `evaluations`.`active_flag` AS `evaluation_active_flag`, 
+                    `criteria`.`criteria_id`, 
+                    `criteria`.`active_flag` AS `criteria_active_flag`, 
+                    `questionnaire`.*, 
+                    `evaluation_results`.*
+                FROM `users` 
+                LEFT JOIN `user_evaluations` ON `user_evaluations`.`user_id` = `users`.`user_id` 
+                LEFT JOIN `evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id` 
+                LEFT JOIN `criteria` ON `evaluations`.`criteria_id` = `criteria`.`criteria_id` 
+                LEFT JOIN `questionnaire` ON `questionnaire`.`criteria_id` = `criteria`.`criteria_id` 
+                LEFT JOIN `evaluation_results` ON `evaluation_results`.`user_id` = `users`.`user_id`
+                WHERE `users`.`user_id` = ?;";
+
+// Prepare the statement
+$stmt = $con->prepare($sql_query);
+
+// Bind the parameter
+$stmt->bind_param("i", $user_id);
+
+// Execute the statement
+$stmt->execute();
+
+// Get the result
+$result = $stmt->get_result();
+
+if ($result && $result->num_rows > 0) {
+    $evaluation = $result->fetch_assoc();
+
+    // Extract data from the query result
+    $course_id = $evaluation['course_id'] ?? null;
+
+}
+// Free resources
 $stmt->close();
+
 $con->close();
 ?>
 
@@ -86,7 +127,7 @@ $con->close();
     <link rel="stylesheet" href="../css/catalog-selection.css" />
     <link rel="stylesheet" href="../components/all.css">
     <link rel="stylesheet" href="../components/modal.css">
-    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="../innovatio-icon.png" sizes="16x16">
 
 </head>
 
@@ -124,15 +165,27 @@ $con->close();
                                 <button class="start-eval-button" name="start-evaluation" onclick="handleStartEvaluation(event);">
                                     <span class="text-wrapper-6">Start Evaluation</span>
                                 </button>
-                            </a>'
+                            </a>
+                            <a href="catalog.php">
+                                <button class="check-other-button">
+                                    <span class="text-wrapper-7">Check Other Evaluation</span>
+                                </button>
+                            </a>
+                            <a href = "result.php?course_id=' . $course_id . '&evaluation_id=' . $evaluation_id . ' &user_id=' . $_SESSION['user_id'] . '">View Results >></a>'
+
                             ;
 
 
 
+
                         } else {
-                            echo '<a href="evaluation.php?course_id=' . $course_id . '&evaluation_id=' . $evaluation_id . '">
+                            echo '<a href="evaluation.php?course_id=' . $course_id . '&evaluation_id=' . $evaluation_id . '&user_id=' . $_SESSION['user_id'] . '">
                                 <button class="start-eval-button">
                                     <span class="text-wrapper-6">Start Evaluation</span>
+                                </button>
+                            </a><a href="catalog.php">
+                                <button class="check-other-button">
+                                    <span class="text-wrapper-7">Check Other Evaluation</span>
                                 </button>
                             </a>';
 
@@ -142,11 +195,7 @@ $con->close();
                         echo "<p>No active evaluation available for this course.</p>";
                     }
                     ?>
-                    <a href="catalog.php">
-                        <button class="check-other-button">
-                            <span class="text-wrapper-7">Check Other Evaluation</span>
-                        </button>
-                    </a>
+
                 </div>
             </div>
         </div>

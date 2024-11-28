@@ -15,7 +15,7 @@ require __DIR__ . '/../vendor/autoload.php';
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,700&display=swap" />
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
-
+    <title>Contact Support</title>
 </head>
 
 <body>
