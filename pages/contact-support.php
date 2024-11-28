@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+?>
+!DOCTYPE html>
 <html>
 
 <head>
@@ -14,7 +17,6 @@
 
 <body>
     <div class="customer-support">
-
         <div class="navigator">
             <?php include('../components/nav.php') ?>
         </div>
@@ -30,22 +32,62 @@
                     <p class="text-wrapper-5">Have a question? Reach out, and we’ll get back to you soon.</p>
                 </div>
                 <div class="frame-4">
-                    <input class="input-field" placeholder="Your Name" type="text" />
-                    <input class="input-field-2" placeholder="Your E-mail" type="text">
-                    <input class="input-field" placeholder="Phone Number" type="tel" />
-                    <input class="input-field-2" placeholder="Subject" type="text">
-                    <textarea class="input-field-3" placeholder="Message" type="text"></textarea>
+                    <form method="POST">
+                        <input class="input-field" name="name" placeholder="Your Name" type="text" required />
+                        <input class="input-field-2" name="email" placeholder="Your E-mail" type="email" required />
+                        <input class="input-field-2" name="subject" placeholder="Subject" type="text" required />
+                        <textarea class="input-field-3" name="message" placeholder="Message" required></textarea>
 
-                    <div class="send-message">
-                        <button class="button">
-                            <span class="text-wrapper-7">Send Message</span>
-                        </button>
-                    </div>
+                        <div class="send-message">
+                            <button class="button" type="submit">
+                                <span class="text-wrapper-7">Send Message</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <?php include '../components/footer.php' ?>
+    <?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    require __DIR__ . '/../vendor/autoload.php';
+
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Correct Gmail SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'evala2406@gmail.com'; // Your Gmail email address
+        $mail->Password = 'ojrc bcjp mmzl ujpr'; // Your App Password (if 2FA is enabled)
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587; // For TLS, 465 for SSL
+    
+
+        // Recipients
+        $mail->setFrom('innovatio.evala@gmail.com', $_POST['name']);
+        $mail->addAddress('innovatio.evala@gmail.com', 'Innovatio');
+        $mail->addReplyTo($_POST['email'], $_POST['name']);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $_POST['subject'];
+        $mail->Body = $_POST['message'];
+        $mail->send();
+        echo "Message has been sent successfully!";
+    } catch (Exception $e) {
+        echo "Mailer Error: {$mail->ErrorInfo}";
+    }
+    ?>
+
+
+
+
+    <?php include '../components/footer.php' ?>
     </div>
 </body>
 
