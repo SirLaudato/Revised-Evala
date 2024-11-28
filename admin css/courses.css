@@ -23,6 +23,7 @@ h2 {
   margin: 0 0 15px;
   color: var(--text-color);
   font-weight: 400;
+  margin-top: -2px;
 }
 
 p,
@@ -47,7 +48,7 @@ table {
   background-color: var(--gray-color);
   /* padding: 15px; */
   color: var(--text-color);
-  width: 40%;
+  width: 30%;
   padding: 40px;
 }
 
@@ -55,7 +56,7 @@ table {
   background-color: var(--gray-color);
   padding: 15px;
   color: var(--text-color);
-  width: 60%;
+  width: 70%;
   padding: 40px;
 }
 
@@ -75,6 +76,11 @@ select {
   background-color: var(--background-color);
   color: var(--text-color);
   margin-bottom: 15px;
+  outline: none;
+  line-height: normal;
+  border: none;
+  resize: none;
+  overflow-y: auto;
 }
 
 input::placeholder {
@@ -114,14 +120,10 @@ th {
   font-weight: 400;
 }
 
-tr:nth-child(even) {
-  background-color: var(--background-color);
-}
-
 a {
   color: var(--text-color);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 a:hover {

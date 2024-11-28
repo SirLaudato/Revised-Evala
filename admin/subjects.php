@@ -80,70 +80,81 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Subject Management</title>
+    <link rel="stylesheet" href="../admin css/subject.css">
+    <link rel="stylesheet" href="../admin css/admin global.css">
 </head>
 <body>
-    <h1>Subject Management</h1>
 
-    <!-- Create or Edit Subject Form -->
-    <form method="POST" action="subjects.php">
-        <?php if ($subject): ?>
-            <h2>Edit Subject</h2>
-            <input type="hidden" name="id" value="<?php echo $subject['id']; ?>" />
-        <?php else: ?>
-            <h2>Add New Subject</h2>
-        <?php endif; ?>
+<div class="subject-parent-div">
 
-        <!-- Subject Name Input -->
-        <label for="subject_name">Subject Name:</label>
-        <input type="text" id="subject_name" name="subject_name" placeholder="Algebra" value="<?php echo ($subject ? $subject['subject_name'] : ''); ?>" required><br><br>
+    <div class="subject-add">
+        <!-- Create or Edit Subject Form -->
+        <form method="POST" action="subjects.php">
+            <?php if ($subject): ?>
+                <h2>Edit Subject</h2>
+                <input type="hidden" name="id" value="<?php echo $subject['id']; ?>" />
+            <?php else: ?>
+                <h2>Add New Subject</h2>
+            <?php endif; ?>
 
-        <!-- Subject Code Input -->
-        <label for="subject_code">Subject Code:</label>
-        <input type="text" id="subject_code" name="subject_code" placeholder="MATH101" value="<?php echo ($subject ? $subject['subject_code'] : ''); ?>" required><br><br>
+            <!-- Subject Name Input -->
+            <label for="subject_name">Subject Name:</label>
+            <input type="text" id="subject_name" name="subject_name" placeholder="Algebra" value="<?php echo ($subject ? $subject['subject_name'] : ''); ?>" required><br><br>
 
-        <!-- Description Input -->
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" placeholder="Studies certain abstract systems" value="<?php echo ($subject ? $subject['description'] : ''); ?>" required><br><br>
+            <!-- Subject Code Input -->
+            <label for="subject_code">Subject Code:</label>
+            <input type="text" id="subject_code" name="subject_code" placeholder="MATH101" value="<?php echo ($subject ? $subject['subject_code'] : ''); ?>" required><br><br>
 
-        <input type="submit" value="<?php echo $subject ? 'Update Subject' : 'Create Subject'; ?>">
-    </form>
+            <!-- Description Input -->
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" placeholder="Studies certain abstract systems" value="<?php echo ($subject ? $subject['description'] : ''); ?>" required><br><br>
 
-    <hr>
+            <input type="submit" value="<?php echo $subject ? 'Update Subject' : 'Create Subject'; ?>">
+        </form>
+    </div>
 
-    <!-- Display List of Subjects -->
-    <h2>Subjects List</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Subject Name</th>
-                <th>Subject Code</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Fetch all subjects
-            $sql = "SELECT * FROM subjects";
-            $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()) {
-            ?>
-            <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['subject_name']; ?></td>
-                <td><?php echo $row['subject_code']; ?></td>
-                <td><?php echo $row['description']; ?></td>
-                <td>
-                    <a href="subjects.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                    <a href="subjects.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this subject?')">Delete</a>
-                </td>
-            </tr>
-            <?php
-            }
-            ?>
-        </tbody>
-    </table>
+    <div class="subject-list">
+        <!-- Display List of Subjects -->
+        <h2>Subjects List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject Name</th>
+                    <th>Subject Code</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <?php
+                // Fetch all subjects
+                $sql = "SELECT * FROM subjects";
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['subject_name']; ?></td>
+                    <td><?php echo $row['subject_code']; ?></td>
+                    <td><?php echo $row['description']; ?></td>
+                    <td>
+                        <a href="subjects.php?id=<?php echo $row['id']; ?>">Edit</a> |
+                        <a href="subjects.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this subject?')">Delete</a>
+                    </td>
+                </tr>
+                <?php
+                }
+                ?>
+
+                
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 </body>
 </html>

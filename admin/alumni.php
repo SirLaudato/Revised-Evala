@@ -183,6 +183,8 @@ if (isset($_GET['id'])) {
                 </tr>
             </thead>
             <tbody>
+
+            
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
@@ -205,6 +207,8 @@ if (isset($_GET['id'])) {
                         <td colspan="9">No alumni found</td>
                     </tr>
                 <?php endif; ?>
+
+
             </tbody>
         </table>
     </div>
