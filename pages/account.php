@@ -229,9 +229,6 @@ mysqli_close($con);
     <?php include '../components/footer.php' ?>
 
     </body>
-
-
-
     <script>
         function showModal(message) {
             const modal = document.getElementById("alertModal");

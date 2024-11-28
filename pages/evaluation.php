@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['emailaddress'])) {
+    header("Location: ../pages/login.php");
+    exit();
+}
+ob_start(); // Start output buffering
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -24,15 +30,6 @@ if (isset($_GET['course_id'])) {
     $stmt->fetch();
 
     // Check if course was found
-    if (!$course_name) {
-        die("Error: Course not found.");
-    }
-} else {
-    session_start();
-    session_destroy();
-
-    header("Location: ../pages/login.php");
-    exit();
 }
 ?>
 
@@ -64,6 +61,7 @@ if ($course_result->num_rows > 0) {
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/evaluation.css" />
+    <link rel="stylesheet" href="../components/modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
@@ -110,7 +108,8 @@ if ($course_result->num_rows > 0) {
             if (!isset($_GET['course_id']) || !isset($_GET['evaluation_id'])) {
                 die("Error: course_id or evaluation_id is not set.");
             }
-
+            $modalTitle = "";
+            $modalMessage = "";
             $course_id = $_GET['course_id'];
             $evaluation_id = $_GET['evaluation_id'];
             $user_id = $_SESSION['user_id'];  // Assuming session contains user_id
@@ -163,12 +162,20 @@ if ($course_result->num_rows > 0) {
                         $update_flag_stmt->execute();
                     }
                 }
+                $modalTitle = "Success";
+                $modalMessage = "Responses saved successfully!";
+                $_SESSION['status'] = "Completed";
+                echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            showModal('success', '$modalMessage');
+                            setTimeout(function() {
+                                window.location.href = '../pages/catalog-selection.php?course_id=" . urlencode($course_id) . "';
+                            }, 3000); // Redirect after 3 seconds
+                        });
+                    </script>";
 
-
-
-                echo "<div class='success-message'>Responses saved successfully and statuses updated!</div>";
             }
-
+            ob_end_flush(); // End output buffering
             // Fetch evaluation and criteria to render the form
             $evaluation_query = "SELECT * FROM evaluations WHERE evaluation_id = ? AND course_id = ?";
             $stmt = $con->prepare($evaluation_query);
@@ -257,8 +264,11 @@ if ($course_result->num_rows > 0) {
                 }
                 ?>
                 <button type="submit" class="submit-btn">Submit Evaluation</button>
+
+
+
                 <button type="button" class="cancel-btn"
-                    onclick="window.location.href='course_list.php'">Cancel</button>
+                    onclick="window.location.href=' course_list.php'">Cancel</button>
             </form>
 
 
@@ -314,9 +324,95 @@ if ($course_result->num_rows > 0) {
                 updateProgress();  // Initialize progress on page load
             });
         </script>
-
+        <?php include '../pages/modal.php' ?>
         <?php include '../components/footer.php' ?>
     </div>
 </body>
+<script>
+    function showModal(message) {
+        const modal = document.getElementById("alertModal");
+        const modalMessage = modal.querySelector(".modal-message");
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("alertModal");
+        modal.style.display = "none";
+    }
+
+    <?php if ($modalTitle && $modalMessage): ?>
+        showModal("<?= htmlspecialchars($modalMessage) ?>");
+    <?php endif; ?>
+</script>
 
 </html>
+
+<script>
+    function showModal(type, message) {
+        // Determine the correct modal ID based on type
+        const modalId = type === 'success' ? 'successModal' : 'failModal';
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalMessage = modal.querySelector('.modal-message');
+
+            // Set the message and make the modal visible
+            if (modalMessage) modalMessage.textContent = message;
+
+            modal.style.display = 'block';
+            const modalContent = modal.querySelector('.modal-content');
+
+            if (modalContent) {
+                modalContent.style.animation = 'slideDown 0.5s ease forwards';
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+
+        if (modal) {
+            const modalContent = modal.querySelector('.modal-content');
+
+            // Apply slide-up animation before hiding
+            if (modalContent) {
+                modalContent.style.animation = 'slideUp 0.5s ease forwards';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 200); // Match the animation duration
+            }
+        } else {
+            console.error(`Modal with ID "${modalId}" not found.`);
+        }
+    }
+</script>
+
+
+<?php if (!empty($modalTitle) && !empty($modalMessage)): ?>
+    <script>
+        showModal('<?php echo strtolower($modalTitle); ?>', '<?php echo $modalMessage; ?>');
+    </script>
+<?php endif; ?>
+
+<script>
+    window.addEventListener('click', function (event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) {
+                    // Apply slide-up animation
+                    modalContent.style.animation = 'slideUp 0.5s ease forwards';
+
+                    // Wait for the animation to complete before hiding the modal
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 200); // Match the animation duration
+                }
+            }
+        });
+    });
+</script>

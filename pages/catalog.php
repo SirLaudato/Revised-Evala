@@ -176,7 +176,7 @@ mysqli_close($con);
 
 
                     if ($active_evaluations === $total_evaluations) {
-                      $status = "Active";
+                      $_SESSION["status"] = "Not yet completed";
                       echo '
                 <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
                     <div class="curriculum-container">
@@ -184,7 +184,7 @@ mysqli_close($con);
                         <div class="frame-8">
                             <div class="frame-9">
                                 <div class="div-wrapper">
-                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                    <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
                                 </div>
                                 <div class="frame-3">
                                     <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
@@ -199,9 +199,9 @@ mysqli_close($con);
                 </a>
             ';
                     } elseif (empty($active_evaluations)) {
-                      $status = "Inactive";
+                      $_SESSION["status"] = "Completed";
                     } else {
-                      $status = "Pending";
+                      $_SESSION["status"] = "Pending";
                       echo '
                 <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
                     <div class="curriculum-container">
@@ -209,7 +209,7 @@ mysqli_close($con);
                         <div class="frame-8">
                             <div class="frame-9">
                                 <div class="div-wrapper">
-                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                    <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
                                 </div>
                                 <div class="frame-3">
                                     <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
@@ -256,7 +256,7 @@ mysqli_close($con);
               </div>
               <div class="frame-6">
 
-                <?php if ($status === "Inactive") {
+                <?php if ($_SESSION["status"] === "Completed") {
                   echo '
                 <a href="catalog-selection.php?course_id=' . urlencode($_SESSION["course_id"]) . '">
                     <div class="curriculum-container">
@@ -264,7 +264,7 @@ mysqli_close($con);
                         <div class="frame-8">
                             <div class="frame-9">
                                 <div class="div-wrapper">
-                                    <div class="text-wrapper-5">' . htmlspecialchars($status) . '</div>
+                                    <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
                                 </div>
                                 <div class="frame-3">
                                     <div class="text-wrapper-4">' . htmlspecialchars($_SESSION["course_name"]) . '</div>
