@@ -90,12 +90,17 @@
             color: #4a4a4a; /* Medium grey for readability */
         }
 
+        .sidebar img {
+            width: 50%;
+            padding: 20px 20px 32px 14px;
+        }
   
     </style>
 </head>
 <body>
 <div class="sidebar">
-    <img src="image-url.jpg" alt="Description of image">
+    <img src="../creator_profile/icon.png" alt="Icon">
+
     <button class="dropdown-btn">Home <i class="fa fa-caret-down"></i></button>
     <div class="dropdown-container">
         <a href="criteria.php" class="nav-link"><i class="fas fa-star"></i> Criteria</a>

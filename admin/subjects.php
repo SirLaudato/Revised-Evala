@@ -84,7 +84,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../admin css/admin global.css">
 </head>
 <body>
-
+<?php include("index.php") ?>
 <div class="subject-parent-div">
 
     <div class="subject-add">
@@ -99,15 +99,15 @@ if (isset($_GET['id'])) {
 
             <!-- Subject Name Input -->
             <label for="subject_name">Subject Name:</label>
-            <input type="text" id="subject_name" name="subject_name" placeholder="Algebra" value="<?php echo ($subject ? $subject['subject_name'] : ''); ?>" required><br><br>
+            <input type="text" id="subject_name" name="subject_name" placeholder="Algebra" value="<?php echo ($subject ? $subject['subject_name'] : ''); ?>" required>
 
             <!-- Subject Code Input -->
             <label for="subject_code">Subject Code:</label>
-            <input type="text" id="subject_code" name="subject_code" placeholder="MATH101" value="<?php echo ($subject ? $subject['subject_code'] : ''); ?>" required><br><br>
+            <input type="text" id="subject_code" name="subject_code" placeholder="MATH101" value="<?php echo ($subject ? $subject['subject_code'] : ''); ?>" required>
 
             <!-- Description Input -->
             <label for="description">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Studies certain abstract systems" value="<?php echo ($subject ? $subject['description'] : ''); ?>" required><br><br>
+            <input type="text" id="description" name="description" placeholder="Studies certain abstract systems" value="<?php echo ($subject ? $subject['description'] : ''); ?>" required>
 
             <input type="submit" value="<?php echo $subject ? 'Update Subject' : 'Create Subject'; ?>">
         </form>

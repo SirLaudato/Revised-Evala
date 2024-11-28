@@ -89,7 +89,7 @@
     </style>
 </head>
 <body>
-
+    <?php include("index.php") ?>
 <div class="student-parent-div">
     <div class="student-add">
         <!-- Display success or error message -->
@@ -103,16 +103,16 @@
 
             <!-- Form fields for student details -->
             <label for="school_id">School ID:</label>
-            <input type="text" id="school_id" name="school_id" value="<?php echo $edit_record['school_id'] ?? ''; ?>" required><br><br>
+            <input type="text" id="school_id" name="school_id" value="<?php echo $edit_record['school_id'] ?? ''; ?>" required>
 
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo $edit_record['name'] ?? ''; ?>" required><br><br>
+            <input type="text" id="name" name="name" value="<?php echo $edit_record['name'] ?? ''; ?>" required>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo $edit_record['email'] ?? ''; ?>" required><br><br>
+            <input type="email" id="email" name="email" value="<?php echo $edit_record['email'] ?? ''; ?>" required>
 
             <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="<?php echo $edit_record['phone'] ?? ''; ?>" required><br><br>
+            <input type="text" id="phone" name="phone" value="<?php echo $edit_record['phone'] ?? ''; ?>" required>
 
             <!-- Image upload section -->
             <label for="image">Image:</label>
@@ -120,7 +120,7 @@
                 <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
                 <p>Drag & Drop an image here or click to select</p>
                 <img id="preview" src="<?php echo $edit_record['image'] ?? 'default.jpg'; ?>" width="150" height="150" alt="Preview">
-            </div><br><br>
+            </div>
 
             <!-- Department selection -->
             <label for="department">Department:</label>
@@ -132,11 +132,11 @@
                 <option value="COECSA" <?php echo isset($edit_record['department']) && $edit_record['department'] === 'COECSA' ? 'selected' : ''; ?>>COECSA</option>
                 <option value="CFAD" <?php echo isset($edit_record['department']) && $edit_record['department'] === 'CFAD' ? 'selected' : ''; ?>>CFAD</option>
                 <option value="CITHM" <?php echo isset($edit_record['department']) && $edit_record['department'] === 'CITHM' ? 'selected' : ''; ?>>CITHM</option>
-            </select><br><br>
+            </select>
 
             <!-- Section input -->
             <label for="section">Section:</label>
-            <input type="text" id="section" name="section" value="<?php echo $edit_record['section'] ?? ''; ?>" required><br><br>
+            <input type="text" id="section" name="section" value="<?php echo $edit_record['section'] ?? ''; ?>" required>
 
             <!-- Submit button -->
             <input type="submit" value="<?php echo $edit_record ? 'Update Student' : 'Create Student'; ?>">

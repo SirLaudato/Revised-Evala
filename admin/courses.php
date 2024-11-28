@@ -86,7 +86,7 @@ if (isset($_GET['id'])) {
     
 </head>
 <body>
-
+<?php include("index.php") ?>
     <div class="parent-course-div">
 
         <div class="course-management">
