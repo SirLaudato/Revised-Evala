@@ -94,7 +94,6 @@ if (isset($_GET['id'])) {
     <div class="faculty-add">
 
         <!-- Display success/error message -->
-        <p><?php echo $message; ?></p>
 
         <!-- Create or Edit Faculty Form -->
         <form method="POST" action="faculty.php" enctype="multipart/form-data">
