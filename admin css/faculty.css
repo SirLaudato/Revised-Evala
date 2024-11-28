@@ -140,8 +140,8 @@ a:hover {
 .faculty-parent-div {
   display: flex;
   gap: 20px; /* Space between the two containers */
-  margin-top: 20px;
   justify-content: center;
+  margin-left: 260px;
 }
 
 .faculty-records {
