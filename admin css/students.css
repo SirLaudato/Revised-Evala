@@ -137,8 +137,8 @@ a:hover {
 .student-parent-div {
   display: flex;
   gap: 20px;
-  margin-top: 20px;
   justify-content: center;
+  margin-left: 260px;
 }
 
 .student-add {
