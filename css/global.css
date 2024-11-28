@@ -67,3 +67,31 @@ body {
   --hollow-button: #342928;
   --hollow-button-hover: #e8e8e7;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 10px 40px;
+  z-index: 100;
+  position: fixed; /* Make the navbar fixed */
+  top: 0;
+  width: 100%; /* Ensure it spans the full width */
+  transition: box-shadow 0.3s; /* Smooth transition for shadow */
+}
+
+.navbar.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+}
+
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}

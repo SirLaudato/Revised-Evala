@@ -64,7 +64,6 @@ if ($course_result->num_rows > 0) {
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/evaluation.css" />
-    <link rel="stylesheet" href="../components/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -142,6 +141,14 @@ if ($course_result->num_rows > 0) {
                         $criteria_name = $criteria_row['criteria_name'];
                         ?>
 
+                        <div id="progress-modal">
+                            <div class="progress-text"><span id="progress-percentage">0%</span></div>
+                            <div id="progress-bar">
+                                <div style="width: 0%"></div>
+                            </div>
+                        </div>
+
+
                         <!-- Per Section -->
                         <div class="per-section">
                             <div class="frame-3">
@@ -151,12 +158,6 @@ if ($course_result->num_rows > 0) {
                                 <p class="p">
                                     Answer the following questions based on your experience. Good luck!
                                 </p>
-                                <div id="progress-modal">
-                                    <div class="progress-text"><span id="progress-percentage">0%</span></div>
-                                    <div id="progress-bar">
-                                        <div style="width: 0%"></div>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Fetch and display questions for this criteria -->
@@ -232,48 +233,52 @@ if ($course_result->num_rows > 0) {
             </form>
         </div>
 
+
         <script>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-        const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length;
-        const progressBar = document.querySelector('#progress-bar > div');
-                const progressPercentage = document.getElementById('progress-percentage');
-                const submitButton = document.querySelector('.submit-btn');
-
-                // Check if the progress bar elements exist
-                if (!progressBar || !progressPercentage) {
-                    console.error("Progress bar elements not found.");
-                return;
-        }
-
-                // Function to update the progress
-                function updateProgress() {
-            const answeredQuestions = Array.from(
-                document.querySelectorAll('input[type="radio"]:checked')
-            ).filter(input => input.name.startsWith('q')).length;
-
-                const progress = Math.round((answeredQuestions / totalQuestions) * 100);
-
-                console.log(`Answered questions: ${answeredQuestions}`);
+            document.addEventListener('DOMContentLoaded', () => {
+                const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length; // Get required radio buttons
                 console.log(`Total questions: ${totalQuestions}`);
-                console.log(`Progress: ${progress}%`);
 
-                progressBar.style.width = `${progress}%`;
-                progressPercentage.textContent = `${progress}%`;
+                const progressBar = document.querySelector('#progress-bar > div');  // Select the progress bar element
+                const progressPercentage = document.getElementById('progress-percentage');  // Select the progress percentage element
+                const submitButton = document.querySelector('.submit-btn');  // Select the submit button
 
-                submitButton.disabled = answeredQuestions < totalQuestions;
-        }
+                // Ensure the progress bar and percentage elements are found
+                if (!progressBar || !progressPercentage) {
+                    console.error('Progress bar elements not found.');
+                    return;
+                }
 
-                // Attach event listeners to radio buttons
+                // Add event listeners to radio buttons after DOM is ready
                 const radios = document.querySelectorAll('input[type="radio"]');
-        radios.forEach(radio => {
+                radios.forEach(radio => {
                     radio.addEventListener('change', updateProgress);
-        });
+                });
+
+                // Function to update the progress bar
+                function updateProgress() {
+                    const answeredQuestions = Array.from(
+                        document.querySelectorAll('input[type="radio"]:checked')
+                    ).filter(input => input.name.startsWith('q')).length;
+
+                    const progress = Math.round((answeredQuestions / totalQuestions) * 100);
+
+                    console.log('Updating progress...');
+                    console.log(`Answered questions: ${answeredQuestions}`);
+                    console.log(`Total questions: ${totalQuestions}`);
+                    console.log(`Progress: ${progress}%`);
+
+                    // Update progress bar width and percentage text
+                    progressBar.style.width = `${progress}%`;
+                    progressPercentage.textContent = `${progress}%`;
+
+                    // Enable or disable the submit button
+                    submitButton.disabled = answeredQuestions < totalQuestions;
+                }
 
                 // Initialize progress
-                updateProgress();
-    });
-        </script>
+                updateProgress();  // Initialize progress on page load
+            });
         </script>
 
         <?php include '../components/footer.php' ?>
