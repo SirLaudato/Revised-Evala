@@ -1,41 +1,24 @@
-from flask import Flask, jsonify, request
-import pandas as pd
-from sklearn.cluster import KMeans
+from flask import Flask, request, jsonify
 from transformers import pipeline
 
+# Initialize Flask app
 app = Flask(__name__)
 
-# Dummy data for demonstration purposes
-data = [
-    {"user_id": 1, "rate": 5},
-    {"user_id": 2, "rate": 3},
-    {"user_id": 3, "rate": 4},
-    {"user_id": 4, "rate": 2},
-]
+# Load a pre-trained model (e.g., GPT-Neo or GPT-J)
+model = pipeline("text-generation", model="EleutherAI/gpt-neo-1.3B")
 
-# Example: Sentiment Analysis setup (Optional: if you have textual feedback)
-sentiment_analyzer = pipeline("sentiment-analysis")
+@app.route('/interpret', methods=['POST'])
+def interpret_data():
+    # Get questionnaire data from request
+    data = request.json
+    questionnaire_results = data.get('results', [])
 
-@app.route('/analyze_ratings', methods=['GET'])
-def analyze_ratings():
-    # Simulating analysis of ratings
-    df = pd.DataFrame(data)
-    avg_rating = df['rate'].mean()
-    return jsonify({"average_rating": avg_rating})
+    # Generate an interpretation
+    input_text = f"Here are the questionnaire results: {questionnaire_results}. Provide suggested actions."
+    response = model(input_text, max_length=200, num_return_sequences=1)
 
-@app.route('/predict_rating_trends', methods=['GET'])
-def predict_rating_trends():
-    # Simulating KMeans clustering analysis on ratings
-    df = pd.DataFrame(data)
-    kmeans = KMeans(n_clusters=2)
-    df['cluster'] = kmeans.fit_predict(df[['rate']])
-    return jsonify({"clusters": df['cluster'].tolist(), "centroids": kmeans.cluster_centers_.tolist()})
-
-@app.route('/sentiment_analysis', methods=['POST'])
-def sentiment_analysis():
-    feedback = request.json.get('feedback')
-    results = sentiment_analyzer(feedback)
-    return jsonify(results)
+    # Return response as JSON
+    return jsonify({"suggestion": response[0]['generated_text']})
 
 if __name__ == '__main__':
     app.run(debug=True)

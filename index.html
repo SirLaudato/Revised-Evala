@@ -2,34 +2,26 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Driven Ratings Analysis</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Questionnaire Interpretation</title>
+    <script>
+        async function interpretResults() {
+            const results = [4, 3, 5, 2, 4]; // Example questionnaire results
+            const response = await fetch('http://127.0.0.1:5000/interpret', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ results })
+            });
+
+            const data = await response.json();
+            document.getElementById('suggestions').innerText = data.suggestion;
+        }
+    </script>
 </head>
 
 <body>
-    <h1>AI-Driven Ratings Analysis</h1>
-
-    <div>
-        <h3>Average Rating:</h3>
-        <p id="average-rating">Loading...</p>
-    </div>
-
-    <div>
-        <h3>Rating Clusters:</h3>
-        <p id="rating-clusters">Loading...</p>
-    </div>
-
-    <div>
-        <h3>Sentiment Analysis on Feedback:</h3>
-        <textarea id="user-feedback" placeholder="Enter your feedback..."></textarea>
-        <button onclick="analyzeSentiment()">Analyze Sentiment</button>
-        <p id="sentiment-result">Sentiment result will appear here.</p>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
+    <h1>Questionnaire Interpretation</h1>
+    <button onclick="interpretResults()">Get Suggestions</button>
+    <p id="suggestions"></p>
 </body>
 
 </html>
