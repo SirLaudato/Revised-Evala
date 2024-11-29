@@ -187,10 +187,11 @@ ob_start(); // Turn on output buffering
             }
             ?>
             <button type="button" class="cancel-btn"
-                onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Go Back to Evaluation</button>
+                onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Go
+                Back to Evaluation</button>
         </form>
-        
-        
+
+
 
 
 

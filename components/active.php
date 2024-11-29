@@ -20,76 +20,86 @@ if (!isset($_SESSION["user_id"])) {
 $course_query = "
     SELECT DISTINCT `courses`.`course_id`
     FROM `users` 
-    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id` 
-    LEFT JOIN `courses` ON `students`.`course_id` = `courses`.`course_id` 
+    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
+    LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
+    LEFT JOIN `courses` ON `courses`.`course_id` = IFNULL(`students`.`course_id`, `alumni`.`course_id`)
     LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
-    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
+";
+
 
 $result = $con->query($course_query);
 
 // Check if the query returned any results
-if ($course_result && $course_result->num_rows > 0) {
-    while ($course_row = $course_result->fetch_assoc()) {
-        $active_evaluation_query = "SELECT 
-                                    COUNT(*) AS `active_evaluations`
-                                    FROM 
-                                    `evaluations`
-                                    LEFT JOIN 
-                                    `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
-                                    LEFT JOIN 
-                                    `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
-                                    WHERE 
-                                    `evaluations`.`active_flag` = 1
-                                    AND `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+if ($result && $result->num_rows > 0) {
+    // Fetch the first course_id and store it in the session
+    $row = $result->fetch_assoc();
+    $_SESSION["course_id"] = $row["course_id"];
 
-        $total_evaluation_query = "SELECT 
-                                    COUNT(*) AS `total_evaluations`
-                                    FROM 
-                                    `evaluations`
-                                    LEFT JOIN 
-                                    `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
-                                    LEFT JOIN 
-                                    `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
-                                    WHERE 
-                                    `evaluations`.`course_id` = " . intval($course_row["course_id"]) . "
-                                    AND `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
+    // Query to get course details using the fetched course_id
+    $select_course = "
+        SELECT * 
+        FROM `courses` 
+        WHERE `course_id` = '" . mysqli_real_escape_string($con, $_SESSION["course_id"]) . "';";
 
-        $total_result = mysqli_query($con, $total_evaluation_query);
-        if ($total_result) {
-            $row = mysqli_fetch_assoc($total_result);
-            $total_evaluations = $row['total_evaluations'];
-        } else {
-            echo "Query failed: " . mysqli_error($con);
-            continue; // Skip to next iteration
-        }
+    $course_result = $con->query($select_course);
 
-        // Execute active evaluations query
-        $active_result = mysqli_query($con, $active_evaluation_query);
-        if ($active_result) {
-            $row = mysqli_fetch_assoc($active_result);
-            $active_evaluations = $row['active_evaluations'];
-        } else {
-            echo "Query failed: " . mysqli_error($con);
-            continue; // Skip to next iteration
-        }
+    if ($course_result && $course_result->num_rows > 0) {
+        while ($course_row = $course_result->fetch_assoc()) {
+            $active_evaluation_query = "SELECT 
+                                                COUNT(*) AS `active_evaluations`
+                                                FROM 
+                                                `evaluations`
+                                                LEFT JOIN 
+                                                `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
+                                                LEFT JOIN 
+                                                `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
+                                                WHERE 
+                                                `user_evaluations`.`has_answered` = 1
+                                                AND `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";";
 
-        // Determine status
-        if ($active_evaluations === $total_evaluations) {
-            $status = "Active";
+            $total_evaluation_query = "SELECT 
+                                                COUNT(*) AS `total_evaluations`
+                                                FROM 
+                                                `evaluations`
+                                                LEFT JOIN 
+                                                `user_evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id`
+                                                LEFT JOIN 
+                                                `users` ON `user_evaluations`.`user_id` = `users`.`user_id`
+                                                WHERE 
+                                                `evaluations`.`course_id` = " . intval($course_row["course_id"]) . "
+                                                AND `users`.`user_id`= " . intval($_SESSION["user_id"]) . ";";
 
-            // Increment only if not already tracked
-            if (!isset($_SESSION['active_eval_incremented']) || $_SESSION['active_eval_incremented'] !== true) {
-                if (!isset($_SESSION['active_eval'])) {
-                    $_SESSION['active_eval'] = 0;
-                }
-                $_SESSION['active_eval'] += 1;
-                $_SESSION['active_eval_incremented'] = true; // Mark as incremented
+            $total_result = mysqli_query($con, $total_evaluation_query);
+            if ($total_result) {
+                $row = mysqli_fetch_assoc($total_result);
+                $total_evaluations = $row['total_evaluations'];
+            } else {
+                echo "Query failed: " . mysqli_error($con);
+                continue; // Skip to next iteration
             }
 
-        } elseif (empty($active_evaluations)) {
-            $status = "Inactive";
-        } else {
-            $status = "Pending";
+            // Execute active evaluations query
+            $active_result = mysqli_query($con, $active_evaluation_query);
+            if ($active_result) {
+                $row = mysqli_fetch_assoc($active_result);
+                $active_evaluations = $row['active_evaluations'];
+            } else {
+                echo "Query failed: " . mysqli_error($con);
+                continue; // Skip to next iteration
+            }
+
+            $_SESSION["course_id"] = $course_id = $course_row["course_id"];
+            $_SESSION["course_name"] = $course_name = $course_row["course_name"];
+            $_SESSION["course_cover"] = $course_cover = $course_row["course_cover"];
+
+            if ($active_evaluations === $total_evaluations) {
+                $_SESSION["status"] = "Not yet completed";
+            } elseif (empty($active_evaluations)) {
+                $_SESSION["status"] = "Completed";
+            } else {
+                $_SESSION["status"] = "Pending";
+            }
         }
     }
 }

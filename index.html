@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven Ratings Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>AI-Driven Ratings Analysis</h1>
+
+    <div>
+        <h3>Average Rating:</h3>
+        <p id="average-rating">Loading...</p>
+    </div>
+
+    <div>
+        <h3>Rating Clusters:</h3>
+        <p id="rating-clusters">Loading...</p>
+    </div>
+
+    <div>
+        <h3>Sentiment Analysis on Feedback:</h3>
+        <textarea id="user-feedback" placeholder="Enter your feedback..."></textarea>
+        <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+        <p id="sentiment-result">Sentiment result will appear here.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

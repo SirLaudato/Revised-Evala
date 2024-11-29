@@ -138,7 +138,13 @@ $con->close();
         </div>
         <div class="catalog-container">
             <div class="evaluation-pics-desc">
-                <div class="evaluation-img"></div>
+                <div class="evaluation-img">
+                    <?php
+                    echo '
+                    <img class="evaluation-img" src="' . htmlspecialchars($_SESSION['course_cover']) . '" alt="Course Cover">
+                    ';
+                    ?>
+                </div>
                 <div class="eval-overview">
                     <!-- Display course name dynamically -->
                     <div class="eva-name"><?php echo $course_name; ?></div>
