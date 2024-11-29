@@ -537,4 +537,6 @@
 .catalog-container a {
   width: 100%;
   text-decoration: none;
+  font-family: "Montserrat", Helvetica;
+  color: var(--text-color);
 }

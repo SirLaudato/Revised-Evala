@@ -1,0 +1,646 @@
+.questionnaire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  position: relative;
+  background-color: var(--background-color);
+  margin-top: 100px;
+}
+
+.per-section {
+  margin-top: 120px;
+  margin-bottom: 100px;
+  gap: 100px;
+}
+
+.questionnaire .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper {
+  width: fit-content;
+  color: #727271;
+  font-size: 24px;
+  position: relative;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat-Medium", Helvetica;
+  font-weight: 500;
+  color: #727271;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .img {
+  position: relative;
+  width: 92px;
+}
+
+.questionnaire .frame-2 {
+  display: inline-flex;
+  margin-top: 150px;
+  flex-direction: column;
+  align-items: center;
+  gap: 27px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 978px;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 19px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper-3 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.frame-3 .text-wrapper-4 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .p {
+  position: relative;
+  align-self: stretch;
+  height: 94px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .frame-4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-5 {
+  display: flex;
+  flex-direction: column;
+  width: 766px;
+  align-items: flex-start;
+  gap: 19px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-6 {
+  display: flex;
+  flex-direction: column;
+  width: 766px;
+  align-items: flex-start;
+  gap: 19px;
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: -15px;
+}
+
+.questionnaire .text-wrapper-4 {
+  position: relative;
+  align-self: stretch;
+  height: 49px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .footer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 1044px;
+  align-items: center;
+  justify-content: center;
+  gap: 120px 104px;
+  padding: 171px 227px 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #ebebeb;
+}
+
+.questionnaire .frame-7 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 105px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.questionnaire .frame-8 {
+  display: flex;
+  flex-direction: column;
+  width: 889px;
+  align-items: center;
+  gap: 47px;
+  padding: 4px 0px 0px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-9 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper-5 {
+  align-self: stretch;
+  height: 78px;
+  color: #59504fe6;
+  font-size: 64px;
+  text-align: center;
+  position: relative;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .text-wrapper-6 {
+  position: relative;
+  align-self: stretch;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .frame-10 {
+  display: flex;
+  align-items: center;
+  gap: 104px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-11 {
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+}
+
+.questionnaire .frame-12 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper-7 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: #685f5f;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.questionnaire .frame-13 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-14 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .text-wrapper-8 {
+  align-self: stretch;
+  color: #685f5f;
+  font-size: 20px;
+  position: relative;
+  margin-top: -1px;
+  font-family: "Montserrat-Medium", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .text-wrapper-9 {
+  align-self: stretch;
+  color: #685f5f;
+  font-size: 20px;
+  position: relative;
+  font-family: "Montserrat-Medium", Helvetica;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .frame-15 {
+  display: flex;
+  flex-direction: column;
+  width: 207px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+}
+
+.questionnaire .frame-16 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  margin-bottom: -47px;
+}
+
+.questionnaire .text-wrapper-10 {
+  position: relative;
+  width: 191px;
+  margin-top: -1px;
+  margin-right: -4px;
+  font-family: "Montserrat-Medium", Helvetica;
+  font-weight: 500;
+  color: #685f5f;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .text-wrapper-11 {
+  position: relative;
+  width: 213px;
+  margin-right: -26px;
+  font-family: "Montserrat-Medium", Helvetica;
+  font-weight: 500;
+  color: #685f5f;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire .frame-17 {
+  display: flex;
+  flex-direction: column;
+  width: 192px;
+  height: 191px;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+  margin-right: -109px;
+}
+
+.questionnaire .frame-18 {
+  display: flex;
+  flex-direction: column;
+  width: 1423px;
+  height: 136px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -218.5px;
+  margin-right: -218.5px;
+}
+
+.questionnaire .frame-19 {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .line-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 1425px;
+  height: 39px;
+  align-items: center;
+  gap: 19px;
+  position: relative;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.questionnaire .line {
+  position: relative;
+  width: 1423.88px;
+  height: 1.88px;
+  margin-bottom: -1px;
+  object-fit: cover;
+}
+
+.questionnaire .frame-20 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 153px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-21 {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 9px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.questionnaire .frame-22 {
+  display: flex;
+  width: 275px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.questionnaire .text-wrapper-12 {
+  position: relative;
+  flex: 1;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 600;
+  color: #685f5f;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.questionnaire-evaluation {
+  font-family: "Montserrat", Helvetica;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 1000px;
+  color: var(--text-color);
+  margin-top: 60px;
+}
+
+thead th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+
+tbody td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.question {
+  text-align: left;
+  width: 40%;
+}
+
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #666;
+  border-radius: 50%;
+  /* Makes it circular */
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.3s;
+}
+
+input[type="radio"]:checked {
+  background-color: var(--text-color);
+  /* Fill with the desired color */
+  border-color: var(--text-color);
+  /* Optionally change the border */
+}
+
+:root {
+  --text-color: #007bff;
+  /* Example color */
+}
+
+.submit-btn {
+  font-family: "Montserrat", Helvetica;
+  margin-top: 100px;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: var(--dark-button);
+  /* Background color */
+  color: white;
+  /* Ensure text is visible */
+  border: none;
+  /* No border */
+  font-size: 20px;
+  /* Optional: Font size */
+  cursor: pointer;
+  /* Pointer cursor */
+}
+
+.submit-btn:hover {
+  background-color: var(--dark-button-hover);
+  /* Slightly lighter shade on hover */
+}
+
+ol li {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.cancel-btn {
+  margin-top: 20px;
+  font-family: "Montserrat", Helvetica;
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid;
+  font-size: 20px;
+  border-color: var(--hollow-button);
+
+  &:hover {
+    background-color: var(--hollow-button-hover);
+  }
+}
+
+.submit-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+#progress-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 5.8em;
+  left: 0;
+  width: 40%;
+  color: var(--text-color, black);
+  /* Add a fallback color */
+  z-index: 1000;
+  left: 450px;
+  background-color: var(--background-color, #f9f9f9);
+  /* Add a fallback */
+}
+
+#progress-bar {
+  width: 100%;
+  background-color: #ebebeb;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  /* Optional: Make it rounded */
+}
+
+#progress-bar > div {
+  height: 100%;
+  background-color: var(--text-color, black);
+  /* Add a fallback color */
+  transition: width 0.4s ease;
+  /* Smooth transition */
+}
+
+.progress-text {
+  margin-right: 15px;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.frame-title {
+  font-family: "Montserrat", Helvetica;
+  font-size: 26px;
+  font-weight: 400;
+  left: 100px;
+
+  h1 {
+    left: 100px;
+  }
+}
+
+.per-section .frame-3 {
+  margin-bottom: 60px;
+}
