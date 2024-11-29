@@ -10,7 +10,7 @@ ob_start(); // Turn on output buffering
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/evaluation.css" />
+    <link rel="stylesheet" href="../css/result.css" />
     <link rel="stylesheet" href="../components/modal.css">
     <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
@@ -18,6 +18,10 @@ ob_start(); // Turn on output buffering
 </head>
 
 <body>
+
+    <?php include('../components/nav.php') ?>
+
+
     <div class="questionnaire-evaluation">
         <?php
 
@@ -135,6 +139,7 @@ ob_start(); // Turn on output buffering
                     <div class="per-section">
                         <div class="frame-3">
                             <div class="text-wrapper-3"><?php echo htmlspecialchars($criteria_name); ?></div>
+                            <p>Answer the following questions based on your experience.</p>
                         </div>
                         <div class="questionnaire-per-section">
                             <table>
@@ -182,9 +187,18 @@ ob_start(); // Turn on output buffering
             }
             ?>
             <button type="button" class="cancel-btn"
-                onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Cancel</button>
+                onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Go
+                Back to Evaluation</button>
         </form>
+
+
+
+
+
+
     </div>
+
+    <?php include('../components/footer.php') ?>
 </body>
 
 </html>

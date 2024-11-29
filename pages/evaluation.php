@@ -69,11 +69,18 @@ if ($course_result->num_rows > 0) {
 
 <body>
     <div class="questionnaire">
+
         <div class="navigator">
             <?php include('../components/nav.php') ?>
         </div>
 
+
         <div class="frame-2">
+
+            <!-- <div class="frame-title"> 
+                <h1>TIEEEEEEEE</h1>
+            </div> -->
+            
             <div class="frame-wrapper">
                 <div class="frame-3">
                     <!-- The Course name (ex. Computer Science) -->
@@ -100,10 +107,13 @@ if ($course_result->num_rows > 0) {
                     </ol>
                 </div>
             </div>
+
+
         </div>
 
+
         <div class="questionnaire-evaluation">
-            <?php
+        <?php
             // Ensure the course_id and evaluation_id are passed
             if (!isset($_GET['course_id']) || !isset($_GET['evaluation_id'])) {
                 die("Error: course_id or evaluation_id is not set.");
@@ -196,9 +206,10 @@ if ($course_result->num_rows > 0) {
             $criteria_stmt->bind_param("s", $evaluator_type);
             $criteria_stmt->execute();
             $criteria_result = $criteria_stmt->get_result();
-            ?>
+        ?>
 
-            <form method="POST">
+
+        <form method="POST">
                 <?php
                 if ($criteria_result->num_rows > 0) {
                     while ($criteria_row = $criteria_result->fetch_assoc()) {
@@ -269,10 +280,7 @@ if ($course_result->num_rows > 0) {
 
                 <button type="button" class="cancel-btn"
                     onclick="window.location.href=' course_list.php'">Cancel</button>
-            </form>
-
-
-
+        </form>
 
 
         </div>
@@ -326,6 +334,8 @@ if ($course_result->num_rows > 0) {
         </script>
         <?php include '../pages/modal.php' ?>
         <?php include '../components/footer.php' ?>
+
+
     </div>
 </body>
 <script>

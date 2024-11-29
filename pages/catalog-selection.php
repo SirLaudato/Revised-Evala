@@ -177,7 +177,7 @@ $con->close();
                                     <span class="text-wrapper-7">Check Other Evaluation</span>
                                 </button>
                             </a>
-                            <a href = "result.php?course_id=' . $course_id . '&evaluation_id=' . $evaluation_id . ' &user_id=' . $_SESSION['user_id'] . '">View Results >></a>'
+                            <a href = "result.php?course_id=' . $course_id . '&evaluation_id=' . $evaluation_id . ' &user_id=' . $_SESSION['user_id'] . '">View Results</a>'
 
                             ;
 

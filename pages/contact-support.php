@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 ?>
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,10 +10,10 @@ require __DIR__ . '/../vendor/autoload.php';
     <link rel="stylesheet" href="../css/contact-support.css" />
     <link rel="stylesheet" href="../components/all.css">
     <link rel="stylesheet" href="../components/modal.css">
+    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,700&display=swap" />
-    <link rel="icon" type="image/png" href="innovatio-icon.png" sizes="16x16">
 
     <title>Contact Support</title>
 </head>
@@ -37,8 +37,10 @@ require __DIR__ . '/../vendor/autoload.php';
                 <div class="frame-4">
                     <form method="POST">
                         <input class="input-field" name="name" placeholder="Your Name" type="text" required />
-                        <input class="input-field-2" name="email" placeholder="Your E-mail" type="email" required />
-                        <input class="input-field-2" name="subject" placeholder="Subject" type="text" required />
+                        <div class="divider">
+                            <input class="input-field-2" name="email" placeholder="Your E-mail" type="email" required />
+                            <input class="input-field-2" name="subject" placeholder="Subject" type="text" required />
+                        </div>
                         <textarea class="input-field-3" name="message" placeholder="Message" required></textarea>
 
                         <div class="send-message">
@@ -51,54 +53,51 @@ require __DIR__ . '/../vendor/autoload.php';
             </div>
         </div>
     </div>
-
+      <?php include '../components/footer.php' ?>
     <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    $modalTitle = "";
-    $modalMessage = "";
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        use PHPMailer\PHPMailer\PHPMailer;
+        use PHPMailer\PHPMailer\Exception;
+        $modalTitle = "";
+        $modalMessage = "";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
-        require __DIR__ . '/../vendor/autoload.php';
+            require __DIR__ . '/../vendor/autoload.php';
 
-        $mail = new PHPMailer(true);
+            $mail = new PHPMailer(true);
 
-        try {
-            // Server settings
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com'; // Correct Gmail SMTP server
-            $mail->SMTPAuth = true;
-            $mail->Username = 'evala2406@gmail.com'; // Your Gmail email address
-            $mail->Password = 'ojrc bcjp mmzl ujpr'; // Your App Password (if 2FA is enabled)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587; // For TLS, 465 for SSL
-    
-            // Recipients
-            $mail->setFrom('innovatio.evala@gmail.com', $_POST['name']); // Default from address
-            $mail->addAddress('innovatio.evala@gmail.com', 'Innovatio');
-            $mail->addReplyTo($_POST['email'], $_POST['name']); // Make sure 'email' and 'name' are sanitized
-    
-            // Content
-            $mail->isHTML(true);
-            $mail->Subject = htmlspecialchars($_POST['subject']); // Ensure special chars are escaped
-            $mail->Body = nl2br(htmlspecialchars($_POST['message'])); // Escape message and preserve line breaks
-    
-            // Send the email
-            $mail->send();
-            $modalTitle = "Success";
-            $modalMessage = "Email sent successfully!";
-        } catch (Exception $e) {
-            echo "Mailer Error: {$mail->ErrorInfo}";
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Correct Gmail SMTP server
+                $mail->SMTPAuth = true;
+                $mail->Username = 'evala2406@gmail.com'; // Your Gmail email address
+                $mail->Password = 'ojrc bcjp mmzl ujpr'; // Your App Password (if 2FA is enabled)
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587; // For TLS, 465 for SSL
+        
+                // Recipients
+                $mail->setFrom('innovatio.evala@gmail.com', $_POST['name']); // Default from address
+                $mail->addAddress('innovatio.evala@gmail.com', 'Innovatio');
+                $mail->addReplyTo($_POST['email'], $_POST['name']); // Make sure 'email' and 'name' are sanitized
+        
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = htmlspecialchars($_POST['subject']); // Ensure special chars are escaped
+                $mail->Body = nl2br(htmlspecialchars($_POST['message'])); // Escape message and preserve line breaks
+        
+                // Send the email
+                $mail->send();
+                $modalTitle = "Success";
+                $modalMessage = "Email sent successfully!";
+            } catch (Exception $e) {
+                echo "Mailer Error: {$mail->ErrorInfo}";
+            }
+        } else {
+            // It's better to return a proper response instead of just exiting
+            exit;
         }
-    } else {
-        // It's better to return a proper response instead of just exiting
-        exit;
-    }
     ?>
-
-
-
 
     <?php include('modal.php') ?>
     <?php include '../components/footer.php' ?>
