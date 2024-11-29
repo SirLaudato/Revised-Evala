@@ -135,7 +135,6 @@ ob_start(); // Turn on output buffering
                     <div class="per-section">
                         <div class="frame-3">
                             <div class="text-wrapper-3"><?php echo htmlspecialchars($criteria_name); ?></div>
-                            <p>Answer the following questions based on your experience.</p>
                         </div>
                         <div class="questionnaire-per-section">
                             <table>
@@ -185,11 +184,6 @@ ob_start(); // Turn on output buffering
             <button type="button" class="cancel-btn"
                 onclick="window.location.href='catalog-selection.php?course_id=<?php echo urlencode($_SESSION['course_id']); ?>';">Cancel</button>
         </form>
-
-
-
-
-
     </div>
 </body>
 

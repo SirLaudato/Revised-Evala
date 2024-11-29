@@ -173,56 +173,58 @@ mysqli_close($con);
 
                     $_SESSION["course_id"] = $course_id = $course_row["course_id"];
                     $_SESSION["course_name"] = $course_name = $course_row["course_name"];
-
+                    $_SESSION["course_cover"] = $course_cover = $course_row["course_cover"];
 
                     if ($active_evaluations === $total_evaluations) {
                       $_SESSION["status"] = "Not yet completed";
                       echo '
-                <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
-                    <div class="curriculum-container">
-                        <div class="frame-7"></div>
-                        <div class="frame-8">
-                            <div class="frame-9">
-                                <div class="div-wrapper">
-                                    <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
+                        <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                            <div class="curriculum-container">
+                                <div class="frame-7">
+                                    <img class="frame-7" src="' . htmlspecialchars($_SESSION["course_cover"]) . '" alt="Course Cover">
                                 </div>
-                                <div class="frame-3">
-                                    <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                <div class="frame-8">
+                                    <div class="frame-9">
+                                        <div class="div-wrapper">
+                                            <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
+                                        </div>
+                                        <div class="frame-3">
+                                            <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                        </div>
+                                    </div>
+                                    <div class="div-wrapper">
+                                        <span class="evaluation-label">Deadline:</span>
+                                        <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="div-wrapper">
-                                <span class="evaluation-label">Deadline:</span>
-                                <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            ';
+                        </a>';
+
                     } elseif (empty($active_evaluations)) {
                       $_SESSION["status"] = "Completed";
                     } else {
                       $_SESSION["status"] = "Pending";
                       echo '
-                <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
-                    <div class="curriculum-container">
-                        <div class="frame-7"></div>
-                        <div class="frame-8">
-                            <div class="frame-9">
-                                <div class="div-wrapper">
-                                    <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
+                            <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                                <div class="curriculum-container">
+                                    <div class="frame-7"></div>
+                                    <div class="frame-8">
+                                        <div class="frame-9">
+                                            <div class="div-wrapper">
+                                                <div class="text-wrapper-5">' . htmlspecialchars($_SESSION["status"]) . '</div>
+                                            </div>
+                                            <div class="frame-3">
+                                                <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
+                                            </div>
+                                        </div>
+                                        <div class="div-wrapper">
+                                            <span class="evaluation-label">Deadline:</span>
+                                            <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="frame-3">
-                                    <div class="text-wrapper-4">' . htmlspecialchars($course_row["course_name"]) . '</div>
-                                </div>
-                            </div>
-                            <div class="div-wrapper">
-                                <span class="evaluation-label">Deadline:</span>
-                                <div class="text-wrapper-6">' . htmlspecialchars($evaluation_deadline) . '</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            ';
+                            </a>
+                        ';
 
                     }
 

@@ -87,6 +87,7 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 ?>
+<?php include('../components/active.php') ?>
 
 <!DOCTYPE html>
 <html>
@@ -135,7 +136,7 @@ if (mysqli_num_rows($result) > 0) {
                                         <div class="text-wrapper-6">Total Evaluations</div>
                                     </div>
                                     <div class="frame-9">
-                                        <div class="text-wrapper-7">0</div>
+                                        <div class="text-wrapper-7">1</div>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +148,11 @@ if (mysqli_num_rows($result) > 0) {
                                         <div class="text-wrapper-6">Total Pending</div>
                                     </div>
                                     <div class="frame-9">
-                                        <div class="text-wrapper-7">0</div>
+                                        <div class="text-wrapper-7"><?php if ($_SESSION['status'] == 'Completed') {
+                                            echo '0';
+                                        } else {
+                                            echo '1';
+                                        } ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +164,11 @@ if (mysqli_num_rows($result) > 0) {
                                         <div class="text-wrapper-6">Total Completed</div>
                                     </div>
                                     <div class="frame-9">
-                                        <div class="text-wrapper-7">0</div>
+                                        <div class="text-wrapper-7"><?php if ($_SESSION['status'] == 'Completed') {
+                                            echo '1';
+                                        } else {
+                                            echo '0';
+                                        } ?></div>
                                     </div>
                                 </div>
                             </div>
