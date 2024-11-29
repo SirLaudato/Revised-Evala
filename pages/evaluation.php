@@ -82,7 +82,7 @@ if ($course_result->num_rows > 0) {
             </div> -->
             
             <div class="frame-wrapper">
-                <div class="frame-3">
+                <div class="frame-7">
                     <!-- The Course name (ex. Computer Science) -->
                     <div class="text-wrapper-3">
                         <?php

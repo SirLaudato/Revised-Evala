@@ -99,7 +99,7 @@
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
   color: var(--text-color);
-  font-size: 20px;
+  font-size: 30px;
   letter-spacing: 0;
   line-height: normal;
 }
@@ -489,6 +489,16 @@ thead th {
   padding: 10px;
   text-align: center;
   border-bottom: 2px solid #ddd;
+  height: 60px; /* Adjust header cell height */
+}
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+  width: 250px; /* Set width for the first column (Question) */
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+  width: 100px; /* Set width for the second column (Rate) */
 }
 
 tbody td {
@@ -642,5 +652,7 @@ ol li {
 }
 
 .per-section .frame-3 {
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  font-size: 32px;
+  color: var(--text-color);
 }

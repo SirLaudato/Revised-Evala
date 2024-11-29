@@ -540,3 +540,7 @@
   font-family: "Montserrat", Helvetica;
   color: var(--text-color);
 }
+
+.catalog-container a:hover {
+  color: var(--text-gray);
+}

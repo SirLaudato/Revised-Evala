@@ -64,7 +64,7 @@
 
 .questionnaire .frame-2 {
   display: inline-flex;
-  margin-top: 150px;
+  margin-top: 44px;
   flex-direction: column;
   align-items: center;
   gap: 27px;
@@ -90,6 +90,11 @@
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
+  margin-bottom: 74px;
+
+  p {
+    color: var(--text-color);
+  }
 }
 
 .questionnaire .text-wrapper-3 {
@@ -99,7 +104,19 @@
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
   color: var(--text-color);
-  font-size: 20px;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.frame-7 .text-wrapper-3 {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 32px;
   letter-spacing: 0;
   line-height: normal;
 }
@@ -123,7 +140,7 @@
   font-family: "Montserrat", Helvetica;
   font-weight: 400;
   color: var(--text-color);
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
 }
@@ -187,7 +204,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 105px;
+  gap: 24px;
   position: relative;
   flex: 1;
   flex-grow: 1;
@@ -272,7 +289,7 @@
   flex: 0 0 auto;
 }
 
-.questionnaire .text-wrapper-7 {
+.frame-wrapper .text-wrapper-7 {
   position: relative;
   width: fit-content;
   margin-top: -1px;
@@ -482,21 +499,27 @@ table {
 }
 
 thead th {
-  background-color: #f4f4f4;
+  background-color: var(--gray-color);
   padding: 10px;
   text-align: center;
-  border-bottom: 2px solid #ddd;
 }
 
 tbody td {
   padding: 15px;
   text-align: center;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle; /* Centers vertically */
+}
+
+input[type="radio"] {
+  display: inline-block;
+  margin: 0 auto; /* Centers horizontally */
 }
 
 .question {
   text-align: left;
   width: 40%;
+  padding: 20px 10px 20px 20px;
 }
 
 input[type="radio"] {
