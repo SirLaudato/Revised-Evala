@@ -1,3 +1,12 @@
+:root {
+  --text-color: #342928;
+  --background-color: #f4f4f3;
+  --gray-color: #ebebeb;
+  --placeholder: #a6a6a6;
+  --text-gray: #727271;
+  --font-family: "Montserrat", sans-serif;
+}
+
 html {
   overflow-y: scroll;
   font-family: "Montserrat", sans-serif;
@@ -249,7 +258,7 @@ input[type="password"]::placeholder {
 }
 
 .con-shopping {
-  color: var(--hollow-button);
+  background-color: var(--background-color);
   position: relative;
   overflow: hidden;
   cursor: pointer;

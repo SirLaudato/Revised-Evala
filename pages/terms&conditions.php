@@ -31,9 +31,9 @@
             </div>
             <div class="terms-section">
                 <h2>3. User Obligations</h2>
-                <p><strong>Account Responsibility:</strong> Users are responsible for maintaining the confidentiality of their login credentials. Sharing accounts or impersonating others is strictly prohibited.</p>
-                <p><strong>Accuracy of Information:</strong> Users must provide accurate, truthful, and complete information when submitting feedback or evaluations. Submitting false or misleading information may result in access restrictions.</p>
-                <p><strong>Usage Restrictions:</strong> The platform must be used solely for academic and administrative purposes. Any misuse, including unauthorized access or attempts to exploit system vulnerabilities, is prohibited.</p>
+                <p><strong>Account Responsibility:</strong> Users are responsible for maintaining the confidentiality of their login credentials. Sharing accounts or impersonating others is strictly prohibited.</p><br>  
+                <p><strong>Accuracy of Information:</strong> Users must provide accurate, truthful, and complete information when submitting feedback or evaluations. Submitting false or misleading information may result in access restrictions.</p><br>
+                <p><strong>Usage Restrictions:</strong> The platform must be used solely for academic and administrative purposes. Any misuse, including unauthorized access or attempts to exploit system vulnerabilities, is prohibited.</p><br>
             </div>
             <div class="terms-section">
                 <h2>4. Privacy and Data Protection</h2>
