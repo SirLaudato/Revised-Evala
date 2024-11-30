@@ -207,7 +207,9 @@ mysqli_close($con);
                       echo '
                             <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
                                 <div class="curriculum-container">
-                                    <div class="frame-7"></div>
+                                    <div class="frame-7">
+                                    <img class="frame-7" src="' . htmlspecialchars($_SESSION["course_cover"]) . '" alt="Course Cover">
+                                </div>
                                     <div class="frame-8">
                                         <div class="frame-9">
                                             <div class="div-wrapper">
@@ -262,7 +264,9 @@ mysqli_close($con);
                   echo '
                 <a href="catalog-selection.php?course_id=' . urlencode($_SESSION["course_id"]) . '">
                     <div class="curriculum-container">
-                        <div class="frame-7"></div>
+                        <div class="frame-7">
+                                    <img class="frame-7" src="' . htmlspecialchars($_SESSION["course_cover"]) . '" alt="Course Cover">
+                                </div>
                         <div class="frame-8">
                             <div class="frame-9">
                                 <div class="div-wrapper">

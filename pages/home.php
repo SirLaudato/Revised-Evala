@@ -149,9 +149,11 @@ if (mysqli_num_rows($result) > 0) {
                                     </div>
                                     <div class="frame-9">
                                         <div class="text-wrapper-7"><?php if ($_SESSION['status'] == 'Completed') {
-                                            echo '0';
+                                            $_SESSION['total'] = 0;
+                                            echo $_SESSION['total'];
                                         } else {
-                                            echo '1';
+                                            $_SESSION['total'] = 1;
+                                            echo $_SESSION['total'];
                                         } ?></div>
                                     </div>
                                 </div>
@@ -165,9 +167,11 @@ if (mysqli_num_rows($result) > 0) {
                                     </div>
                                     <div class="frame-9">
                                         <div class="text-wrapper-7"><?php if ($_SESSION['status'] == 'Completed') {
-                                            echo '1';
+                                            $_SESSION['total'] = 1;
+                                            echo $_SESSION['total'];
                                         } else {
-                                            echo '0';
+                                            $_SESSION['total'] = 0;
+                                            echo $_SESSION['total'];
                                         } ?></div>
                                     </div>
                                 </div>
