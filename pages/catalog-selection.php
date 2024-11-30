@@ -148,9 +148,9 @@ $con->close();
                 <div class="eval-overview">
                     <!-- Display course name dynamically -->
                     <div class="eva-name"><?php echo $course_name; ?></div>
-                    <p class="eval-desc">
+                    <div class="eval-desc">
                         <?php echo $course_description; ?>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="evaluation-navigator">

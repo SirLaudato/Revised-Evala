@@ -68,10 +68,19 @@ if ($course_result->num_rows > 0) {
 </head>
 
 <body>
+
     <div class="questionnaire">
 
         <div class="navigator">
             <?php include('../components/nav.php') ?>
+
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <span id="progress-percentage">0%</span>
         </div>
 
 
@@ -281,8 +290,6 @@ if ($course_result->num_rows > 0) {
                 <button type="button" class="cancel-btn"
                     onclick="window.location.href=' course_list.php'">Cancel</button>
             </form>
-
-
         </div>
 
 
@@ -424,5 +431,43 @@ if ($course_result->num_rows > 0) {
                 }
             }
         });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length; // Total required questions
+        const progressBarFill = document.getElementById('progress-fill'); // Progress bar fill element
+        const progressPercentage = document.getElementById('progress-percentage'); // Percentage text
+        const submitButton = document.querySelector('.submit-btn'); // Submit button
+
+        if (!progressBarFill || !progressPercentage) {
+            console.error('Progress bar elements not found.');
+            return;
+        }
+
+        const radios = document.querySelectorAll('input[type="radio"]');
+
+        // Update progress bar whenever an answer is selected
+        radios.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            const answeredQuestions = Array.from(
+                document.querySelectorAll('input[type="radio"]:checked')
+            ).filter(input => input.name.startsWith('answers')).length; // Count answered questions
+
+            const progress = Math.round((answeredQuestions / totalQuestions) * 100); // Calculate percentage
+
+            progressBarFill.style.width = `${progress}%`; // Update bar width
+            progressPercentage.textContent = `${progress}%`; // Update text
+
+            // Enable the submit button only if all questions are answered
+            submitButton.disabled = answeredQuestions < totalQuestions;
+        }
+
+        // Initialize progress on page load
+        updateProgress();
     });
 </script>
