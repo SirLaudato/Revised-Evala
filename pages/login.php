@@ -102,11 +102,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         // Reset attempts on successful login
                         $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
                         mysqli_query($con, $sql_reset);
-
+                        var_dump($row["role"]);  // Check what role is being set
                         // Redirect based on role
                         if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
                             header("Location: ../pages/home.php");
                             exit();
+                        }
+
+                        // Redirect if role is "IAB"
+                        elseif (in_array($row["role"], ["IAB"])) {
+                            header("Location: ../admin/index.php");
+                            exit(); // Make sure the script stops here
                         } else {
                             $modalTitle = "Access Denied";
                             $modalMessage = "Your role does not have access to this page.";

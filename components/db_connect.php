@@ -1,8 +1,8 @@
 <?php
 session_start();
 // Redirect if already logged in
-if (isset($_SESSION['emailaddress'])) {
-    header("Location: ../pages/home.php");
+if ($_SESSION['role'] != "IAB") {
+    header("Location: ../pages/login.php");
     exit();
 }
 
