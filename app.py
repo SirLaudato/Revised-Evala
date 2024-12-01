@@ -5,7 +5,8 @@ import openai
 from PyPDF2 import PdfReader
 from docx import Document
 import pandas as pd
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
 
 # Configuration
@@ -14,7 +15,7 @@ ALLOWED_EXTENSIONS = {"pdf", "docx", "csv", "txt"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Create the uploads folder if it doesn't exist
 
-openai.api_key = "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  "  # Replace with your actual OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")  # Replace with your actual OpenAI API key
 
 # Helper: Check allowed file types
 def allowed_file(filename):
