@@ -139,7 +139,7 @@ ob_start(); // Turn on output buffering
                     <div class="per-section">
                         <div class="frame-3">
                             <div class="text-wrapper-3"><?php echo htmlspecialchars($criteria_name); ?></div>
-                            <p>Answer the following questions based on your experience.</p>
+                            <p>Here are the results of your evaluation.</p>
                         </div>
                         <div class="questionnaire-per-section">
                             <table>
