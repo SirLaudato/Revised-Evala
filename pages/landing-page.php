@@ -16,7 +16,7 @@
                 <div class="frame-2">
                     <div class="frame-3">
                         <div class="frame-4">
-                            <p class="p">Learn About Us And What Sets Us Apart</p>
+                            <p class="p">Smart Curriculum Evaluation</p>
                             <p class="evala-aims-to">
                                 Evala uses AI to enhance education by gathering feedback from students, faculty, alumni, and industry advisors. It analyzes data to improve services, offering personalized recommendations, better resource allocation, and an improved learning environment.
                             </p>
@@ -38,24 +38,11 @@
                         </div>
                     </div>
                     <div class="column">
-                        <p class="text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
-                            tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae
-                            erat.
-                        </p>
-                        <div class="list">
-                            <div class="list-item">
-                                <div class="number">99%</div>
-                                <p class="text-2">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-                                </p>
-                            </div>
-                            <div class="list-item">
-                                <div class="number">100%</div>
-                                <p class="text-2">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-                                </p>
-                            </div>
+                        <div class="frame-4">
+                            <p class="p">Learn About Us And What Sets Us Apart</p>
+                            <p class="evala-aims-to">
+                                Evala uses AI to enhance education by gathering feedback from students, faculty, alumni, and industry advisors. It analyzes data to improve services, offering personalized recommendations, better resource allocation, and an improved learning environment.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -71,24 +58,11 @@
                         </div>
                     </div>
                     <div class="column">
-                        <p class="text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
-                            tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae
-                            erat.
-                        </p>
-                        <div class="list">
-                            <div class="list-item">
-                                <div class="number">99%</div>
-                                <p class="text-2">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-                                </p>
-                            </div>
-                            <div class="list-item">
-                                <div class="number">100%</div>
-                                <p class="text-2">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-                                </p>
-                            </div>
+                        <div class="frame-4">
+                            <p class="p">Learn About Us And What Sets Us Apart</p>
+                            <p class="evala-aims-to">
+                                Evala uses AI to enhance education by gathering feedback from students, faculty, alumni, and industry advisors. It analyzes data to improve services, offering personalized recommendations, better resource allocation, and an improved learning environment.
+                            </p>
                         </div>
                         <div class="button-list">
                             <div class="start-eval-button"><div class="text-wrapper-2">Ask A Question</div></div>

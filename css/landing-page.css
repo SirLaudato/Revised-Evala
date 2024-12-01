@@ -376,6 +376,7 @@
   gap: 20px;
   position: relative;
   flex: 0 0 auto;
+  max-width: 680px;
 }
 
 .landing-page .frame-11 {
@@ -852,6 +853,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  user-select: none;
 }
 
 /* Answer style (initially hidden) */
