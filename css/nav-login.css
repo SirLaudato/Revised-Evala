@@ -1,64 +1,66 @@
-  body {
-    background-color: #f4f4f3;
-  }
+body {
+  background-color: #f4f4f3;
+}
 
-  .login-and-landing {
-    background-color: var(--background-color);
-    padding: 10px 40px;
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: box-shadow 0.3s;
-  }
+.login-and-landing {
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+  padding: 10px 40px;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(10px); /* Applies the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: Adds a subtle border */
+}
 
-  .login-and-landing .frame {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex: 0 0 auto;
-    gap: 100px;
-  }
+.login-and-landing .frame {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex: 0 0 auto;
+  gap: 100px;
+}
 
-  .login-and-landing .div-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    flex: 0 0 auto;
-  }
+.login-and-landing .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
 
-  .login-and-landing .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    color: #727271;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
+.login-and-landing .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  color: #727271;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
 
-  .login-and-landing .svg {
-    width: 22px;
-    height: 25px;
-    fill: #727271;
-    transition: fill 0.3s ease;
-  }
+.login-and-landing .svg {
+  width: 22px;
+  height: 25px;
+  fill: #727271;
+  transition: fill 0.3s ease;
+}
 
-  .frame {
-    display: inline-flex;
-    align-items: center;
-    gap: 393px;
-    position: relative;
-    flex: 0 0 auto;
-    height: 60px;
-  }
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 393px;
+  position: relative;
+  flex: 0 0 auto;
+  height: 60px;
+}
 
 /* Ensure specificity to target the SVG fill */
 .icon-button {
@@ -67,206 +69,205 @@
   transition: fill 0.3s ease;
   /* Smooth transition for color change */
 }
-  /* Ensure specificity to target the SVG fill */
-  .icon-button {
-    fill: #626261; /* Default color */
-    transition: fill 0.3s ease; /* Smooth transition for color change */
-  }
+/* Ensure specificity to target the SVG fill */
+.icon-button {
+  fill: #626261; /* Default color */
+  transition: fill 0.3s ease; /* Smooth transition for color change */
+}
 
 /* Darken SVG on hover */
 .icon-button:hover {
   fill: #342928;
   /* Darker color */
 }
-  /* Darken SVG on hover */
-  .icon-button:hover {
-    fill: #342928; /* Darker color */
-  }
+/* Darken SVG on hover */
+.icon-button:hover {
+  fill: #342928; /* Darker color */
+}
 
-  .shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  }
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
 
-  .div {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 33px;
-    position: relative;
-    flex: 0 0 auto;
-  }
+.div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
+}
 
-  .login-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    color: #727271;
-    padding: 5px 10px;
-    transition: color 0.3s ease;
-  }
+.login-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #727271;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
 
-  .login-button:hover {
-    color: var(--text-color);
-  }
+.login-button:hover {
+  color: var(--text-color);
+}
 
-  /* Base styles */
-  body {
-    background-color: #f4f4f3;
-  }
+/* Base styles */
+body {
+  background-color: #f4f4f3;
+}
 
+.login-and-landing {
+  background-color: transparent;
+  padding: 10px 40px;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.login-and-landing .frame {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex: 0 0 auto;
+  gap: 100px;
+}
+
+.login-and-landing .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login-and-landing .text-wrapper {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Montserrat", Helvetica;
+  font-weight: 700;
+  font-style: italic;
+  color: #727271;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login-and-landing .svg {
+  width: 22px;
+  height: 25px;
+  fill: #727271;
+  transition: fill 0.3s ease;
+}
+
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 393px;
+  position: relative;
+  flex: 0 0 auto;
+  height: 60px;
+}
+
+.icon-button {
+  fill: #626261; /* Default color */
+  transition: fill 0.3s ease; /* Smooth transition for color change */
+}
+
+.icon-button:hover {
+  fill: #342928; /* Darker color */
+}
+
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.login-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #727271;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.login-button:hover {
+  color: var(--text-color);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .login-and-landing {
-    background-color: var(--background-color);
-    padding: 10px 40px;
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: box-shadow 0.3s;
+    padding: 10px 20px; /* Reduce padding for smaller screens */
   }
 
   .login-and-landing .frame {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex: 0 0 auto;
-    gap: 100px;
-  }
-
-  .login-and-landing .div-wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    flex: 0 0 auto;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 20px;
   }
 
   .login-and-landing .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
-    font-family: "Montserrat", Helvetica;
-    font-weight: 700;
-    font-style: italic;
-    color: #727271;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
+    font-size: 18px; /* Adjust font size */
   }
 
   .login-and-landing .svg {
-    width: 22px;
-    height: 25px;
-    fill: #727271;
-    transition: fill 0.3s ease;
+    width: 18px;
+    height: 20px; /* Reduce icon size */
   }
 
   .frame {
-    display: inline-flex;
-    align-items: center;
-    gap: 393px;
-    position: relative;
-    flex: 0 0 auto;
-    height: 60px;
+    gap: 50px; /* Reduce spacing */
   }
 
   .icon-button {
-    fill: #626261; /* Default color */
-    transition: fill 0.3s ease; /* Smooth transition for color change */
+    width: 20px;
+    height: 20px; /* Adjust size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-and-landing {
+    padding: 10px; /* Further reduce padding */
   }
 
-  .icon-button:hover {
-    fill: #342928; /* Darker color */
+  .login-and-landing .frame {
+    gap: 10px;
   }
 
-  .shadow {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  .login-and-landing .text-wrapper {
+    font-size: 16px; /* Further adjust font size */
+    text-align: center; /* Center-align for smaller screens */
   }
 
-  .div {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 33px;
-    position: relative;
-    flex: 0 0 auto;
+  .login-and-landing .svg {
+    width: 16px;
+    height: 18px;
+  }
+
+  .icon-button {
+    width: 18px;
+    height: 18px;
   }
 
   .login-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    color: #727271;
-    padding: 5px 10px;
-    transition: color 0.3s ease;
+    padding: 5px; /* Reduce padding */
+    font-size: 14px; /* Adjust font size */
   }
-
-  .login-button:hover {
-    color: var(--text-color);
-  }
-
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .login-and-landing {
-      padding: 10px 20px; /* Reduce padding for smaller screens */
-    }
-
-    .login-and-landing .frame {
-      flex-direction: column; /* Stack elements vertically */
-      gap: 20px;
-    }
-
-    .login-and-landing .text-wrapper {
-      font-size: 18px; /* Adjust font size */
-    }
-
-    .login-and-landing .svg {
-      width: 18px;
-      height: 20px; /* Reduce icon size */
-    }
-
-    .frame {
-      gap: 50px; /* Reduce spacing */
-    }
-
-    .icon-button {
-      width: 20px;
-      height: 20px; /* Adjust size for smaller screens */
-    }
-  }
-
-  @media (max-width: 480px) {
-    .login-and-landing {
-      padding: 10px; /* Further reduce padding */
-    }
-
-    .login-and-landing .frame {
-      gap: 10px;
-    }
-
-    .login-and-landing .text-wrapper {
-      font-size: 16px; /* Further adjust font size */
-      text-align: center; /* Center-align for smaller screens */
-    }
-
-    .login-and-landing .svg {
-      width: 16px;
-      height: 18px;
-    }
-
-    .icon-button {
-      width: 18px;
-      height: 18px;
-    }
-
-    .login-button {
-      padding: 5px; /* Reduce padding */
-      font-size: 14px; /* Adjust font size */
-    }
-  }
+}

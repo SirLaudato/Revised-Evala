@@ -99,15 +99,17 @@ mysqli_close($con);
               }
 
               // Query to get the course for the logged-in user
+              
               $course_query = "
-    SELECT DISTINCT `courses`.`course_id`
-    FROM `users` 
-    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
-    LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
-    LEFT JOIN `courses` ON `courses`.`course_id` = IFNULL(`students`.`course_id`, `alumni`.`course_id`)
-    LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
-    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
-";
+                  SELECT DISTINCT `courses`.`course_id`
+                  FROM `users`
+                  LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `faculty` ON `faculty`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `courses` ON `courses`.`course_id` = COALESCE(`students`.`course_id`, `alumni`.`course_id`, `faculty`.`course_id`)
+                  WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
+              ";
+
 
 
               $result = $con->query($course_query);
