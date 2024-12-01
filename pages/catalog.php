@@ -99,15 +99,17 @@ mysqli_close($con);
               }
 
               // Query to get the course for the logged-in user
+              
               $course_query = "
-    SELECT DISTINCT `courses`.`course_id`
-    FROM `users` 
-    LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
-    LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
-    LEFT JOIN `courses` ON `courses`.`course_id` = IFNULL(`students`.`course_id`, `alumni`.`course_id`)
-    LEFT JOIN `evaluations` ON `evaluations`.`course_id` = `courses`.`course_id`
-    WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
-";
+                  SELECT DISTINCT `courses`.`course_id`
+                  FROM `users`
+                  LEFT JOIN `students` ON `students`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `faculty` ON `faculty`.`user_id` = `users`.`user_id`
+                  LEFT JOIN `courses` ON `courses`.`course_id` = COALESCE(`students`.`course_id`, `alumni`.`course_id`, `faculty`.`course_id`)
+                  WHERE `users`.`user_id` = " . intval($_SESSION["user_id"]) . ";
+              ";
+
 
 
               $result = $con->query($course_query);
@@ -152,20 +154,20 @@ mysqli_close($con);
                                                 `evaluations`.`course_id` = " . intval($course_row["course_id"]) . "
                                                 AND `users`.`user_id`= " . intval($_SESSION["user_id"]) . ";";
 
-                    $total_result = mysqli_query($con, $total_evaluation_query);
-                    if ($total_result) {
-                      $row = mysqli_fetch_assoc($total_result);
-                      $total_evaluations = $row['total_evaluations'];
+                    $_SESSION['total_result'] = mysqli_query($con, $total_evaluation_query);
+                    if ($_SESSION['total_result']) {
+                      $row = mysqli_fetch_assoc($_SESSION['total_result']);
+                      $_SESSION['total_result'] = $row['total_evaluations'];
                     } else {
                       echo "Query failed: " . mysqli_error($con);
                       continue; // Skip to next iteration
                     }
 
                     // Execute active evaluations query
-                    $active_result = mysqli_query($con, $active_evaluation_query);
-                    if ($active_result) {
-                      $row = mysqli_fetch_assoc($active_result);
-                      $active_evaluations = $row['active_evaluations'];
+                    $_SESSION['active_result'] = mysqli_query($con, $active_evaluation_query);
+                    if ($_SESSION['active_result']) {
+                      $row = mysqli_fetch_assoc($_SESSION['active_result']);
+                      $_SESSION['active_result'] = $row['active_evaluations'];
                     } else {
                       echo "Query failed: " . mysqli_error($con);
                       continue; // Skip to next iteration
@@ -175,7 +177,7 @@ mysqli_close($con);
                     $_SESSION["course_name"] = $course_name = $course_row["course_name"];
                     $_SESSION["course_cover"] = $course_cover = $course_row["course_cover"];
 
-                    if ($active_evaluations === $total_evaluations) {
+                    if ($_SESSION['active_result'] === $_SESSION['total_result']) {
                       $_SESSION["status"] = "Not yet completed";
                       echo '
                         <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
