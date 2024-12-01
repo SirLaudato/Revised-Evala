@@ -68,12 +68,12 @@ if ($course_result->num_rows > 0) {
 </head>
 
 <body>
-    
+
     <div class="questionnaire">
 
         <div class="navigator">
             <?php include('../components/nav.php') ?>
-            
+
         </div>
 
         <div class="progress-container">
@@ -89,7 +89,7 @@ if ($course_result->num_rows > 0) {
             <!-- <div class="frame-title"> 
                 <h1>TIEEEEEEEE</h1>
             </div> -->
-            
+
             <div class="frame-wrapper">
                 <div class="frame-7">
                     <!-- The Course name (ex. Computer Science) -->
@@ -122,7 +122,7 @@ if ($course_result->num_rows > 0) {
 
 
         <div class="questionnaire-evaluation">
-        <?php
+            <?php
             // Ensure the course_id and evaluation_id are passed
             if (!isset($_GET['course_id']) || !isset($_GET['evaluation_id'])) {
                 die("Error: course_id or evaluation_id is not set.");
@@ -139,11 +139,11 @@ if ($course_result->num_rows > 0) {
                 $answers = $_POST['answers'];
 
                 // Save the answers in evaluation_results table
-                $insert_query = "INSERT INTO evaluation_results (user_id, question_id, rate) VALUES (?, ?, ?)";
+                $insert_query = "INSERT INTO evaluation_results (user_id, question_id, rate, course_id) VALUES (?, ?, ?, ?)";
                 $stmt = $con->prepare($insert_query);
 
                 foreach ($answers as $question_id => $rate) {
-                    $stmt->bind_param("iii", $user_id, $question_id, $rate); // Include user_id
+                    $stmt->bind_param("iiii", $user_id, $question_id, $rate, $course_id); // Include user_id
                     $stmt->execute();
                 }
 
@@ -215,10 +215,10 @@ if ($course_result->num_rows > 0) {
             $criteria_stmt->bind_param("s", $evaluator_type);
             $criteria_stmt->execute();
             $criteria_result = $criteria_stmt->get_result();
-        ?>
+            ?>
 
 
-        <form method="POST">
+            <form method="POST">
                 <?php
                 if ($criteria_result->num_rows > 0) {
                     while ($criteria_row = $criteria_result->fetch_assoc()) {
@@ -436,38 +436,38 @@ if ($course_result->num_rows > 0) {
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length; // Total required questions
-    const progressBarFill = document.getElementById('progress-fill'); // Progress bar fill element
-    const progressPercentage = document.getElementById('progress-percentage'); // Percentage text
-    const submitButton = document.querySelector('.submit-btn'); // Submit button
+        const totalQuestions = document.querySelectorAll('input[type="radio"][required]').length; // Total required questions
+        const progressBarFill = document.getElementById('progress-fill'); // Progress bar fill element
+        const progressPercentage = document.getElementById('progress-percentage'); // Percentage text
+        const submitButton = document.querySelector('.submit-btn'); // Submit button
 
-    if (!progressBarFill || !progressPercentage) {
-        console.error('Progress bar elements not found.');
-        return;
-    }
+        if (!progressBarFill || !progressPercentage) {
+            console.error('Progress bar elements not found.');
+            return;
+        }
 
-    const radios = document.querySelectorAll('input[type="radio"]');
+        const radios = document.querySelectorAll('input[type="radio"]');
 
-    // Update progress bar whenever an answer is selected
-    radios.forEach(radio => {
-        radio.addEventListener('change', updateProgress);
+        // Update progress bar whenever an answer is selected
+        radios.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            const answeredQuestions = Array.from(
+                document.querySelectorAll('input[type="radio"]:checked')
+            ).filter(input => input.name.startsWith('answers')).length; // Count answered questions
+
+            const progress = Math.round((answeredQuestions / totalQuestions) * 100); // Calculate percentage
+
+            progressBarFill.style.width = `${progress}%`; // Update bar width
+            progressPercentage.textContent = `${progress}%`; // Update text
+
+            // Enable the submit button only if all questions are answered
+            submitButton.disabled = answeredQuestions < totalQuestions;
+        }
+
+        // Initialize progress on page load
+        updateProgress();
     });
-
-    function updateProgress() {
-        const answeredQuestions = Array.from(
-            document.querySelectorAll('input[type="radio"]:checked')
-        ).filter(input => input.name.startsWith('answers')).length; // Count answered questions
-
-        const progress = Math.round((answeredQuestions / totalQuestions) * 100); // Calculate percentage
-
-        progressBarFill.style.width = `${progress}%`; // Update bar width
-        progressPercentage.textContent = `${progress}%`; // Update text
-
-        // Enable the submit button only if all questions are answered
-        submitButton.disabled = answeredQuestions < totalQuestions;
-    }
-
-    // Initialize progress on page load
-    updateProgress();
-});
 </script>

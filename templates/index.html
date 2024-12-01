@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT File Analysis</title>
+</head>
+
+<body>
+    <h1>Upload Your File for AI Insights</h1>
+    <form id="fileForm" method="post" enctype="multipart/form-data">
+        <input type="file" id="fileInput" accept=".pdf,.docx,.csv,.txt" required />
+        <textarea id="userPrompt" placeholder="Enter your prompt (e.g., summarize this document)" rows="4"
+            cols="50"></textarea>
+        <button type="button" onclick="uploadFile()">Ask AI</button>
+    </form>
+
+    <div id="responseContainer">
+        <h2>AI Response</h2>
+        <p id="responseText"></p>
+    </div>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            const userPrompt = document.getElementById("userPrompt").value;
+
+            if (!fileInput.files[0] || !userPrompt) {
+                alert("Please upload a file and enter a prompt!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            formData.append("prompt", userPrompt);
+
+            const response = await fetch("/analyze", {
+                method: "POST",
+                body: formData,
+            });
+
+
+            const data = await response.json();
+            document.getElementById("responseText").textContent = data.message || "No response received.";
+        }
+    </script>
+</body>
+
+</html>
