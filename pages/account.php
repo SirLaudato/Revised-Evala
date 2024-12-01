@@ -143,7 +143,7 @@ mysqli_close($con);
                                     placeholder="Current Password">
                             </div>
                             <div class="form-row">
-                                <div>
+                                <div>   
                                     <input type="password" id="new_password" name="new_password" required
                                         placeholder="New Password">
                                 </div>

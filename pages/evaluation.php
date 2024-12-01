@@ -288,8 +288,8 @@ if ($course_result->num_rows > 0) {
 
 
                 <button type="button" class="cancel-btn"
-                    onclick="window.location.href=' course_list.php'">Cancel</button>
-            </form>
+                    onclick="window.location.href=' catalog.php'">Cancel</button>
+        </form>
         </div>
 
 
