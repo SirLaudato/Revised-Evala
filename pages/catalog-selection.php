@@ -74,29 +74,45 @@ if ($evaluation_result->num_rows > 0) {
 
 // Prepare the SQL query
 $sql_query = "
-                SELECT 
-                    `users`.`user_id`, 
-                    `user_evaluations`.`user_eval_id`, 
-                    `user_evaluations`.`has_answered`, 
-                    `evaluations`.`evaluation_id`, 
-                    `evaluations`.`active_flag` AS `evaluation_active_flag`, 
-                    `criteria`.`criteria_id`, 
-                    `criteria`.`active_flag` AS `criteria_active_flag`, 
-                    `questionnaire`.*, 
-                    `evaluation_results`.*
-                FROM `users` 
-                LEFT JOIN `user_evaluations` ON `user_evaluations`.`user_id` = `users`.`user_id` 
-                LEFT JOIN `evaluations` ON `user_evaluations`.`evaluation_id` = `evaluations`.`evaluation_id` 
-                LEFT JOIN `criteria` ON `evaluations`.`criteria_id` = `criteria`.`criteria_id` 
-                LEFT JOIN `questionnaire` ON `questionnaire`.`criteria_id` = `criteria`.`criteria_id` 
-                LEFT JOIN `evaluation_results` ON `evaluation_results`.`user_id` = `users`.`user_id`
-                WHERE `users`.`user_id` = ?;";
+    SELECT 
+        users.user_id, 
+        user_evaluations.user_eval_id, 
+        user_evaluations.has_answered, 
+        evaluations.evaluation_id, 
+        evaluations.active_flag AS evaluation_active_flag, 
+        criteria.criteria_id, 
+        criteria.criteria_name, 
+        criteria.active_flag AS criteria_active_flag, 
+        questionnaire.question_id, 
+        questionnaire.question, 
+        evaluation_results.result_id, 
+        evaluation_results.rate AS score
+    FROM users
+    LEFT JOIN user_evaluations 
+        ON user_evaluations.user_id = users.user_id
+    LEFT JOIN evaluations 
+        ON user_evaluations.evaluation_id = evaluations.evaluation_id
+    LEFT JOIN criteria 
+        ON evaluations.criteria_id = criteria.criteria_id
+    LEFT JOIN questionnaire 
+        ON questionnaire.criteria_id = criteria.criteria_id
+    LEFT JOIN evaluation_results 
+        ON evaluation_results.user_id = users.user_id 
+           AND evaluation_results.question_id = questionnaire.question_id
+           AND evaluation_results.course_id = evaluations.course_id
+    WHERE users.user_id = ? 
+      AND evaluations.course_id = ? 
+      AND evaluations.active_flag = 1 
+      AND criteria.active_flag = 1;
+";
+
+
 
 // Prepare the statement
 $stmt = $con->prepare($sql_query);
 
 // Bind the parameter
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("ii", $user_id, $course_id);
 
 // Execute the statement
 $stmt->execute();

@@ -196,6 +196,7 @@ if ($course_result->num_rows > 0) {
             }
             ob_end_flush(); // End output buffering
             // Fetch evaluation and criteria to render the form
+            echo $evaluation_id;
             $evaluation_query = "SELECT * FROM evaluations WHERE evaluation_id = ? AND course_id = ?";
             $stmt = $con->prepare($evaluation_query);
             $stmt->bind_param("ii", $evaluation_id, $course_id);
@@ -287,9 +288,8 @@ if ($course_result->num_rows > 0) {
 
 
 
-                <button type="button" class="cancel-btn"
-                    onclick="window.location.href=' catalog.php'">Cancel</button>
-        </form>
+                <button type="button" class="cancel-btn" onclick="window.location.href=' catalog.php'">Cancel</button>
+            </form>
         </div>
 
 
