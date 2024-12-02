@@ -6,6 +6,8 @@ from PyPDF2 import PdfReader
 from docx import Document
 import pandas as pd
 from dotenv import load_dotenv
+import re
+
 load_dotenv()
 app = Flask(__name__)
 
@@ -35,6 +37,13 @@ def extract_text(file_path, file_type):
     elif file_type == "txt":
         with open(file_path, "r", encoding="utf-8") as file:
             return file.read()
+
+# Helper: Format response to make text between ** bold
+def format_response(response):
+    """
+    Replace text enclosed in ** with bold HTML tags (<strong>).
+    """
+    return re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", response)
 
 # Route: Serve the HTML file
 @app.route("/")
@@ -71,7 +80,10 @@ def analyze_file():
         # Clean up the uploaded file
         os.remove(file_path)
 
-        return jsonify({"message": ai_response})
+        # Format the AI response
+        formatted_response = format_response(ai_response)
+
+        return jsonify({"message": formatted_response})
 
     return jsonify({"message": "Invalid file type"}), 400
 

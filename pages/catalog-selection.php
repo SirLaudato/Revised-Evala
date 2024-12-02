@@ -39,12 +39,29 @@ if ($course_result->num_rows > 0) {
     $course_name = "Course not found";
     $course_description = "No description available.";
 }
-
 // Now fetch the evaluation details for the course
-$evaluation_query = "
+
+if ($_SESSION['role'] === 'Faculty') {
+    $evaluation_query = "
+    SELECT evaluation_id, evaluator_type, evaluation_start_date, evaluation_end_date 
+    FROM evaluations 
+    WHERE course_id = ? AND active_flag = 1
+    ORDER BY 
+        CASE evaluator_type
+            WHEN 'faculty' THEN 1
+            WHEN 'student' THEN 2
+            WHEN 'alumni' THEN 3
+            ELSE 4
+        END,
+        evaluation_start_date ASC
+    LIMIT 1";
+} else {
+    $evaluation_query = "
     SELECT evaluation_id, evaluator_type, evaluation_start_date, evaluation_end_date 
     FROM evaluations 
     WHERE course_id = ? AND active_flag = 1";
+}
+
 
 $stmt = $con->prepare($evaluation_query);
 if (!$stmt) {

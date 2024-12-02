@@ -4,46 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT File Analysis</title>
+    <title>AI File Analysis</title>
 </head>
 
 <body>
-    <h1>Upload Your File for AI Insights</h1>
-    <form id="fileForm" method="post" enctype="multipart/form-data">
-        <input type="file" id="fileInput" accept=".pdf,.docx,.csv,.txt" required />
-        <textarea id="userPrompt" placeholder="Enter your prompt (e.g., summarize this document)" rows="4"
-            cols="50"></textarea>
-        <button type="button" onclick="uploadFile()">Ask AI</button>
+    <h1>Upload Your File and Get AI Analysis</h1>
+
+    <!-- Form to upload file and prompt -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="file">Choose a file:</label>
+        <input type="file" name="file" id="file" required><br><br>
+
+        <label for="prompt">Enter your prompt:</label><br>
+        <textarea name="prompt" id="prompt" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Analyze</button>
     </form>
 
-    <div id="responseContainer">
-        <h2>AI Response</h2>
-        <p id="responseText"></p>
-    </div>
+    <h2>AI Response:</h2>
+    <div id="response"></div> <!-- This is where the AI's response will be displayed -->
 
     <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById("fileInput");
-            const userPrompt = document.getElementById("userPrompt").value;
-
-            if (!fileInput.files[0] || !userPrompt) {
-                alert("Please upload a file and enter a prompt!");
-                return;
-            }
+        // Handle the form submission and send the file and prompt to the server
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
 
             const formData = new FormData();
-            formData.append("file", fileInput.files[0]);
-            formData.append("prompt", userPrompt);
+            formData.append('file', document.getElementById('file').files[0]);
+            formData.append('prompt', document.getElementById('prompt').value);
 
-            const response = await fetch("/analyze", {
-                method: "POST",
+            // Send the data to the server
+            fetch('/analyze', {
+                method: 'POST',
                 body: formData,
-            });
-
-
-            const data = await response.json();
-            document.getElementById("responseText").textContent = data.message || "No response received.";
-        }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Insert the AI response, using innerHTML to render the HTML tags (e.g., <strong> for bold)
+                    document.getElementById('response').innerHTML = data.message;
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 </body>
 

@@ -180,7 +180,7 @@ mysqli_close($con);
                     if ($_SESSION['active_result'] === $_SESSION['total_result']) {
                       $_SESSION["status"] = "Not yet completed";
                       echo '
-                        <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . '">
+                        <a href="catalog-selection.php?course_id=' . urlencode($course_row["course_id"]) . ' &user_id=' . $_SESSION['user_id'] . ' ">
                             <div class="curriculum-container">
                                 <div class="frame-7">
                                     <img class="frame-7" src="' . htmlspecialchars($_SESSION["course_cover"]) . '" alt="Course Cover">
