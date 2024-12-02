@@ -38,12 +38,19 @@ def extract_text(file_path, file_type):
         with open(file_path, "r", encoding="utf-8") as file:
             return file.read()
 
-# Helper: Format response to make text between ** bold
+# Helper: Format response to make text between ** bold and add line breaks
 def format_response(response):
-    """
-    Replace text enclosed in ** with bold HTML tags (<strong>).
-    """
-    return re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", response)
+
+    # Format: Bold the section titles inside ** and add line breaks before and after them
+    response = re.sub(r"\*\*([^\*]+)\*\*", r"<strong>\1</strong>", response)
+
+    # Format: Add line breaks before and after each section title
+    response = re.sub(r"(\d+\.\s)(<strong>.*?</strong>)", r"<br>\1\2<br>", response)
+
+    # Ensure line breaks between each bullet point (convert \n to <br>)
+    response = response.replace("\n", "<br>")
+
+    return response
 
 # Route: Serve the HTML file
 @app.route("/")

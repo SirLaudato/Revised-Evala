@@ -40,7 +40,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Insert the AI response, using innerHTML to render the HTML tags (e.g., <strong> for bold)
+                    // Insert the AI response, using innerHTML to render the HTML tags (e.g., <strong> for bold and <br> for line breaks)
                     document.getElementById('response').innerHTML = data.message;
                 })
                 .catch(error => console.error('Error:', error));
