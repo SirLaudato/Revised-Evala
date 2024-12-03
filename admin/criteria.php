@@ -153,8 +153,8 @@ $result = $conn->query($sql);
             const deleteButtons = document.querySelectorAll('.delete-btn');
 
                // Open edit modal and populate fields
-          edit  Buttons.forEach(button => {
-             butt   on.addEventListener('click', () => {
+             editButtons.forEach(button => {
+             button.addEventListener('click', () => {
                 // Populate the modal with data
                 const status = button.dataset.status == 'Active' ? '1' : '0';  // Set '1' for Active and '0' for Locked
                 document.getElementById('criteria_id').value = button.dataset.id;
@@ -168,13 +168,13 @@ $result = $conn->query($sql);
             });
 
             // Close edit modal
-          clos  eModal.addEventListener('click', () => {
+            closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
             });
 
                // Delete criteria
-          dele  teButtons.forEach(button => {
-             butt   on.addEventListener('click', () => {
+            deleteButtons.forEach(button => {
+             button.addEventListener('click', () => {
                 if (confirm("Are you sure you want to delete this criteria?")) {
                     const criteriaId = button.dataset.id;
                     window.location.href = `?delete_id=${criteriaId}`;
@@ -183,7 +183,7 @@ $result = $conn->query($sql);
             });
 
               // Close modal on outside click
-        wind    ow.addEventListener('click', event => {
+                window.addEventListener('click', event => {
                 if (event.target == modal) {
                     modal.style.display = 'none';
                 }

@@ -131,7 +131,7 @@ $result = $conn->query($sql);
         </tbody>
     </table>
 
-    <!-- Edit Alumni Modal -->
+    <!-- Edit Alumni Modal -->  
     <div id="editModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close">&times;</span>
