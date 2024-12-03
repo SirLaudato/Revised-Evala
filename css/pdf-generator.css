@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header-pdf {
+  h1 {
+    color: blue;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
