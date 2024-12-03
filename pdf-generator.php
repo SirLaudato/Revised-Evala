@@ -63,53 +63,8 @@ if ($result && $result->num_rows > 0) {
     <title>Evaluation Results</title>
     <style>
         body {
-            font-family: "Arial", Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
         }
-
-        h1, h2, h3, h4, h5 {
-            text-align: center;
-            margin: 0;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-
-        .header-section .college {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .header-section .department {
-            font-style: italic;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .header-section .title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .header-section .year {
-            font-size: 14px;
-            margin-top: 20px;
-        }
-
-        .header-section .program {
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 30px;
-        }
-
-        .header-section .program-details {
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
 
         h1, h2, h3 {
             color: #333;
@@ -138,19 +93,6 @@ if ($result && $result->num_rows > 0) {
             margin: 0 auto;
             padding: 20px;
             max-width: 800px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-            font-size: 14px;
         }
     </style>
 </head>
