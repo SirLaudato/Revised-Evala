@@ -21,7 +21,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle form submission (update faculty data)
+// Handle form submission (update alumni data)
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
     // Get updated values from the form
     $user_id = $_POST['user_id'];
@@ -34,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
     $stmt->bind_param("sii", $email, $status, $user_id);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Faculty updated successfully.');</script>";
+        echo "<script>alert('Alumni updated successfully.');</script>";
     } else {
-        echo "<script>alert('Error updating faculty.');</script>";
+        echo "<script>alert('Error updating alumni.');</script>";
     }
 
     $stmt->close();
 }
 
-// Handle deletion (delete faculty record)
+// Handle deletion (delete alumni record)
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
 
@@ -52,20 +52,21 @@ if (isset($_GET['delete_id'])) {
     $stmt->bind_param("i", $delete_id);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Faculty deleted successfully.');</script>";
+        echo "<script>alert('Alumni deleted successfully.');</script>";
     } else {
-        echo "<script>alert('Error deleting faculty.');</script>";
+        echo "<script>alert('Error deleting alumni.');</script>";
     }
 
     $stmt->close();
 }
 
-// Query to fetch user data
-$sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, `users`.`active_flag`, `faculty`.`position`, `faculty`.`department`, `faculty`.`hired_date`, `courses`.`course_name`
-FROM `users` 
-    LEFT JOIN `faculty` ON `faculty`.`user_id` = `users`.`user_id` 
-    LEFT JOIN `courses` ON `faculty`.`course_id` = `courses`.`course_id`
-WHERE `users`.`role` = 'Faculty';";
+// Query to fetch alumni data
+$sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, `users`.`active_flag`, 
+        `alumni`.`student_number`, `alumni`.`graduation_year`, `courses`.`course_name`
+        FROM `users` 
+        LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id` 
+        LEFT JOIN `courses` ON `alumni`.`course_id` = `courses`.`course_id`
+        WHERE `users`.`role` = 'Alumni';";
 
 $result = $conn->query($sql);
 
@@ -74,15 +75,15 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty List</title>
+    <title>Alumni List</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
 </head>
 
 <body>
     <?php include('../admin/index.php') ?>
-    <h2>Faculty List</h2>
+    <h2>Alumni List</h2>
 
-    <!-- Faculty Table -->
+    <!-- Alumni Table -->
     <table border="1">
         <thead>
             <tr>
@@ -91,9 +92,8 @@ $result = $conn->query($sql);
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Status</th>
-                <th>Position</th>
-                <th>Department</th>
-                <th>Hired Date</th>
+                <th>Student Number</th>
+                <th>Graduation Year</th>
                 <th>Course</th>
                 <th>Actions</th>
             </tr>
@@ -110,9 +110,8 @@ $result = $conn->query($sql);
                             <td>{$row['last_name']}</td>
                             <td>{$row['email']}</td>
                             <td>{$status}</td>
-                            <td>{$row['position']}</td>
-                            <td>{$row['department']}</td>
-                            <td>{$row['hired_date']}</td>
+                            <td>{$row['student_number']}</td>
+                            <td>{$row['graduation_year']}</td>
                             <td>{$row['course_name']}</td>
                             <td>
                                 <button class='edit-btn' data-id='{$row['user_id']}'
@@ -126,13 +125,13 @@ $result = $conn->query($sql);
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='10'>No faculty found.</td></tr>";
+                echo "<tr><td colspan='9'>No alumni found.</td></tr>";
             }
             ?>
         </tbody>
     </table>
 
-    <!-- Edit Faculty Modal -->
+    <!-- Edit Alumni Modal -->
     <div id="editModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -200,10 +199,10 @@ $result = $conn->query($sql);
                 alert('Status set to Locked');
             });
 
-            // Delete faculty
+            // Delete alumni
             deleteButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    if (confirm("Are you sure you want to delete this faculty member?")) {
+                    if (confirm("Are you sure you want to delete this alumni member?")) {
                         const userId = button.dataset.id;
                         window.location.href = `?delete_id=${userId}`;
                     }

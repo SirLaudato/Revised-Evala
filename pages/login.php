@@ -66,6 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
                             header("Location: ../pages/home.php");
                             exit();
+                        } elseif (in_array($row["role"], ["IAB"])) {
+                            header("Location: ../admin/index.php");
+                            exit(); // Make sure the script stops here
                         } else {
                             $modalTitle = "Access Denied";
                             $modalMessage = "Your role does not have access to this page.";

@@ -8,13 +8,59 @@ $dompdf = new Dompdf();
 
 // Start output buffering to capture dynamic HTML
 ob_start();
+
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "evala_db1";
+$con = new mysqli($servername, $username, $password, $database);
+
+if ($con->connect_error) {
+    die("Connection Failed: " . $con->connect_error);
+}
+
+// Query to fetch all criteria, evaluator types, questions, and their average ratings
+$query = "
+SELECT 
+    `c`.`criteria_id`, 
+    `c`.`criteria_name`, 
+    `c`.`evaluator_type`, 
+    `questionnaire`.`question`, 
+    AVG(`evaluation_results`.`rate`) AS average_rating
+FROM 
+    `criteria` AS `c`
+LEFT JOIN `questionnaire` ON `questionnaire`.`criteria_id` = `c`.`criteria_id`
+LEFT JOIN `evaluation_results` ON `evaluation_results`.`question_id` = `questionnaire`.`question_id`
+GROUP BY 
+    `c`.`criteria_id`, 
+    `c`.`criteria_name`, 
+    `c`.`evaluator_type`, 
+    `questionnaire`.`question`
+ORDER BY 
+    `c`.`criteria_name` ASC, 
+    `c`.`evaluator_type` ASC, 
+    `questionnaire`.`question` ASC
+";
+
+$result = $con->query($query);
+
+// Organize results by criteria and evaluator type
+$criteria_results = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $criteria_results[$row['criteria_name']][$row['evaluator_type']][] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Results</title>
     <style>
         body {
             font-family: "Arial", Helvetica, sans-serif;
@@ -65,13 +111,33 @@ ob_start();
         }
 
 
-        h1 {
-            color: blue;
-            font-family: "Arial", Helvetica, sans-serif;
+        h1, h2, h3 {
+            color: #333;
         }
 
-        p {
-            font-size: 14px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 800px;
         }
 
         table {
@@ -86,101 +152,50 @@ ob_start();
             text-align: left;
             font-size: 14px;
         }
-
-        td {
-            font-size: 12px;
-        }
-
-        tr {
-            font-weight: 400;
-            text-align: center;
-            font-size: 14px;
-            
-        }
-
-        .table-title {
-            font-weight: bold;
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
-
-        .content {
-            text-indent: 50px;
-        }
-
     </style>
 </head>
 
 <body>
-    <!-- Header Section -->
-    <div class="header-section">
-        <div class="college">COLLEGE OF ENGINEERING, COMPUTER STUDIES, and ARCHITECTURE</div>
-        <div class="department">Department of Computer Studies</div>
-        <div class="title">CURRICULUM VALIDATION RESULTS</div>
-        <div class="year">ACADEMIC YEAR 2023-2024</div>
-        <div class="program">Bachelor of Science in Information Technology (BSIT)</div>
-        <div class="program-details">with Specialization in Web and Mobile Technology<br>Curriculum Year 2022-2023</div>
+    <div class="container">
+        <h1>Evaluation Results</h1>
+
+        <?php if (!empty($criteria_results)): ?>
+            <?php foreach ($criteria_results as $criteria_name => $evaluator_types): ?>
+                <h2><?php echo htmlspecialchars($criteria_name); ?></h2>
+
+                <?php foreach ($evaluator_types as $evaluator_type => $rows): ?>
+                    <h3><?php echo htmlspecialchars($evaluator_type); ?></h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Average Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $row): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['question']); ?></td>
+                                    <td><?php echo number_format($row['average_rating'], 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endforeach; ?>
+
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No evaluation results found.</p>
+        <?php endif; ?>
     </div>
-
-    <!-- Content Section -->
-    <div class="content-section">
-
-        <!-- The numbering of sections, in roman numerals should be incrementing -->
-        <div class="table-title">I. Introduction</div>
-        <div class="content">
-            <p>
-            Curriculum Validation/Evaluation is one way to determine the significance, usefulness and even
-            the weak point of any program’s curricula. Last week of June the Department of Computer Studies
-            conducted a curriculum review for the 2022-2023 BSIT Curriculum. This was done through feedback
-            mechanism from the primary stakeholder - the students, industry academic board and faculty members
-            using the online platform. The purpose of which is to serve as basis to continuously update and improve
-            appropriate syllabi in response to the ever evolving and dynamic world of Information Technology.
-            Changes to the curriculum will be incorporated in the syllabi content for each major IT subjects.
-            </p>
-        </div>
-    </div>
-
-    <!-- Table -->
-    <div class="table-section">
-        <div class="table-title">Table 1.B Course Content</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Course Content</th>
-                    <th>Student Rating</th>
-                    <th>Faculty Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>The course content is generally perceived as comprehensive. The relatively high mean score indicates positive feedback, though there is some variability.</td>
-                    <td>4.42</td>
-                    <td>4.64</td>
-                </tr>
-                <tr>
-                    <td>The syllabi's emphasis on connections within and across disciplines is seen positively but with some variability in responses.</td>
-                    <td>4.42</td>
-                    <td>4.64</td>
-                </tr>
-                <tr>
-                    <td>The syllabi's provision of items leading to conceptual understanding is well-regarded, though some responses vary.</td>
-                    <td>4.44</td>
-                    <td>4.82</td>
-                </tr>
-                <tr>
-                    <td>There is strong agreement that appropriate technology is incorporated into the syllabi. The low standard deviation indicates consistent feedback.</td>
-                    <td>4.47</td>
-                    <td>4.82</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
 </body>
 
 </html>
 
 <?php
+// Close the database connection
+$con->close();
+
 // Get the HTML output as a string
 $html = ob_get_clean();
 
@@ -190,9 +205,13 @@ $dompdf->loadHtml($html);
 // Set paper size and orientation
 $dompdf->setPaper('A4', 'portrait');
 
-// Render the PDF
-$dompdf->render();
+try {
+    // Render the PDF
+    $dompdf->render();
 
-// Output the PDF to the browser
-$dompdf->stream("Results.pdf", ["Attachment" => false]);
+    // Output the PDF to the browser
+    $dompdf->stream("Results.pdf", ["Attachment" => false]);
+} catch (Exception $e) {
+    die("Error generating PDF: " . $e->getMessage());
+}
 ?>

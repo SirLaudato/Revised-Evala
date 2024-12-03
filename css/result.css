@@ -489,16 +489,20 @@ thead th {
   padding: 10px;
   text-align: center;
   border-bottom: 2px solid #ddd;
-  height: 60px; /* Adjust header cell height */
+  height: 60px;
+  /* Adjust header cell height */
 }
+
 thead th:nth-child(1),
 tbody td:nth-child(1) {
-  width: 250px; /* Set width for the first column (Question) */
+  width: 250px;
+  /* Set width for the first column (Question) */
 }
 
 thead th:nth-child(2),
 tbody td:nth-child(2) {
-  width: 100px; /* Set width for the second column (Rate) */
+  width: 100px;
+  /* Set width for the second column (Rate) */
 }
 
 tbody td {
@@ -590,9 +594,11 @@ ol li {
   border: 1px solid;
   font-size: 20px;
   border-color: var(--hollow-button);
+  cursor: pointer;
 
   &:hover {
     background-color: var(--hollow-button-hover);
+    cursor: pointer;
   }
 }
 
@@ -626,7 +632,7 @@ ol li {
   /* Optional: Make it rounded */
 }
 
-#progress-bar > div {
+#progress-bar>div {
   height: 100%;
   background-color: var(--text-color, black);
   /* Add a fallback color */

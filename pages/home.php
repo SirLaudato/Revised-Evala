@@ -70,6 +70,9 @@ if ($_SESSION['role'] == 'Alumni') {
         }
 
     }
+} else {
+    session_destroy();
+    header('Location: /Revised-Evala/pages/login.php');
 }
 
 $result = mysqli_query($con, $userQuery);
