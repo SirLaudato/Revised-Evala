@@ -62,7 +62,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
 </head>
 
 <body>
-    <?php include('../admin/index.php'); ?>
+    <!-- <?php include('../admin/index.php'); ?> -->
+    <div class="form-container">
+        <h2>Add New Alumni</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">First Name:</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Last Name:</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="student_number">Student Number:</label>
+                <input type="text" id="student_number" name="student_number" required>
+            </div>
+            <div class="form-group">
+                <label for="student_year">Student Year:</label>
+                <input type="text" id="student_year" name="student_year" required>
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Create Alumni</button>
+            </div>
+        </form>
+    </div>
+
     <h2>Student List</h2>
     <table border="1">
         <thead>
