@@ -19,6 +19,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Handle Add Criteria
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_criteria'])) {
+    $criteria_name = $_POST['criteria_name'];
+    $evaluator_type = $_POST['evaluator_type'];
+    $status = $_POST['status'] == "active" ? 1 : 0;
+
+    $insert_sql = "INSERT INTO `criteria` (`criteria_name`, `evaluator_type`, `active_flag`) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($insert_sql);
+    $stmt->bind_param("ssi", $criteria_name, $evaluator_type, $status);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Criteria added successfully'); window.location.href = ''; </script>";
+    } else {
+        echo "<script>alert('Error adding criteria');</script>";
+    }
+    $stmt->close();
+}
+
 // Handle Delete
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
@@ -58,6 +76,7 @@ $result = $conn->query($sql);
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +88,35 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    <?php include('../admin/index.php'); ?>
+    <!-- <?php include('../admin/index.php'); ?> -->
+    <div class="form-container">
+        <h2>Add New Criteria</h2>
+        <form method="POST" action="">
+            <div class="form-group">
+                <label for="criteria_name">Criteria Name:</label>
+                <input type="text" id="criteria_name" name="criteria_name" required>
+            </div>
+            <div class="form-group">
+                <label for="evaluator_type">Evaluator:</label>
+                <select id="evaluator_type" name="evaluator_type" required>
+                    <option value="">Select Evaluator</option>
+                    <option value="Student">Student</option>
+                    <option value="Faculty">Faculty</option>
+                    <option value="Alumni">Alumni</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" name="add_criteria">Add Criteria</button>
+            </div>
+        </form>
+    </div>
 
     <h2>Criteria List</h2>
 
@@ -152,38 +199,38 @@ $result = $conn->query($sql);
             const editButtons = document.querySelectorAll('.edit-btn');
             const deleteButtons = document.querySelectorAll('.delete-btn');
 
-               // Open edit modal and populate fields
-          edit  Buttons.forEach(button => {
-             butt   on.addEventListener('click', () => {
-                // Populate the modal with data
-                const status = button.dataset.status == 'Active' ? '1' : '0';  // Set '1' for Active and '0' for Locked
-                document.getElementById('criteria_id').value = button.dataset.id;
-                document.getElementById('name').value = button.dataset.name;
-                document.getElementById('evaluator_type').value = button.dataset.type;
-                document.getElementById('status').value = status; // Set the correct default status
+            // Open edit modal and populate fields
+            editButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Populate the modal with data
+                    const status = button.dataset.status == 'Active' ? '1' : '0';  // Set '1' for Active and '0' for Locked
+                    document.getElementById('criteria_id').value = button.dataset.id;
+                    document.getElementById('name').value = button.dataset.name;
+                    document.getElementById('evaluator_type').value = button.dataset.type;
+                    document.getElementById('status').value = status; // Set the correct default status
 
-                // Open the modal
-                modal.style.display = 'flex';
-            });
+                    // Open the modal
+                    modal.style.display = 'flex';
+                });
             });
 
             // Close edit modal
-          clos  eModal.addEventListener('click', () => {
+            closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
             });
 
-               // Delete criteria
-          dele  teButtons.forEach(button => {
-             butt   on.addEventListener('click', () => {
-                if (confirm("Are you sure you want to delete this criteria?")) {
-                    const criteriaId = button.dataset.id;
-                    window.location.href = `?delete_id=${criteriaId}`;
-                }
-            });
+            // Delete criteria
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (confirm("Are you sure you want to delete this criteria?")) {
+                        const criteriaId = button.dataset.id;
+                        window.location.href = `?delete_id=${criteriaId}`;
+                    }
+                });
             });
 
-              // Close modal on outside click
-        wind    ow.addEventListener('click', event => {
+            // Close modal on outside click
+            window.addEventListener('click', event => {
                 if (event.target == modal) {
                     modal.style.display = 'none';
                 }

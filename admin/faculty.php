@@ -79,7 +79,54 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    <?php include('../admin/index.php') ?>
+    <!-- <?php include('../admin/index.php') ?> -->
+
+    <div class="form-container">
+        <h2>Add New Faculty</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">First Name:</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Last Name:</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Position:</label>
+                <input type="text" id="position" name="position" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="coecsa">COECSA</option>
+                    <option value="coecsa">CLAE</option>
+                    <option value="coecsa">CAMS</option>
+                    <option value="coecsa">CBA</option>
+                    <option value="coecsa">CITHM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Course:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Create Faculty</button>
+            </div>
+        </form>
+    </div>
     <h2>Faculty List</h2>
 
     <!-- Faculty Table -->
