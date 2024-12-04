@@ -203,10 +203,10 @@
 
 
                 <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option id="activeButton">Active</option>
-                    <option id="lockButton">Locked</option>
-                </select>
+                <div>
+                    <button type="button" id="activeButton">Active</button>
+                    <button type="button" id="lockButton">Lock</button>
+                </div>
 
                 <input type="hidden" id="status" name="status">
                 
