@@ -30,7 +30,7 @@ body {
   margin-right: 60px; /* Add space between the sidebar and main content */
 }
 
-.parent-criteria-container {
+.parent-faculty-container {
   display: flex;
   flex: 1;
   gap: var(--section-gap);
@@ -38,7 +38,7 @@ body {
   padding-left: 0; /* Avoid additional spacing here */
 }
 
-.criteria-add {
+.faculty-add {
   background-color: var(--gray-color); /* White background for a flat look */
   width: 30%; /* Set to 30% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
@@ -48,13 +48,13 @@ body {
   box-shadow: none; /* Remove shadow */
   gap: 10px;
 }
-.criteria-add label {
+.faculty-add label {
   font-size: 14px;
   margin-bottom: 6px; /* Space between label and the next element */
   display: block; /* Ensures the label behaves as a block element */
 }
 
-.criteria-list {
+.faculty-list {
   background-color: var(--gray-color); /* White background for a flat look */
   width: 70%; /* Set to 70% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
@@ -63,32 +63,32 @@ body {
   box-shadow: none; /* Remove shadow */
 }
 
-.criteria-list table {
+.faculty-list table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.criteria-list table th,
-.criteria-list table td {
+.faculty-list table th,
+.faculty-list table td {
   border: 1px solid var(--gray-color);
   padding: 10px;
   text-align: left;
-  font-size: 0.9em;
+  font-size: 0.6em;
   color: var(--text-color);
 }
 
-.criteria-list table th {
+.faculty-list table th {
   background-color: var(--gray-color);
   font-weight: 400;
   padding-bottom: 2rem;
 }
 
-.criteria-list table td {
+.faculty-list table td {
   background-color: var(--gray-color);
 }
 
-.criteria-list .buttons {
+.faculty-list .buttons {
   /* Button alignment for the form */
   display: flex;
   width: 180px;
@@ -103,8 +103,8 @@ form {
   gap: 14px; /* Add gap between child elements */
 }
 
-.criteria-add h2,
-.criteria-list h2 {
+.faculty-add h2,
+.faculty-list h2 {
   font-size: 1.4em;
   margin-bottom: 40px;
   color: #342928;

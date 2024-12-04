@@ -76,6 +76,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty List</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
+    <link rel="stylesheet" href="../admin-css/faculty.css">
 </head>
 
 <body>
@@ -166,14 +167,18 @@
                                 <td>{$row['hired_date']}</td>
                                 <td>{$row['course_name']}</td>
                                 <td>
-                                    <button class='edit-btn' data-id='{$row['user_id']}'
-                                        data-name='{$row['first_name']} {$row['last_name']}'
-                                        data-email='{$row['email']}'
-                                        data-status='{$row['active_flag']}'>
-                                        Edit
-                                    </button>
-                                    <button class='delete-btn' data-id='{$row['user_id']}'>Delete</button>
-                                </td>
+
+                                    <div class='buttons'>
+                                        <button class='edit-btn' data-id='{$row['user_id']}'
+                                            data-name='{$row['first_name']} {$row['last_name']}'
+                                            data-email='{$row['email']}'
+                                            data-status='{$row['active_flag']}'>
+                                            Edit
+                                        </button>
+                                        <button class='delete-btn' data-id='{$row['user_id']}'>Delete</button>
+                                    </div>
+                                
+                                    </td>
                             </tr>";
                     }
                 } else {
@@ -187,18 +192,18 @@
 
     <!-- Edit Faculty Modal -->
     <div id="editModal" class="modal" style="display:none;">
+        <span class="close">&times;</span>
         <div class="modal-content">
-            <span class="close">&times;</span>
             <form id="editForm" method="POST">
                 <input type="hidden" name="user_id" id="user_id">
 
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" readonly>
-                <hr>
+                
 
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email">
-                <hr>
+                
 
                 <label for="status">Status</label>
                 <div>
@@ -207,7 +212,7 @@
                 </div>
 
                 <input type="hidden" id="status" name="status">
-                <hr>
+                
 
                 <button type="submit">Save Changes</button>
             </form>
