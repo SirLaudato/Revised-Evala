@@ -132,6 +132,7 @@ $sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `us
         WHERE `users`.`role` = 'Faculty';";
 
 $result = $conn->query($sql);
+$result = $conn->query($sql);
 
 ?>
 
@@ -145,6 +146,9 @@ $result = $conn->query($sql);
 </head>
 
 <body>
+    <div class="navigator">
+        <?php include('../admin/index.php') ?>
+    </div>
     <div class="navigator">
         <?php include('../admin/index.php') ?>
     </div>

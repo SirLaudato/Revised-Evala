@@ -7,9 +7,81 @@ from docx import Document
 import pandas as pd
 from dotenv import load_dotenv
 import re
+import pymysql
 
 load_dotenv()
 app = Flask(__name__)
+
+# Database configuration
+DB_CONFIG = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '',
+    'database': 'evala_db1'
+}
+
+def get_db_connection():
+    """Establishes a connection to the MySQL database."""
+    return pymysql.connect(**DB_CONFIG)
+
+#aaa
+@app.route('/get-evaluation-data', methods=['GET'])
+def get_evaluation_data():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # SQL Query to calculate counts
+        query = """
+                        SELECT 
+                SUM(
+                    CASE 
+                        WHEN EXISTS (
+                            SELECT 1
+                            FROM `user_evaluations`
+                            WHERE `user_evaluations`.`user_id` = `users`.`user_id`
+                            AND `user_evaluations`.`has_answered` = 1
+                            LIMIT 1
+                        ) THEN 1
+                        ELSE 0
+                    END
+                ) AS `not_yet_completed_count`,
+                SUM(
+                    CASE 
+                        WHEN NOT EXISTS (
+                            SELECT 1
+                            FROM `user_evaluations`
+                            WHERE `user_evaluations`.`user_id` = `users`.`user_id`
+                            AND `user_evaluations`.`has_answered` = 1
+                            LIMIT 1
+                        ) THEN 1
+                        ELSE 0
+                    END
+                ) AS `completed_count`
+            FROM `users`
+            LEFT JOIN `students` ON `users`.`user_id` = `students`.`user_id`
+            LEFT JOIN `faculty` ON `users`.`user_id` = `faculty`.`user_id`
+            LEFT JOIN `alumni` ON `users`.`user_id` = `alumni`.`user_id`
+            WHERE `students`.`user_id` IS NOT NULL
+                OR `faculty`.`user_id` IS NOT NULL
+                OR `alumni`.`user_id` IS NOT NULL;
+
+        """
+        
+        cursor.execute(query)
+        result = cursor.fetchone()
+        
+        # Close connection
+        cursor.close()
+        conn.close()
+        
+        # Return JSON response
+        return jsonify({
+            'not_yet_completed': result[0] if result else 0,
+            'completed': result[1] if result else 0
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Configuration
 UPLOAD_FOLDER = "uploads"
@@ -50,6 +122,17 @@ def format_response(response):
 def index():
     return render_template("evaluation.php")
 
+# Chart Data
+@app.route('/chart-data')
+def chart_data():
+    # Fetch data from the database
+    not_yet_completed = 10  # Example value
+    completed = 20  # Example value
+    return jsonify({
+        'labels': ['Not Yet Completed', 'Completed'],
+        'data': [not_yet_completed, completed]
+    })
+
 # Route: Handle file upload and AI analysis
 @app.route("/analyze", methods=["POST"])
 def analyze_file():
@@ -63,7 +146,6 @@ def analyze_file():
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         file.save(file_path)
-        logging.debug(f"File saved at: {file_path}")
 
         file_type = filename.rsplit(".", 1)[1].lower()
         extracted_text = extract_text(file_path, file_type)
@@ -75,16 +157,15 @@ def analyze_file():
                 {"role": "system", "content": "You are an assistant."},
                 {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
             ],
-                {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
-            ],
         )
         ai_response = gpt_response["choices"][0]["message"]["content"]
 
-        # Clean up uploaded file
+        # Clean up the uploaded file
         os.remove(file_path)
 
-        # Format AI response
+        # Format the AI response
         formatted_response = format_response(ai_response)
+
         return jsonify({"message": formatted_response})
 
     return jsonify({"message": "Invalid file type"}), 400

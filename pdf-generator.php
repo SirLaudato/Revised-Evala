@@ -52,6 +52,8 @@ if ($result && $result->num_rows > 0) {
         $criteria_results[$row['criteria_name']][$row['evaluator_type']][] = $row;
     }
 }
+
+$response_text = isset($_GET['response']) ? htmlspecialchars($_GET['response']) : 'No additional feedback provided.'; // Capture the response text passed via GET
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +68,9 @@ if ($result && $result->num_rows > 0) {
             font-family: Arial, sans-serif;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             color: #333;
         }
 
@@ -76,11 +80,14 @@ if ($result && $result->num_rows > 0) {
             margin-bottom: 20px;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ccc;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: left;
         }
@@ -93,6 +100,12 @@ if ($result && $result->num_rows > 0) {
             margin: 0 auto;
             padding: 20px;
             max-width: 800px;
+        }
+
+        .response-text {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -129,6 +142,12 @@ if ($result && $result->num_rows > 0) {
         <?php else: ?>
             <p>No evaluation results found.</p>
         <?php endif; ?>
+
+        <!-- Display the response text from the form -->
+        <div class="response-text">
+            <h3>Feedback:</h3>
+            <p><?php echo $response_text; ?></p>
+        </div>
     </div>
 </body>
 

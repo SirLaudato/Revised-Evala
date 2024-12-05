@@ -36,7 +36,7 @@
         </div>
         <button class="dropdown-btn">Progress <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
-            <a href="evaluation.php" class="nav-link"><i class="fas fa-chart-line"></i> Evaluation</a>
+            <a href="http://127.0.0.1:5000" class="nav-link"><i class="fas fa-chart-line"></i> Evaluation</a>
         </div>
 
         <div class="logout-div">
