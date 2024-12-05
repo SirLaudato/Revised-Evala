@@ -32,6 +32,7 @@ body {
 
 .parent-evaluation-container {
   display: flex;
+  flex-direction: column; /* Stack child elements vertically */
   flex: 1;
   gap: var(--section-gap);
   padding: 20px;
@@ -40,7 +41,7 @@ body {
 
 .evaluation-add {
   background-color: var(--gray-color); /* White background for a flat look */
-  width: 30%; /* Set to 30% of the parent container */
+  width: 50%; /* Set to 50% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
   padding: 20px;
   border: 1px solid var(--gray-color); /* Subtle border */
@@ -63,7 +64,7 @@ body {
 
 .evaluation-list {
   background-color: var(--gray-color); /* White background for a flat look */
-  width: 70%; /* Set to 70% of the parent container */
+  width: 50%; /* Set to 70% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
   padding: 20px;
   border: 1px solid var(--gray-color); /* Subtle border */
@@ -105,9 +106,10 @@ body {
 }
 
 form {
-  display: flex; /* Make it a flex container */
-  flex-direction: column; /* Stack children vertically */
-  gap: 14px; /* Add gap between child elements */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
 }
 
 .evaluation-add h2,
@@ -199,6 +201,13 @@ select {
   display: none;
 }
 
+.custum-file-upload .file-name {
+  margin-top: 10px;
+  font-size: 14px;
+  color: rgba(75, 85, 99, 1);
+  text-align: center;
+}
+
 #criteria_name {
   height: 390px;
   margin-bottom: 24px;
@@ -206,6 +215,81 @@ select {
 
 .evaluation-analysis {
   display: flex;
-  gap: auto;
-  justify-content: space-between;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.evaluation-subparent {
+  display: flex;
+}
+
+.evaluation-feedback {
+  background-color: var(--gray-color);
+  gap: 100px;
+  justify-content: center;
+  width: 100%;
+  height: 290px;
+  padding: 20px;
+}
+.evaluation-feedback h2 {
+  font-size: 1.4em;
+  margin-bottom: 40px;
+  color: #342928;
+}
+
+.evaluation-progress {
+  background-color: var(--gray-color);
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+}
+
+.evaluation-feedback textarea {
+  width: 100%; /* Make it full width */
+  height: 150px; /* Fixed height */
+  border: none;
+  background-color: #ffffff;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  outline: none;
+  padding: 10px;
+  resize: none; /* Disable resizing */
+}
+
+.evaluation-feedback .form-group {
+  width: 100%;
+}
+.evaluation-feedback label {
+  font-size: 14px;
+  margin-bottom: 6px; /* Space between label and the next element */
+  display: block; /* Ensures the label behaves as a block element */
+}
+
+.evaluation-list textarea {
+  width: 100%;
+  height: 84%;
+  border: none;
+  background-color: #ffffff;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  outline: none;
+  padding: 10px;
+  resize: none;
+}
+
+.evaluation-list form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+}
+
+.evaluation-list .form-group {
+  height: 100%;
 }

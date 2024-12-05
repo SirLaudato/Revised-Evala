@@ -30,7 +30,6 @@
             </div>
             <button class="dropdown-btn">Records <i class="fa fa-caret-down"></i></button>
             <div class="dropdown-container">
-                <a href="subjects.php" class="nav-link"><i class="fas fa-book"></i> Subjects</a>
                 <a href="courses.php" class="nav-link"><i class="fas fa-file-alt"></i> Courses</a>
             </div>
         </div>

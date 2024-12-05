@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    session_start();
+session_start();
 if ($_SESSION['role'] != 'IAB') {
     session_destroy();
     header('Location: /Revised-Evala/pages/login.php');
@@ -132,7 +132,6 @@ $sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `us
         WHERE `users`.`role` = 'Faculty';";
 
 $result = $conn->query($sql);
-$result = $conn->query($sql);
 
 ?>
 
@@ -146,9 +145,6 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    <div class="navigator">
-        <?php include('../admin/index.php') ?>
-    </div>
     <div class="navigator">
         <?php include('../admin/index.php') ?>
     </div>
@@ -312,8 +308,10 @@ $result = $conn->query($sql);
                 const position = this.getAttribute('data-position');
                 const department = this.getAttribute('data-department');
                 const status = this.getAttribute('data-status');
+                const name = this.getAttribute('data-name');
 
                 // Populate modal form with existing values
+                document.getElementById('edit_name').value = name;
                 document.getElementById('edit_user_id').value = userId;
                 document.getElementById('edit_email').value = email;
                 document.getElementById('edit_position').value = position;
