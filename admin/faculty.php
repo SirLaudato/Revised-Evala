@@ -101,23 +101,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
     $department = $_POST['edit_department'];
     $status = $_POST['edit_status'];
 
+    $conn->begin_transaction();
     try {
         // Update user table
-        $updateUserSql = "UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?";
-        $stmt = $conn->prepare($updateUserSql);
+        $stmt = $conn->prepare("UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?");
         $stmt->bind_param("sii", $email, $status, $user_id);
         $stmt->execute();
 
         // Update faculty table
-        $updateDetailsSql = "UPDATE `faculty` SET `position` = ?, `department` = ? WHERE `user_id` = ?";
-        $stmt = $conn->prepare($updateDetailsSql);
+        $stmt = $conn->prepare("UPDATE `faculty` SET `position` = ?, `department` = ? WHERE `user_id` = ?");
         $stmt->bind_param("ssi", $position, $department, $user_id);
         $stmt->execute();
 
-        echo "Success";
+        // Commit transaction
+        $conn->commit();
     } catch (Exception $e) {
-        echo "Error updating user: " . $e->getMessage();
+        $conn->rollback();
     }
+    $_SESSION['message'] = 'User updated successfully.';
+    header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
@@ -269,23 +271,25 @@ $result = $conn->query($sql);
 
     <!-- Edit Faculty Modal -->
     <div id="editModal" class="modal" style="display:none;">
-        <form id="editForm" method="POST">
-            <input type="hidden" name="edit_user_id" id="edit_user_id">
-            <label for="edit_name">Name:</label>
-            <input type="text" id="edit_name" name="edit_name" readonly> <!-- Display only -->
-            <label for="edit_email">Email:</label>
-            <input type="email" id="edit_email" name="edit_email" required>
-            <label for="edit_position">Position:</label>
-            <input type="text" id="edit_position" name="edit_position" required>
-            <label for="edit_department">Department:</label>
-            <input type="text" id="edit_department" name="edit_department" required>
-            <label for="edit_status">Status:</label>
-            <select id="edit_status" name="edit_status" required>
-                <option value="1">Active</option>
-                <option value="0">Locked</option>
-            </select>
-            <button type="submit" name="edit_user">Save Changes</button>
-        </form>
+        <div class="modal-content">
+            <form id="editForm" method="POST">
+                <input type="hidden" name="edit_user_id" id="edit_user_id">
+                <label for="edit_name">Name:</label>
+                <input type="text" id="edit_name" name="edit_name" readonly> <!-- Display only -->
+                <label for="edit_email">Email:</label>
+                <input type="email" id="edit_email" name="edit_email" required>
+                <label for="edit_position">Position:</label>
+                <input type="text" id="edit_position" name="edit_position" required>
+                <label for="edit_department">Department:</label>
+                <input type="text" id="edit_department" name="edit_department" required>
+                <label for="edit_status">Status:</label>
+                <select id="edit_status" name="edit_status" required>
+                    <option value="1">Active</option>
+                    <option value="0">Locked</option>
+                </select>
+                <button type="submit" name="edit_user">Save Changes</button>
+            </form>
+        </div>
     </div>
 
 </body>
@@ -304,8 +308,10 @@ $result = $conn->query($sql);
                 const position = this.getAttribute('data-position');
                 const department = this.getAttribute('data-department');
                 const status = this.getAttribute('data-status');
+                const name = this.getAttribute('data-name');
 
                 // Populate modal form with existing values
+                document.getElementById('edit_name').value = name;
                 document.getElementById('edit_user_id').value = userId;
                 document.getElementById('edit_email').value = email;
                 document.getElementById('edit_position').value = position;
@@ -324,23 +330,6 @@ $result = $conn->query($sql);
                 modal.style.display = 'none';
             }
         });
-    });
-</script>
-
-<script>
-    document.getElementById('editForm').addEventListener('submit', function (event) {
-        event.preventDefault();  // Prevent the default form submission
-        const formData = new FormData(this);  // Collect the form data
-
-        // Debugging: Log the form data to see if it's being collected correctly
-        console.log('Form data being submitted:');
-        formData.forEach((value, key) => {
-            console.log(key + ": " + value);
-        });
-
-        // Now submit the form using fetch (AJAX), or simply submit it as a regular POST
-        // For now, let's trigger a regular form submission for testing
-        this.submit(); // This will perform a standard form submission
     });
 
 </script>

@@ -12,7 +12,7 @@
 <body>
 
     <div class="navigator">
-        {% include 'index.php' %}>
+        <!-- {% include 'index.php' %}> -->
         {% include 'chart.php' %}
         <div style="width: 100%; margin: auto;">
             <canvas id="evaluationPieChart" width="800" height="400"></canvas>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="evaluation-list">
-            <h2>Analyzation with Ai Feedback</h2>
+            <h2>Analyzation with AI Feedback</h2>
             <form method="POST" action="">
                 <div class="form-group">
                     <label for="criteria_name">Results:</label>
