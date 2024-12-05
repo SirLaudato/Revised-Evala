@@ -38,24 +38,17 @@ def extract_text(file_path, file_type):
         with open(file_path, "r", encoding="utf-8") as file:
             return file.read()
 
-# Helper: Format response to make text between ** bold and add line breaks
+# Helper: Format response to make text between ** bold
 def format_response(response):
-
-    # Format: Bold the section titles inside ** and add line breaks before and after them
-    response = re.sub(r"\*\*([^\*]+)\*\*", r"<strong>\1</strong>", response)
-
-    # Format: Add line breaks before and after each section title
-    response = re.sub(r"(\d+\.\s)(<strong>.*?</strong>)", r"<br>\1\2<br>", response)
-
-    # Ensure line breaks between each bullet point (convert \n to <br>)
-    response = response.replace("\n", "<br>")
-
-    return response
+    """
+    Replace text enclosed in ** with bold HTML tags (<strong>).
+    """
+    return re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", response)
 
 # Route: Serve the HTML file
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("evaluation.php")
 
 # Route: Handle file upload and AI analysis
 @app.route("/analyze", methods=["POST"])
@@ -64,12 +57,12 @@ def analyze_file():
         return jsonify({"message": "No file or prompt provided"}), 400
 
     file = request.files["file"]
+    prompt = request.form["prompt"]
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         file.save(file_path)
-        logging.debug(f"File saved at: {file_path}")
 
         file_type = filename.rsplit(".", 1)[1].lower()
         extracted_text = extract_text(file_path, file_type)
@@ -84,11 +77,15 @@ def analyze_file():
         )
         ai_response = gpt_response["choices"][0]["message"]["content"]
 
-        # Clean up uploaded file
+        # Clean up the uploaded file
         os.remove(file_path)
 
-        # Format AI response
+        # Format the AI response
         formatted_response = format_response(ai_response)
+
         return jsonify({"message": formatted_response})
 
     return jsonify({"message": "Invalid file type"}), 400
+
+if __name__ == "__main__":
+    app.run(debug=True)
