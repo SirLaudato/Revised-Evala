@@ -30,7 +30,7 @@ body {
   margin-right: 60px; /* Add space between the sidebar and main content */
 }
 
-.parent-faculty-container {
+.parent-evaluation-container {
   display: flex;
   flex: 1;
   gap: var(--section-gap);
@@ -38,7 +38,7 @@ body {
   padding-left: 0; /* Avoid additional spacing here */
 }
 
-.faculty-add {
+.evaluation-add {
   background-color: var(--gray-color); /* White background for a flat look */
   width: 30%; /* Set to 30% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
@@ -48,13 +48,19 @@ body {
   box-shadow: none; /* Remove shadow */
   gap: 10px;
 }
-.faculty-add label {
+.evaluation-add label {
   font-size: 14px;
   margin-bottom: 6px; /* Space between label and the next element */
   display: block; /* Ensures the label behaves as a block element */
 }
 
-.faculty-list {
+.evaluation-list label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.evaluation-list {
   background-color: var(--gray-color); /* White background for a flat look */
   width: 70%; /* Set to 70% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
@@ -63,36 +69,38 @@ body {
   box-shadow: none; /* Remove shadow */
 }
 
-.faculty-list table {
+.evaluation-list table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.faculty-list table th,
-.faculty-list table td {
+.evaluation-list table th,
+.evaluation-list table td {
   border: 1px solid var(--gray-color);
   padding: 10px;
   text-align: left;
-  font-size: 0.6em;
+  font-size: 0.9em;
   color: var(--text-color);
 }
 
-.faculty-list table th {
+.evaluation-list table th {
   background-color: var(--gray-color);
   font-weight: 400;
   padding-bottom: 2rem;
 }
 
-.faculty-list table td {
+.evaluation-list table td {
   background-color: var(--gray-color);
 }
 
-.faculty-list .buttons {
+.evaluation-list .buttons {
   /* Button alignment for the form */
-  width: 100px;
+  display: flex;
+  width: 180px;
   text-align: center;
   margin-top: 10px;
+  gap: 5px;
 }
 
 form {
@@ -101,8 +109,8 @@ form {
   gap: 14px; /* Add gap between child elements */
 }
 
-.faculty-add h2,
-.faculty-list h2 {
+.evaluation-add h2,
+.evaluation-list h2 {
   font-size: 1.4em;
   margin-bottom: 40px;
   color: #342928;
@@ -122,6 +130,19 @@ button:hover {
   background-color: #4a3d3c; /* Slightly lighter shade on hover */
 }
 
+textarea {
+  width: 100%; /* Make it full width */
+  height: 150px; /* Fixed height */
+  border: none;
+  background-color: #ffffff;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  outline: none;
+  padding: 10px;
+  resize: none; /* Disable resizing */
+}
+
 /* Adjust form input styles */
 input,
 select {
@@ -133,4 +154,51 @@ select {
   margin-bottom: 10px;
   font-size: 0.9em;
   outline: none;
+}
+
+.custum-file-upload {
+  height: 200px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cacaca;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 3rem;
+  box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: var(--text-color);
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+#criteria_name {
+  height: 390px;
+  margin-bottom: 24px;
 }
