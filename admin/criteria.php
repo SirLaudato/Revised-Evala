@@ -86,6 +86,7 @@
     <title>Criteria List</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/criteria.css">
+    <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
 </head>
 
 <body>
