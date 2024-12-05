@@ -59,7 +59,7 @@ body {
 .frame {
   display: inline-flex;
   align-items: center;
-  gap: 400px;
+  gap: 430px;
   position: relative;
   flex: 0 0 auto;
   height: 60px;

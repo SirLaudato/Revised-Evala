@@ -1,151 +1,91 @@
 <?php
 session_start();
-// Redirect if already logged in
 if (isset($_SESSION['emailaddress'])) {
     header("Location: ../pages/home.php");
     exit();
 }
 
-// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "evala_db1";
 
-$con = mysqli_connect($servername, $username, $password, $database);
-
-if (!$con) {
-    die("Connection Failed: " . mysqli_connect_error());
+$con = new mysqli($servername, $username, $password, $database);
+if ($con->connect_error) {
+    die("Connection Failed: " . $con->connect_error);
 }
 
-$modalTitle = "";
-$modalMessage = "";
+$modalTitle = $modalMessage = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = isset($_POST['e-mail']) ? mysqli_real_escape_string($con, $_POST['e-mail']) : null;
-    $pw = isset($_POST['password']) ? mysqli_real_escape_string($con, $_POST['password']) : null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['e-mail'] ?? null;
+    $pw = $_POST['password'] ?? null;
 
-    // Missing fields
     if (empty($email) || empty($pw)) {
         $modalTitle = "Input Error";
         $modalMessage = "Please fill in all the fields.";
     } else {
-        // Fetch user from database
-        // $userQuery = "SELECT * FROM users INNER JOIN students ON users.user_id = students.user_id WHERE email = '$email';";
-        $userQuery = "SELECT * FROM users WHERE email = '$email';";
+        $stmt = $con->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $result = mysqli_query($con, $userQuery);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if ($row['active_flag'] == 0) {
+                $modalTitle = "Account Locked";
+                $modalMessage = "Your account has been locked. Contact support.";
+            } elseif (password_verify($pw, $row['password'])) {
+                $_SESSION["user_id"] = $row["user_id"];
+                $_SESSION["role"] = $row["role"];
+                $_SESSION["first_name"] = $row["first_name"];
+                $_SESSION["last_name"] = $row["last_name"];
+                $_SESSION["emailaddress"] = $row["email"];
 
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
+                $stmt = $con->prepare("UPDATE users SET attempts = 0 WHERE email = ?");
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
 
-            // Check if the account is locked
-            if ($row["active_flag"] == 0) {
-                $modalTitle = "Account Error";
-                $modalMessage = "Your account has been locked. Please contact support for assistance.";
+                switch ($row["role"]) {
+                    case "Student":
+                    case "Alumni":
+                    case "Faculty":
+                        header("Location: ../pages/home.php");
+                        break;
+                    case "IAB":
+                        header("Location: ../admin/index.php");
+                        break;
+                    default:
+                        $modalTitle = "Access Denied";
+                        $modalMessage = "Invalid role.";
+                }
+                exit();
             } else {
-                // Check if the password matches
-                if ($row["password"] == '1234') {
-                    if ($row['password'] == $pw) {
-                        // Set session variables
-                        $_SESSION["user_id"] = $row["user_id"];
-                        $_SESSION["password"] = $row["password"];
-                        $_SESSION["first_name"] = $row["first_name"];
-                        $_SESSION["last_name"] = $row["last_name"];
-                        $_SESSION["emailaddress"] = $row["email"];
-                        $_SESSION["role"] = $row["role"];
-                        $_SESSION["student_number"] = $row["student_number"];
-                        $_SESSION["active_flag"] = $row["active_flag"];
-                        $_SESSION["attempts"] = $row["attempts"];
-                        $_SESSION["user_id"] = $row["user_id"];
-                        // Reset attempts on successful login
-                        $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
-                        mysqli_query($con, $sql_reset);
+                if ($row['attempts'] >= 4) {
+                    $stmt = $con->prepare("UPDATE users SET active_flag = 0 WHERE email = ?");
+                    $stmt->bind_param("s", $email);
+                    $stmt->execute();
 
-                        // Redirect based on role
-                        if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
-                            header("Location: ../pages/home.php");
-                            exit();
-                        } elseif (in_array($row["role"], ["IAB"])) {
-                            header("Location: ../admin/index.php");
-                            exit(); // Make sure the script stops here
-                        } else {
-                            $modalTitle = "Access Denied";
-                            $modalMessage = "Your role does not have access to this page.";
-                        }
-                    } else {
-                        // Incorrect password
-                        if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
-                            $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
-                            mysqli_query($con, $sql_lock);
-                            $modalTitle = "Account Locked!";
-                            $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
-                            session_destroy(); // Destroy session to log out any logged-in user
-                        } else {
-                            $modalTitle = "Login Error";
-                            $modalMessage = "Incorrect password. Please try again.";
-                            $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
-                            mysqli_query($con, $sql_update);
-                        }
-                    }
+                    $modalTitle = "Account Locked";
+                    $modalMessage = "Your account is locked after multiple failed attempts.";
                 } else {
-                    if (password_verify($pw, $row['password'])) {
-                        // Set session variables
-                        $_SESSION["user_id"] = $row["user_id"];
-                        $_SESSION["password"] = $row["password"];
-                        $_SESSION["first_name"] = $row["first_name"];
-                        $_SESSION["last_name"] = $row["last_name"];
-                        $_SESSION["emailaddress"] = $row["email"];
-                        $_SESSION["role"] = $row["role"];
-                        $_SESSION["student_number"] = $row["student_number"];
-                        $_SESSION["active_flag"] = $row["active_flag"];
-                        $_SESSION["attempts"] = $row["attempts"];
-                        $_SESSION["user_id"] = $row["user_id"];
+                    $stmt = $con->prepare("UPDATE users SET attempts = attempts + 1 WHERE email = ?");
+                    $stmt->bind_param("s", $email);
+                    $stmt->execute();
 
-                        // Reset attempts on successful login
-                        $sql_reset = "UPDATE users SET attempts = 0 WHERE email = '$email';";
-                        mysqli_query($con, $sql_reset);
-                        var_dump($row["role"]);  // Check what role is being set
-                        // Redirect based on role
-                        if (in_array($row["role"], ["Student", "Alumni", "Faculty"])) {
-                            header("Location: ../pages/home.php");
-                            exit();
-                        }
-
-                        // Redirect if role is "IAB"
-                        elseif (in_array($row["role"], ["IAB"])) {
-                            header("Location: ../admin/index.php");
-                            exit(); // Make sure the script stops here
-                        } else {
-                            $modalTitle = "Access Denied";
-                            $modalMessage = "Your role does not have access to this page.";
-                        }
-                    } else {
-                        // Incorrect password
-                        if ($row["attempts"] >= 4) { // Lock the account on the 5th failed attempt
-                            $sql_lock = "UPDATE users SET active_flag = 0 WHERE email = '$email';";
-                            mysqli_query($con, $sql_lock);
-                            $modalTitle = "Account Locked!";
-                            $modalMessage = "Your account has been locked due to multiple failed login attempts. Please contact support.";
-                            session_destroy(); // Destroy session to log out any logged-in user
-                        } else {
-                            $modalTitle = "Login Error";
-                            $modalMessage = "Incorrect password. Please try again.";
-                            $sql_update = "UPDATE users SET attempts = attempts + 1 WHERE email = '$email';";
-                            mysqli_query($con, $sql_update);
-                        }
-                    }
+                    $modalTitle = "Login Error";
+                    $modalMessage = "Incorrect password. Attempts left: " . (4 - $row['attempts']);
                 }
             }
         } else {
-            // Account not found
             $modalTitle = "Account Error";
-            $modalMessage = "An account with this email doesn’t exist.";
+            $modalMessage = "No account found with this email.";
         }
+        $stmt->close();
     }
 }
 
-mysqli_close($con);
+$con->close();
 ?>
 
 

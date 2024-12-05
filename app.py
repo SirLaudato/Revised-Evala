@@ -60,11 +60,10 @@ def index():
 # Route: Handle file upload and AI analysis
 @app.route("/analyze", methods=["POST"])
 def analyze_file():
-    if "file" not in request.files or "prompt" not in request.form:
+    if "file" not in request.files:
         return jsonify({"message": "No file or prompt provided"}), 400
 
     file = request.files["file"]
-    prompt = request.form["prompt"]
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -75,12 +74,25 @@ def analyze_file():
         extracted_text = extract_text(file_path, file_type)
 
         # Send the extracted text and prompt to GPT
+    
+        default_prompt = """Given the following table comparing ratings for different aspects of instruction, immediately provide a detailed analysis that includes the following elements: 
+                        1.	A comparison of the users on the ratings on each aspect.
+                        2.	Observations on any significant differences between user’s ratings.
+                        3.	Insight into how these differences might reflect different perspectives on the effectiveness of the instruction.
+                        4.	Evaluation of whether both groups agree on certain aspects such as the application of theoretical knowledge, inclusion of real-world content, innovative teaching strategies, use of technology, and opportunities for student participation.
+                        5.	A final conclusion highlighting the overall trends in the ratings and any recommendations based on the analysis.
+                        Focus on how perspectives align and diverge in each area, and provide any actionable insights. Do not include introductory or general phrases; go directly into the analysis.
+                        """
+        combined_prompt = f"{default_prompt}\n\n{extracted_text}"
+
+
+        
         gpt_response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an assistant."},
-                {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
-            ],
+                {"role": "user", "content": combined_prompt },
+            ]
         )
         ai_response = gpt_response["choices"][0]["message"]["content"]
 

@@ -173,8 +173,9 @@ mysqli_close($con);
                             </div>
                         </div>
                     </form>
-                    <button class="con-shopping">Privacy Settings</button>
-
+                    <a href="terms&conditions.php">
+                        <button class="con-shopping">Privacy Settings</button>
+                    </a>
                     <form>
                         <div class="input-field">
                             <h4>Closing Your Account</h4>

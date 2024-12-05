@@ -7,14 +7,6 @@
   background-color: var(--background-color);
 }
 
-.customer-support .frame {
-  display: inline-flex;
-  align-items: center;
-  gap: 400px;
-  position: relative;
-  flex: 0 0 auto;
-}
-
 .customer-support .div-wrapper {
   display: inline-flex;
   align-items: center;
@@ -509,4 +501,3 @@ textarea.input-field-3::placeholder {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
