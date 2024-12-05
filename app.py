@@ -63,6 +63,7 @@ def analyze_file():
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         file.save(file_path)
+        logging.debug(f"File saved at: {file_path}")
 
         file_type = filename.rsplit(".", 1)[1].lower()
         extracted_text = extract_text(file_path, file_type)
@@ -74,15 +75,16 @@ def analyze_file():
                 {"role": "system", "content": "You are an assistant."},
                 {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
             ],
+                {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
+            ],
         )
         ai_response = gpt_response["choices"][0]["message"]["content"]
 
-        # Clean up the uploaded file
+        # Clean up uploaded file
         os.remove(file_path)
 
-        # Format the AI response
+        # Format AI response
         formatted_response = format_response(ai_response)
-
         return jsonify({"message": formatted_response})
 
     return jsonify({"message": "Invalid file type"}), 400

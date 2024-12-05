@@ -89,11 +89,11 @@ $result = $conn->query($sql);
 
     <div class="navigator">
         <?php
-            include("../admin/index.php");
-            if (isset($_SESSION['message'])) {
-                echo "<script>alert('" . $_SESSION['message'] . "');</script>";
-                unset($_SESSION['message']);
-            }
+        include("../admin/index.php");
+        if (isset($_SESSION['message'])) {
+            echo "<script>alert('" . $_SESSION['message'] . "');</script>";
+            unset($_SESSION['message']);
+        }
         ?>
     </div>
     <div class="parent-student-container">
@@ -192,56 +192,56 @@ $result = $conn->query($sql);
                 </tbody>
             </table>
         </div>
-   </div> 
-   
+    </div>
 
-        <!-- Modals -->
-        <div id="editModal" class="modal" style="display:none;">
-            <div class="modal-content">
-                <form id="editForm" method="POST">
-                    <input type="hidden" name="user_id" id="edit_user_id">
-                    <label for="edit_email">Email:</label>
-                    <input type="email" name="email" id="edit_email" required>
-                    <label for="edit_status">Status:</label>
-                    <select name="status" id="edit_status" required>
-                        <option value="1">Active</option>
-                        <option value="0">Locked</option>
-                    </select>
-                    <button type="submit" name="edit_user">Save Changes</button>
-                </form>
-            </div>
+
+    <!-- Modals -->
+    <div id="editModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <form id="editForm" method="POST">
+                <input type="hidden" name="user_id" id="edit_user_id">
+                <label for="edit_email">Email:</label>
+                <input type="email" name="email" id="edit_email" required>
+                <label for="edit_status">Status:</label>
+                <select name="status" id="edit_status" required>
+                    <option value="1">Active</option>
+                    <option value="0">Locked</option>
+                </select>
+                <button type="submit" name="edit_user">Save Changes</button>
+            </form>
         </div>
+    </div>
 
 
 
 
-        <script>
-            document.querySelectorAll('.edit-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    document.getElementById('edit_user_id').value = button.dataset.id;
-                    document.getElementById('edit_email').value = button.dataset.email;
-                    document.getElementById('edit_status').value = button.dataset.status;
-                    document.getElementById('editModal').style.display = 'flex';
-                });
+    <script>
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('edit_user_id').value = button.dataset.id;
+                document.getElementById('edit_email').value = button.dataset.email;
+                document.getElementById('edit_status').value = button.dataset.status;
+                document.getElementById('editModal').style.display = 'flex';
             });
+        });
 
-            function closeModal(modalId) {
-                document.getElementById(modalId).style.display = 'none';
-            }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
 
-            window.onclick = function (event) {
-                const editModal = document.getElementById('editModal');
-                if (event.target === editModal) closeModal('editModal');
-            }
+        window.onclick = function (event) {
+            const editModal = document.getElementById('editModal');
+            if (event.target === editModal) closeModal('editModal');
+        }
 
-                        // Close edit modal
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+        // Close edit modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
 
-        </script>
+    </script>
 
-        
+
 </body>
 
 </html>
