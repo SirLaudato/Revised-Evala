@@ -1,75 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    session_start();
-    if ($_SESSION['role'] != 'IAB') {
-        session_destroy();
-        header('Location: /Revised-Evala/pages/login.php');
-        exit();
-    }
+session_start();
+if ($_SESSION['role'] != 'IAB') {
+    session_destroy();
+    header('Location: /Revised-Evala/pages/login.php');
+    exit();
+}
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "evala_db1"; // Replace with your database name
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "evala_db1";
 
-    // Create a connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Handle form submission (update alumni data)
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
-        // Get updated values from the form
-        $user_id = $_POST['user_id'];
-        $email = $_POST['email'];
-        $status = $_POST['status'];
+// Handle Add Student
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $student_number = $_POST['student_number'];
+    $graduation_year = $_POST['grad_year'];
+    $course_id = $_POST['course'];
+    $status = ($_POST['status'] == 'active') ? 1 : 0;
 
-        // Update query
-        $update_sql = "UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?";
-        $stmt = $conn->prepare($update_sql);
-        $stmt->bind_param("sii", $email, $status, $user_id);
+    // Check if the email already exists
+    $checkEmailSql = "SELECT COUNT(*) FROM `users` WHERE `email` = ?";
+    $stmt = $conn->prepare($checkEmailSql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($emailCount);
+    $stmt->fetch();
+    $stmt->close();
 
-        if ($stmt->execute()) {
-            echo "<script>alert('Alumni updated successfully.');</script>";
-        } else {
-            echo "<script>alert('Error updating alumni.');</script>";
+    if ($emailCount > 0) {
+        // If email already exists, show an error message
+        echo "<script>alert('Email already exists. Please use a different email.');</script>";
+    } else {
+        // Insert the new student if email doesn't exist
+        $insertUserSql = "INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`, `active_flag`) 
+                          VALUES (?, ?, ?, ?, 'Alumni', ?)";
+        $stmt = $conn->prepare($insertUserSql);
+        $password = password_hash('1234', PASSWORD_DEFAULT); // Default password
+        $stmt->bind_param("ssssi", $fname, $lname, $email, $password, $status);
+        $stmt->execute();
+
+        $user_id = $conn->insert_id;
+
+        $insertAlumniSql = "INSERT INTO `alumni` (`user_id`, `student_number`, `graduation_year`, `course_id`) 
+                     VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertAlumniSql);
+        $stmt->bind_param("isis", $user_id, $student_number, $graduation_year, $course_id);
+        $stmt->execute();
+        $evaluationIds = [];
+        $evaluationSql = "SELECT `evaluation_id` FROM `evaluations` WHERE `evaluator_type` = 'alumni'";
+        $evaluationResult = $conn->query($evaluationSql);
+
+        if ($evaluationResult->num_rows > 0) {
+            while ($row = $evaluationResult->fetch_assoc()) {
+                $evaluationIds[] = $row['evaluation_id'];
+            }
         }
 
-        $stmt->close();
-    }
+        foreach ($evaluationIds as $evaluationId) {
+            $insertUserEvaluationsSql = "
+                INSERT INTO `user_evaluations` (`evaluation_id`, `user_id`, `has_answered`)
+                VALUES (?, ?, 1)";
 
-    // Handle deletion (delete alumni record)
-    if (isset($_GET['delete_id'])) {
-        $delete_id = $_GET['delete_id'];
+            $stmt = $conn->prepare($insertUserEvaluationsSql);
+            $stmt->bind_param("ii", $evaluationId, $user_id);
 
-        // Delete query
-        $delete_sql = "DELETE FROM `users` WHERE `user_id` = ?";
-        $stmt = $conn->prepare($delete_sql);
-        $stmt->bind_param("i", $delete_id);
-
-        if ($stmt->execute()) {
-            echo "<script>alert('Alumni deleted successfully.');</script>";
-        } else {
-            echo "<script>alert('Error deleting alumni.');</script>";
+            if (!$stmt->execute()) {
+                echo "Error inserting evaluation ID {$evaluationId} for user ID {$user_id}: " . $stmt->error;
+            }
         }
 
-        $stmt->close();
-    }
+        // Debugging: Confirmation message (optional)
+        echo "User evaluations inserted successfully for user ID: {$user_id}";
 
-    // Query to fetch alumni data
-    $sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, `users`.`active_flag`, 
+        echo "<script>alert('Alumni added successfully.'); window.location.reload();</script>";
+    }
+}
+
+// Handle Edit User
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
+    $user_id = $_POST['user_id'];
+    $email = $_POST['email'];
+    $status = $_POST['status'];
+
+    $updateSql = "UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?";
+    $stmt = $conn->prepare($updateSql);
+    $stmt->bind_param("sii", $email, $status, $user_id);
+    $stmt->execute();
+
+    // Set session message for success
+    $_SESSION['message'] = 'User updated successfully.';
+
+    // Redirect to avoid the alert from looping
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+
+$sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, `users`.`active_flag`, 
             `alumni`.`student_number`, `alumni`.`graduation_year`, `courses`.`course_name`
             FROM `users` 
             LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id` 
             LEFT JOIN `courses` ON `alumni`.`course_id` = `courses`.`course_id`
             WHERE `users`.`role` = 'Alumni';";
 
-    $result = $conn->query($sql);
-
+$result = $conn->query($sql);
 ?>
 
 <head>
@@ -82,14 +127,14 @@
 
 <body>
 
-<div class="navigator">
-    <?php include('../admin/index.php') ?>
-</div>
+    <div class="navigator">
+        <?php include('../admin/index.php') ?>
+    </div>
 
-<div class="parent-alumni-container">
-    <div class="alumni-add">
+    <div class="parent-alumni-container">
+        <div class="alumni-add">
             <h2>Add New Alumni</h2>
-            <form>
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                 <div class="form-group">
                     <label for="name">First Name:</label>
                     <input type="text" id="fname" name="fname" required>
@@ -107,29 +152,42 @@
                     <input type="text" id="student_number" name="student_number" required>
                 </div>
                 <div class="form-group">
-                    <label for="graduation_year">Graduation Year:</label>
+                    <label for="grad_year">Graduation Year:</label>
                     <input type="text" id="grad_year" name="grad_year" required>
                 </div>
                 <div class="form-group">
                     <label for="course">Course:</label>
-                    <input type="text" id="course" name="course" required>
+                    <select id="course" name="course" required>
+                        <option value="">Select a course</option>
+                        <?php
+                        $coursesSql = "SELECT course_id, course_name FROM courses";
+                        $coursesResult = $conn->query($coursesSql);
+
+                        if ($coursesResult->num_rows > 0) {
+                            while ($course = $coursesResult->fetch_assoc()) {
+                                echo "<option value=\"{$course['course_id']}\" " . (isset($_POST['course']) && $_POST['course'] == $course['course_id'] ? 'selected' : '') . ">{$course['course_name']}</option>";
+                            }
+                        } else {
+                            echo "<option value=\"\">No courses available</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="status">Status:</label>
                     <select id="status" name="status" required>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value="1">Active</option>
+                        <option value="0">Locked</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit">Create Alumni</button>
+                    <button type="submit" name="add_alumni">Create Alumni</button>
                 </div>
             </form>
-    </div>
+        </div>
 
-    <div class="alumni-list">
+        <div class="alumni-list">
             <h2>Alumni List</h2>
-            <!-- Alumni Table -->
             <table border="1">
                 <thead>
                     <tr>
@@ -167,8 +225,7 @@
                                             data-status='{$row['active_flag']}'>
                                             Edit
                                         </button>
-                                        <button class='delete-btn' data-id='{$row['user_id']}'>Delete</button>
-                                    </div
+                                    </div>
                                     </td>
                                 </tr>";
                         }
@@ -178,94 +235,58 @@
                     ?>
                 </tbody>
             </table>
+        </div>
     </div>
-</div>
 
-
-
-
-
-    <!-- Edit Alumni Modal -->  
     <div id="editModal" class="modal" style="display:none;">
         <span class="close">&times;</span>
         <div class="modal-content">
-            
             <form id="editForm" method="POST">
                 <input type="hidden" name="user_id" id="user_id">
 
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" readonly>
-                
 
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email">
-                
-
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
 
                 <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option id="activeButton">Active</option>
-                    <option id="lockButton">Locked</option>
+                <select id="status" name="status" required>
+                    <option value="1">Active</option>
+                    <option value="0">Locked</option>
                 </select>
-
-                <input type="hidden" id="status" name="status">
-                
 
                 <button type="submit">Save Changes</button>
             </form>
         </div>
     </div>
 
-    <!-- JavaScript for handling modals and form submission -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('editModal');
             const closeModal = document.querySelector('.close');
             const editButtons = document.querySelectorAll('.edit-btn');
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-            const statusField = document.getElementById('status');
-            const activeButton = document.getElementById('activeButton');
-            const lockButton = document.getElementById('lockButton');
 
-            // Open edit modal and populate fields
             editButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     document.getElementById('user_id').value = button.dataset.id;
                     document.getElementById('name').value = button.dataset.name;
                     document.getElementById('email').value = button.dataset.email;
-                    statusField.value = button.dataset.status;
+
+                    const statusDropdown = document.getElementById('status');
+                    for (let option of statusDropdown.options) {
+                        option.selected = option.value == button.dataset.status;
+                    }
 
                     modal.style.display = 'flex';
                 });
             });
 
-            // Close edit modal
             closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
             });
 
-            // Update status
-            activeButton.addEventListener('click', () => {
-                statusField.value = 1;
-                alert('Status set to Active');
-            });
 
-            lockButton.addEventListener('click', () => {
-                statusField.value = 0;
-                alert('Status set to Locked');
-            });
-
-            // Delete alumni
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (confirm("Are you sure you want to delete this alumni member?")) {
-                        const userId = button.dataset.id;
-                        window.location.href = `?delete_id=${userId}`;
-                    }
-                });
-            });
-
-            // Close modal on outside click
             window.addEventListener('click', event => {
                 if (event.target == modal) {
                     modal.style.display = 'none';

@@ -60,39 +60,54 @@ def index():
 # Route: Handle file upload and AI analysis
 @app.route("/analyze", methods=["POST"])
 def analyze_file():
-    if "file" not in request.files or "prompt" not in request.form:
-        return jsonify({"message": "No file or prompt provided"}), 400
+    if "file" not in request.files:
+        return jsonify({"message": "No file provided"}), 400
 
     file = request.files["file"]
-    prompt = request.form["prompt"]
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         file.save(file_path)
+        logging.debug(f"File saved at: {file_path}")
 
         file_type = filename.rsplit(".", 1)[1].lower()
         extracted_text = extract_text(file_path, file_type)
 
-        # Send the extracted text and prompt to GPT
-        gpt_response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are an assistant."},
-                {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
-            ],
-        )
-        ai_response = gpt_response["choices"][0]["message"]["content"]
+        if not extracted_text:
+            return jsonify({"message": "Failed to extract text from the file."}), 500
 
-        # Clean up the uploaded file
+        logging.debug(f"Extracted text: {extracted_text[:500]}")  # Log first 500 chars
+
+        # Default prompt to provide structure for analysis
+        default_prompt = """
+        Given the following content from the uploaded file, perform a detailed analysis. 
+        Include insights, observations, and actionable recommendations based on the provided data.
+        Additionally, highlight key patterns or discrepancies found in the file.
+        """
+
+        # Combine default prompt with the extracted file content
+        combined_prompt = f"{default_prompt}\n\n{extracted_text}"
+
+        try:
+            gpt_response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are an assistant."},
+                    {"role": "user", "content": combined_prompt}
+                ]
+            )
+            ai_response = gpt_response["choices"][0]["message"]["content"]
+            logging.debug(f"AI Response: {ai_response[:500]}")
+        except openai.error.OpenAIError as e:
+            logging.error(f"OpenAI API error: {e}")
+            return jsonify({"message": "Error processing the file with AI."}), 500
+
+        # Clean up uploaded file
         os.remove(file_path)
 
-        # Format the AI response
+        # Format AI response
         formatted_response = format_response(ai_response)
-
         return jsonify({"message": formatted_response})
 
     return jsonify({"message": "Invalid file type"}), 400
-
-if __name__ == "__main__":
-    app.run(debug=True)

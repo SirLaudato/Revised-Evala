@@ -15,9 +15,6 @@
         <label for="file">Choose a file:</label>
         <input type="file" name="file" id="file" required><br><br>
 
-        <label for="prompt">Enter your prompt:</label><br>
-        <textarea name="prompt" id="prompt" rows="4" cols="50" required></textarea><br><br>
-
         <button type="submit">Analyze</button>
     </form>
 
@@ -31,8 +28,6 @@
 
             const formData = new FormData();
             formData.append('file', document.getElementById('file').files[0]);
-            formData.append('prompt', document.getElementById('prompt').value);
-
             // Send the data to the server
             fetch('/analyze', {
                 method: 'POST',
