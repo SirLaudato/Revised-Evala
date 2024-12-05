@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
     $status = ($_POST['status'] == 'active') ? 1 : 0;
 
     // Check if the email already exists
-    $checkEmailSql = "SELECT COUNT(*) FROM `users` WHERE `email` = ?";
+    $checkEmailSql = "SELECT COUNT(*) FROM users WHERE email = ?";
     $stmt = $conn->prepare($checkEmailSql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
         echo "<script>alert('Email already exists. Please use a different email.');</script>";
     } else {
         // Insert the new student if email doesn't exist
-        $insertUserSql = "INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`, `active_flag`) 
+        $insertUserSql = "INSERT INTO users (first_name, last_name, email, password, role, active_flag) 
                           VALUES (?, ?, ?, ?, 'Alumni', ?)";
         $stmt = $conn->prepare($insertUserSql);
         $password = password_hash('1234', PASSWORD_DEFAULT); // Default password
@@ -52,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
 
         $user_id = $conn->insert_id;
 
-        $insertAlumniSql = "INSERT INTO `alumni` (`user_id`, `student_number`, `graduation_year`, `course_id`) 
+        $insertAlumniSql = "INSERT INTO alumni (user_id, student_number, graduation_year, course_id) 
                      VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($insertAlumniSql);
         $stmt->bind_param("isis", $user_id, $student_number, $graduation_year, $course_id);
         $stmt->execute();
         $evaluationIds = [];
-        $evaluationSql = "SELECT `evaluation_id` FROM `evaluations` WHERE `evaluator_type` = 'alumni'";
+        $evaluationSql = "SELECT evaluation_id FROM evaluations WHERE evaluator_type = 'alumni'";
         $evaluationResult = $conn->query($evaluationSql);
 
         if ($evaluationResult->num_rows > 0) {
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
 
         foreach ($evaluationIds as $evaluationId) {
             $insertUserEvaluationsSql = "
-                INSERT INTO `user_evaluations` (`evaluation_id`, `user_id`, `has_answered`)
+                INSERT INTO user_evaluations (evaluation_id, user_id, has_answered)
                 VALUES (?, ?, 1)";
 
             $stmt = $conn->prepare($insertUserEvaluationsSql);
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
     $email = $_POST['email'];
     $status = $_POST['status'];
 
-    $updateSql = "UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?";
+    $updateSql = "UPDATE users SET email = ?, active_flag = ? WHERE user_id = ?";
     $stmt = $conn->prepare($updateSql);
     $stmt->bind_param("sii", $email, $status, $user_id);
     $stmt->execute();
@@ -107,12 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
 }
 
 
-$sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, `users`.`active_flag`, 
-            `alumni`.`student_number`, `alumni`.`graduation_year`, `courses`.`course_name`
-            FROM `users` 
-            LEFT JOIN `alumni` ON `alumni`.`user_id` = `users`.`user_id` 
-            LEFT JOIN `courses` ON `alumni`.`course_id` = `courses`.`course_id`
-            WHERE `users`.`role` = 'Alumni';";
+$sql = "SELECT users.`user_id`, users.`first_name`, users.`last_name`, users.`email`, users.`active_flag`, 
+            alumni.`student_number`, alumni.`graduation_year`, courses.`course_name`
+            FROM users 
+            LEFT JOIN alumni ON alumni.`user_id` = users.`user_id` 
+            LEFT JOIN courses ON alumni.`course_id` = courses.`course_id`
+            WHERE users.`role` = 'Alumni';";
 
 $result = $conn->query($sql);
 ?>

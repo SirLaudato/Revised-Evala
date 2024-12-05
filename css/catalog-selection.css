@@ -7,14 +7,6 @@
   background-color: var(--background-color);
 }
 
-.questionnaire .frame {
-  display: inline-flex;
-  align-items: center;
-  gap: 400px;
-  position: relative;
-  flex: 0 0 auto;
-}
-
 .questionnaire .div-wrapper {
   display: inline-flex;
   align-items: center;

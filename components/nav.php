@@ -39,7 +39,7 @@
 
             <!-- SVG Icons -->
             <div class="svg-buttons">
-                <a href="calendar.php">
+                <!-- <a href="calendar.php">
                     <button class="icon-button">
                         <svg class="hover-icon" width="20" height="21" viewBox="0 0 20 21"
                             xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
                         </svg>
 
                     </button>
-                </a>
+                </a> -->
 
                 <div class="dropdown">
                     <button class="icon-button">

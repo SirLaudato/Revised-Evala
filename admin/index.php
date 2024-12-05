@@ -141,7 +141,6 @@
             <div class="dropdown-container">
                 <a href="subjects.php" class="nav-link"><i class="fas fa-book"></i> Subjects</a>
                 <a href="courses.php" class="nav-link"><i class="fas fa-file-alt"></i> Courses</a>
-                <a href="levelandsec.php" class="nav-link"><i class="fas fa-layer-group"></i> Level & Section</a>
             </div>
         </div>
         <button class="dropdown-btn">Progress <i class="fa fa-caret-down"></i></button>
