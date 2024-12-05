@@ -30,7 +30,7 @@ body {
   margin-right: 60px; /* Add space between the sidebar and main content */
 }
 
-.parent-alumni-container {
+.parent-criteria-container {
   display: flex;
   flex: 1;
   gap: var(--section-gap);
@@ -38,23 +38,25 @@ body {
   padding-left: 0; /* Avoid additional spacing here */
 }
 
-.alumni-add {
-  background-color: var(--gray-color); /* White background for a flat look */
-  width: 30%; /* Set to 30% of the parent container */
-  color: var(--text-color); /* Text in dark gray/black */
+.criteria-add {
+  background-color: var(--gray-color);
+  width: 30%;
+  color: var(--text-color);
   padding: 20px;
-  border: 1px solid var(--gray-color); /* Subtle border */
-  height: auto; /* Automatically adjusts to content */
-  box-shadow: none; /* Remove shadow */
+  border: 1px solid var(--gray-color);
+  height: auto;
+  box-shadow: none;
   gap: 10px;
+  align-items: center;
+  display: flex;
 }
-.alumni-add label {
+.criteria-add label {
   font-size: 14px;
   margin-bottom: 6px; /* Space between label and the next element */
   display: block; /* Ensures the label behaves as a block element */
 }
 
-.alumni-list {
+.criteria-list {
   background-color: var(--gray-color); /* White background for a flat look */
   width: 70%; /* Set to 70% of the parent container */
   color: var(--text-color); /* Text in dark gray/black */
@@ -63,14 +65,14 @@ body {
   box-shadow: none; /* Remove shadow */
 }
 
-.alumni-list table {
+.criteria-list table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.alumni-list table th,
-.alumni-list table td {
+.criteria-list table th,
+.criteria-list table td {
   border: 1px solid var(--gray-color);
   padding: 10px;
   text-align: left;
@@ -78,23 +80,20 @@ body {
   color: var(--text-color);
 }
 
-.alumni-list table th {
+.criteria-list table th {
   background-color: var(--gray-color);
   font-weight: 400;
   padding-bottom: 2rem;
 }
 
-.alumni-list table td {
+.criteria-list table td {
   background-color: var(--gray-color);
 }
 
-.alumni-list .buttons {
-  /* Button alignment for the form */
-  display: flex;
-  width: auto;
+.criteria-list .buttons {
+  width: 100px;
   text-align: center;
   margin-top: 10px;
-  gap: 5px;
 }
 
 form {
@@ -103,8 +102,8 @@ form {
   gap: 14px; /* Add gap between child elements */
 }
 
-.alumni-add h2,
-.alumni-list h2 {
+.criteria-add h2,
+.criteria-list h2 {
   font-size: 1.4em;
   margin-bottom: 40px;
   color: #342928;

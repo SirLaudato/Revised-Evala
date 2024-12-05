@@ -37,6 +37,7 @@
                         </div>
                         <input type="file" name="file" id="file">
                     </label>
+                     <div class="file-name" id="file-name"></div>
                 </div>
                 <div class="form-group">
                     <label for="prompt">Prompt:</label>
@@ -96,6 +97,19 @@
             this.href = "https://localhost/Revised-Evala/pdf-generator.php?response=" + responseText;
         });
     </script>
+
+    <script>
+    document.getElementById('file').addEventListener('change', function(event) {
+        var fileName = event.target.files[0] ? event.target.files[0].name : '';
+        var fileNameDisplay = document.getElementById('file-name');
+        
+        if (fileName) {
+            fileNameDisplay.textContent = 'Selected file: ' + fileName;
+        } else {
+            fileNameDisplay.textContent = '';
+        }
+    });
+</script>
 </body>
 
 </html>
