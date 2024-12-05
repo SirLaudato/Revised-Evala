@@ -55,6 +55,20 @@ if ($_SESSION['role'] === 'Faculty') {
         END,
         evaluation_start_date ASC
     LIMIT 1";
+} elseif ($_SESSION['role'] === 'Student') {
+    $evaluation_query = "
+    SELECT evaluation_id, evaluator_type, evaluation_start_date, evaluation_end_date 
+    FROM evaluations 
+    WHERE course_id = ? AND active_flag = 1
+    ORDER BY 
+        CASE evaluator_type        
+            WHEN 'student' THEN 2
+            WHEN 'faculty' THEN 1
+            WHEN 'alumni' THEN 3
+            ELSE 4
+        END,
+        evaluation_start_date ASC
+    LIMIT 1";
 } else {
     $evaluation_query = "
     SELECT evaluation_id, evaluator_type, evaluation_start_date, evaluation_end_date 
