@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criteria List</title>
+    <title>Evaluation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='modal.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='evaluation.css') }}">
 </head>
@@ -13,6 +13,11 @@
 
     <div class="navigator">
         {% include 'index.php' %}>
+        {% include 'chart.php' %}
+        <div style="width: 100%; margin: auto;">
+            <canvas id="evaluationPieChart" width="800" height="400"></canvas>
+        </div>
+
     </div>
 
     <div class="parent-evaluation-container">

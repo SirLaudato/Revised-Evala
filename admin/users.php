@@ -18,27 +18,30 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-// Handle Edit
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['criteria_id'])) {
-//     $criteria_id = $_POST['criteria_id'];
-//     $criteria_name = $_POST['criteria_name'];
-//     $evaluator_type = $_POST['evaluator_type'];
-//     $status = $_POST['status'];
 
-//     $update_sql = "UPDATE `criteria` SET `criteria_name` = ?, `evaluator_type` = ?, `active_flag` = ? WHERE `criteria_id` = ?";
-//     $stmt = $conn->prepare($update_sql);
-//     $stmt->bind_param("ssii", $criteria_name, $evaluator_type, $status, $criteria_id);
 
-//     if ($stmt->execute()) {
-//         echo "<script>alert('Criteria updated successfully'); window.location.href = ''; </script>";
-//     } else {
-//         echo "<script>alert('Error updating criteria');</script>";
-//     }
-//     $stmt->close();
-// }
+// Queries to count users by roles
+$studentQuery = "SELECT COUNT(`user_id`) AS total_students FROM `users` WHERE `role` = 'Student'";
+$facultyQuery = "SELECT COUNT(`user_id`) AS total_faculties FROM `users` WHERE `role` = 'Faculty'";
+$alumniQuery = "SELECT COUNT(`user_id`) AS total_alumni FROM `users` WHERE `role` = 'Alumni'";
+$IABQuery = "SELECT COUNT(`user_id`) AS total_IAB FROM `users` WHERE `role` = 'IAB'";
 
-// Query to fetch all criteria
-$sql = "SELECT * FROM `users`";
+
+$studentResult = $conn->query($studentQuery);
+$facultyResult = $conn->query($facultyQuery);
+$alumniResult = $conn->query($alumniQuery);
+$IABResult = $conn->query($IABQuery);
+
+// Fetch counts, default to 0 if query fails
+$total_students = $studentResult ? $studentResult->fetch_assoc()['total_students'] : 0;
+$total_faculties = $facultyResult ? $facultyResult->fetch_assoc()['total_faculties'] : 0;
+$total_alumni = $alumniResult ? $alumniResult->fetch_assoc()['total_alumni'] : 0;
+$total_IAB = $IABResult ? $IABResult->fetch_assoc()['total_IAB'] : 0;
+
+
+//Query to fetch all users
+$sql = "SELECT * FROM users";
+
 $result = $conn->query($sql);
 
 ?>
@@ -54,6 +57,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/criteria.css">
     <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -61,7 +65,47 @@ $result = $conn->query($sql);
     <div class="navigator">
         <?php include('../admin/index.php'); ?>
     </div>
+    <div style="width: 20%; margin: auto;">
+        <canvas id="roleDoughnutChart"></canvas>
+    </div>
 
+    <script>
+        // Data from PHP
+        const data = {
+            labels: ['Students', 'Faculties', 'Alumni', 'IAB'],
+            datasets: [{
+                label: 'User Distribution by Role',
+                data: [
+                    <?php echo $total_students; ?>,
+                    <?php echo $total_faculties; ?>,
+                    <?php echo $total_alumni; ?>,
+                    <?php echo $total_IAB; ?>
+
+                ],
+                backgroundColor: ['#42a5f5', '#66bb6a', '#ffa726', '#ffc107'], // Custom colors
+                hoverBackgroundColor: ['#1e88e5', '#43a047', '#fb8c00', '#ffc107']
+            }]
+        };
+
+        // Configuration for the doughnut chart
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                }
+            }
+        };
+
+        // Render the chart
+        const ctx = document.getElementById('roleDoughnutChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
     <div class="parent-criteria-container">
         <div class="criteria-list">
             <h2>Users</h2>
@@ -87,16 +131,7 @@ $result = $conn->query($sql);
                                 <td>{$row['email']}</td>
                                 <td>{$row['role']}</td>
                                 <td>$status</td>
-                                <td>
-                                    <div class='buttons'>
-                                        <button class='edit-btn' 
-                                            data-id='{$row['user_id']}'
-                                            data-name='{$row['first_name']} {$row['last_name']}'
-                                            data-type='{$row['email']}'
-                                            data-status='$status'>
-                                            Edit
-                                    </div>    
-                                </td>
+                                
                             </tr>";
                         }
                     } else {
@@ -121,7 +156,6 @@ $result = $conn->query($sql);
 
             <form id="editForm" method="POST">
                 <input type="hidden" name="criteria_id" id="criteria_id">
-
                 <label for="name">Full Name</label>
                 <input type="text" id="name" name="criteria_name">
                 <label for="status">Status</label>
@@ -130,50 +164,11 @@ $result = $conn->query($sql);
                     <option value="0">Locked</option>
                 </select>
 
-
-                <button type="submit" name="edit_user">Save Changes</button>
             </form>
         </div>
-
     </div>
-
     <!-- JavaScript for handling modals and form submission -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('editModal');
-            const closeModal = document.querySelector('.close');
-            const editButtons = document.querySelectorAll('.edit-btn');
-            const deleteButtons = document.querySelectorAll('.delete-btn');
 
-            // Open edit modal and populate fields
-            editButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Populate the modal with data
-                    const status = button.dataset.status == 'Active' ? '1' : '0';  // Set '1' for Active and '0' for Locked
-                    document.getElementById('criteria_id').value = button.dataset.id;
-                    document.getElementById('name').value = button.dataset.name;
-                    document.getElementById('evaluator_type').value = button.dataset.type;
-                    document.getElementById('status').value = status; // Set the correct default status
-
-                    // Open the modal
-                    modal.style.display = 'flex';
-                });
-            });
-
-            // Close edit modal
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-
-            // Close modal on outside click
-            window.addEventListener('click', event => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-    </script>
 
 </body>
 
