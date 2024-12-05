@@ -100,6 +100,12 @@
         exit();
     }
 
+
+
+
+
+    
+
     $sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, 
                 `users`.`active_flag`, `students`.`student_number`, `students`.`student_year`, 
                 `courses`.`course_name`

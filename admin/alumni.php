@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Handle Add Student
+// Handle Add Alumni
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -80,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
             }
         }
 
-        // Debugging: Confirmation message (optional)
-        echo "User evaluations inserted successfully for user ID: {$user_id}";
-
         echo "<script>alert('Alumni added successfully.'); window.location.reload();</script>";
     }
 }
@@ -93,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
     $email = $_POST['email'];
     $status = $_POST['status'];
 
+    // Prepare the SQL to update the user details
     $updateSql = "UPDATE users SET email = ?, active_flag = ? WHERE user_id = ?";
     $stmt = $conn->prepare($updateSql);
     $stmt->bind_param("sii", $email, $status, $user_id);
@@ -240,62 +238,59 @@ $result = $conn->query($sql);
     </div>
 
     <div id="editModal" class="modal" style="display:none;">
-        <span class="close">&times;</span>
         <div class="modal-content">
-            <form id="editForm" method="POST">
-                <input type="hidden" name="user_id" id="user_id">
-
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" readonly>
-
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Enter email" required>
-
-                <label for="status">Status</label>
-                <select id="status" name="status" required>
+            <form method="post" id="editUserForm">
+                <h2>Edit Student</h2>
+                <input type="hidden" id="edit_user_id" name="user_id">
+                <label for="edit_email">Email:</label>
+                <input type="email" id="edit_email" name="email" required>
+                <label for="edit_status">Status:</label>
+                <select id="edit_status" name="status" required>
                     <option value="1">Active</option>
                     <option value="0">Locked</option>
                 </select>
-
-                <button type="submit">Save Changes</button>
+                <button type="submit" name="edit_user">Save Changes</button>
             </form>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('editModal');
-            const closeModal = document.querySelector('.close');
-            const editButtons = document.querySelectorAll('.edit-btn');
 
-            editButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    document.getElementById('user_id').value = button.dataset.id;
-                    document.getElementById('name').value = button.dataset.name;
-                    document.getElementById('email').value = button.dataset.email;
-
-                    const statusDropdown = document.getElementById('status');
-                    for (let option of statusDropdown.options) {
-                        option.selected = option.value == button.dataset.status;
-                    }
-
-                    modal.style.display = 'flex';
-                });
-            });
-
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-
-            window.addEventListener('click', event => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-    </script>
 
 </body>
 
 </html>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Get all edit buttons
+        const editButtons = document.querySelectorAll('.edit-btn');
+
+        // Add click event to each button
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-id');
+                const email = this.getAttribute('data-email');
+                const status = this.getAttribute('data-status');
+
+                // Populate modal form
+                document.getElementById('edit_user_id').value = userId;
+                document.getElementById('edit_email').value = email;
+                document.getElementById('edit_status').value = status;
+
+
+                // Display modal
+                document.getElementById('editModal').style.display = 'flex';
+            });
+        });
+        // Close modal when clicking outside of it
+        const modal = document.getElementById('editModal');
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+</script>

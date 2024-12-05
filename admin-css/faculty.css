@@ -90,7 +90,7 @@ body {
 
 .faculty-list .buttons {
   /* Button alignment for the form */
-  width: 100px;
+  width: auto;
   text-align: center;
   margin-top: 10px;
 }
