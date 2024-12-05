@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_course'])) {
     $course_desc = $_POST['edit_course_desc'];
     $course_department = $_POST['edit_department'];
     $status = $_POST['edit_status']; // Ensure this is either 1 or 0
-
+    $course_cover = $_FILES['course_cover']; // The uploaded file
     $conn->begin_transaction();
     try {
         // Update the course in the database
@@ -56,11 +56,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_course'])) {
     $evaluation_end_date = $_POST['evaluation_end_date'];
     $status = ($_POST['status'] == "active") ? 1 : 0;
 
+    // Handle file upload (make sure 'course_cover' exists)
+    if (isset($_FILES['course_cover']) && $_FILES['course_cover']['error'] == UPLOAD_ERR_OK) {
+        $course_cover = $_FILES['course_cover'];
+
+        // Validate if the file is an actual image
+        $image_info = getimagesize($course_cover['tmp_name']);
+        if ($image_info !== false) {
+            // It's a valid image, proceed
+
+            // Validate file type (in this case, jpeg, png, or gif)
+            $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+            if (in_array($course_cover['type'], $allowed_types)) {
+                // Generate a unique name for the file
+                $upload_dir = '../course_cover/';  // Directory where files will be stored
+                $file_name = uniqid('course_', true) . '.' . pathinfo($course_cover['name'], PATHINFO_EXTENSION);
+                $file_path = $upload_dir . $file_name;
+
+                // Move the uploaded file to the desired directory
+                if (!move_uploaded_file($course_cover['tmp_name'], $file_path)) {
+                    echo "<script>alert('Error uploading file.');</script>";
+                    exit();
+                }
+            } else {
+                echo "<script>alert('Invalid file type. Only JPG, PNG, and GIF are allowed.');</script>";
+                exit();
+            }
+        } else {
+            echo "<script>alert('The file is not a valid image.');</script>";
+            exit();
+        }
+    } else {
+        // If no file is uploaded, set a default value for the cover
+        $file_path = '';  // Handle as needed if no file is uploaded
+    }
 
     // Insert course into the `courses` table
-    $insert_course_sql = "INSERT INTO `courses` (`course_name`, `course_description`, `department`, `active_flag`) VALUES (?, ?, ?, ?)";
+    $insert_course_sql = "INSERT INTO `courses` (`course_name`, `course_description`, `department`, `active_flag`, `course_cover`) 
+                          VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($insert_course_sql);
-    $stmt->bind_param("sssi", $course_name, $course_desc, $department, $status);
+    $stmt->bind_param("sssis", $course_name, $course_desc, $department, $status, $file_path);
 
     if ($stmt->execute()) {
         // Get the last inserted course ID
@@ -101,6 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_course'])) {
     $stmt->close();
 }
 
+
+
 // Query to fetch all courses
 $sql = "SELECT `courses`.* FROM `courses`";
 $result = $conn->query($sql);
@@ -121,7 +158,7 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    
+
     <div class="navigator">
         <?php include('../admin/index.php'); ?>
     </div>
@@ -129,7 +166,7 @@ $result = $conn->query($sql);
     <div class="parent-courses-container">
         <div class="courses-add">
             <h2>Add New Course</h2>
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="course_name">Course Name:</label>
                     <input type="text" id="course_name" name="course_name" required>
@@ -149,6 +186,10 @@ $result = $conn->query($sql);
                 <div class="form-group">
                     <label for="evaluation_end_date">Evaluation End Date:</label>
                     <input type="date" id="evaluation_end_date" name="evaluation_end_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="course_cover">Course Cover:</label>
+                    <input type="file" id="course_cover" name="course_cover" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label for="status">Status:</label>
@@ -250,42 +291,42 @@ $result = $conn->query($sql);
 </html>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    // Get all edit buttons
-    const editButtons = document.querySelectorAll('.edit-btn');
+        // Get all edit buttons
+        const editButtons = document.querySelectorAll('.edit-btn');
 
-    // Add click event to each button
-    editButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            const name = this.getAttribute('data-name');
-            const desc = this.getAttribute('data-desc');
-            const dept = this.getAttribute('data-dept'); // Corrected key
-            const status = this.getAttribute('data-status') === 'Active' ? 1 : 0; // Handle active status as 1 or 0
+        // Add click event to each button
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const desc = this.getAttribute('data-desc');
+                const dept = this.getAttribute('data-dept'); // Corrected key
+                const status = this.getAttribute('data-status') === 'Active' ? 1 : 0; // Handle active status as 1 or 0
 
-            // Populate modal form with existing values
-            document.getElementById('course_id').value = id; // Hidden input for course ID
-            document.getElementById('edit_course_name').value = name;
-            document.getElementById('edit_course_desc').value = desc;
-            document.getElementById('edit_department').value = dept;
-            document.getElementById('edit_status').value = status; // Set correct value (1 or 0)
+                // Populate modal form with existing values
+                document.getElementById('course_id').value = id; // Hidden input for course ID
+                document.getElementById('edit_course_name').value = name;
+                document.getElementById('edit_course_desc').value = desc;
+                document.getElementById('edit_department').value = dept;
+                document.getElementById('edit_status').value = status; // Set correct value (1 or 0)
 
-            // Display modal
-            document.getElementById('editModal').style.display = 'flex';
+                // Display modal
+                document.getElementById('editModal').style.display = 'flex';
+            });
+        });
+
+        // Close modal when clicking outside of it
+        const modal = document.getElementById('editModal');
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Close modal when clicking the close button
+        document.querySelector('.close').addEventListener('click', function () {
+            modal.style.display = 'none';
         });
     });
-
-    // Close modal when clicking outside of it
-    const modal = document.getElementById('editModal');
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // Close modal when clicking the close button
-    document.querySelector('.close').addEventListener('click', function () {
-        modal.style.display = 'none';
-    });
-});
 
 </script>
