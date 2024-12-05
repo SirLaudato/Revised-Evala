@@ -77,6 +77,7 @@
     <title>Faculty List</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/faculty.css">
+    <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
 </head>
 
 <body>

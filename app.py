@@ -74,6 +74,8 @@ def analyze_file():
                 {"role": "system", "content": "You are an assistant."},
                 {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
             ],
+                {"role": "user", "content": f"{prompt}\n\nHere is the file content:\n{extracted_text}"},
+            ],
         )
         ai_response = gpt_response["choices"][0]["message"]["content"]
 

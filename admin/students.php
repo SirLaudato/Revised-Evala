@@ -83,6 +83,7 @@ $result = $conn->query($sql);
     <title>Student Management</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/students.css">
+    <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
 </head>
 
 <body>
@@ -181,7 +182,9 @@ $result = $conn->query($sql);
                                 <td>{$row['student_year']}</td>
                                 <td>{$row['course_name']}</td>
                                 <td>
+                                <div class='buttons'>
                                     <button class='edit-btn' data-id='{$row['user_id']}' data-email='{$row['email']}' data-status='{$row['active_flag']}'>Edit</button>
+                                </div>
                                 </td>
                             </tr>";
                         }

@@ -33,8 +33,6 @@ if (isset($_GET['course_id'])) {
 }
 ?>
 
-
-
 <?php
 // Fetch the course name using course_id
 $course_query = "SELECT course_name FROM courses WHERE course_id = ?";
@@ -51,7 +49,6 @@ if ($course_result->num_rows > 0) {
     die("Error: Course not found.");
 }
 ?>
-
 
 
 <!DOCTYPE html>
@@ -86,9 +83,9 @@ if ($course_result->num_rows > 0) {
 
         <div class="frame-2">
 
-            <!-- <div class="frame-title"> 
-                <h1>TIEEEEEEEE</h1>
-            </div> -->
+            <div class="frame-title"> 
+                <img src="<?php echo htmlspecialchars($_SESSION['course_cover']); ?>" alt="">
+            </div>
 
             <div class="frame-wrapper">
                 <div class="frame-7">

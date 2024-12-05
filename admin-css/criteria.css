@@ -74,7 +74,7 @@ body {
   border: 1px solid var(--gray-color);
   padding: 10px;
   text-align: left;
-  font-size: 0.9em;
+  font-size: 0.6em;
   color: var(--text-color);
 }
 
@@ -89,12 +89,9 @@ body {
 }
 
 .criteria-list .buttons {
-  /* Button alignment for the form */
-  display: flex;
-  width: 180px;
+  width: 100px;
   text-align: center;
   margin-top: 10px;
-  gap: 5px;
 }
 
 form {

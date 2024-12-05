@@ -123,6 +123,7 @@ $result = $conn->query($sql);
     <title>Alumni List</title>
     <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/alumni.css">
+    <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
 </head>
 
 <body>
