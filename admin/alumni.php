@@ -80,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
             }
         }
 
-        // Debugging: Confirmation message (optional)
-        echo "User evaluations inserted successfully for user ID: {$user_id}";
-
         echo "<script>alert('Alumni added successfully.'); window.location.reload();</script>";
     }
 }

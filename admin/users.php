@@ -71,7 +71,7 @@ if (isset($_POST['reset_password'])) {
     <title>Criteria List</title>
     <link rel="stylesheet" href="../components/modal.css">
     <link rel="stylesheet" href="../admin-css/modal.css">
-    <link rel="stylesheet" href="../admin-css/criteria.css">
+    <link rel="stylesheet" href="../admin-css/users.css">
     <link rel="icon" type="image/png" href="../pages/innovatio-icon.png" sizes="16x16">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -163,6 +163,12 @@ if (isset($_POST['reset_password'])) {
                 </tbody>
             </table>
         </div>
+        <div class="criteria-add">
+            <div style="width: 100%; margin: auto;">
+                <canvas id="roleDoughnutChart"></canvas>
+            </div>
+
+        </div>
     </div>
 
     <!-- Edit Criteria Modal -->
@@ -182,5 +188,42 @@ if (isset($_POST['reset_password'])) {
         </div>
     </div>
 </body>
+<script>
+    // Data from PHP
+    const data = {
+        labels: ['Students', 'Faculties', 'Alumni', 'IAB'],
+        datasets: [{
+            label: 'User Distribution by Role',
+            data: [
+                <?php echo $total_students; ?>,
+                <?php echo $total_faculties; ?>,
+                <?php echo $total_alumni; ?>,
+                <?php echo $total_IAB; ?>
+
+            ],
+            backgroundColor: ['#42a5f5', '#66bb6a', '#ffa726', '#ffc107'], // Custom colors
+            hoverBackgroundColor: ['#1e88e5', '#43a047', '#fb8c00', '#ffc107']
+        }]
+    };
+
+    // Configuration for the doughnut chart
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+            }
+        }
+    };
+
+    // Render the chart
+    const ctx = document.getElementById('roleDoughnutChart').getContext('2d');
+    new Chart(ctx, config);
+</script>
 
 </html>

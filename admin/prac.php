@@ -74,29 +74,37 @@
 
                 $conn->commit();
 
-            $_SESSION['message'] = 'Student added successfully.';
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
-        } catch (Exception $e) {
-            $conn->rollback();
-            echo "<script>alert('An error occurred while adding the student.');</script>";
+                $_SESSION['message'] = 'Student added successfully.';
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit();
+            } catch (Exception $e) {
+                $conn->rollback();
+                echo "<script>alert('An error occurred while adding the student.');</script>";
+            }
         }
     }
-}
-// Handle Edit User
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
-    $user_id = $_POST['user_id'];
-    $email = $_POST['email'];
-    $status = $_POST['status'];
+
+    // Handle Edit User
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
+        $user_id = $_POST['user_id'];
+        $email = $_POST['email'];
+        $status = $_POST['status'];
 
         $updateSql = "UPDATE `users` SET `email` = ?, `active_flag` = ? WHERE `user_id` = ?";
         $stmt = $conn->prepare($updateSql);
         $stmt->bind_param("sii", $email, $status, $user_id);
         $stmt->execute();
 
-    $modalTitle = "Success";
-    $modalMessage = "User updated successfully.";
-}
+        $_SESSION['message'] = 'User updated successfully.';
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
+
+
+
+
+
+    
 
     $sql = "SELECT `users`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`email`, 
                 `users`.`active_flag`, `students`.`student_number`, `students`.`student_year`, 
@@ -112,9 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../admin-css/modal.css"> -->
-    <link rel="stylesheet" href="../components/modal.css">
-
+    <link rel="stylesheet" href="../admin-css/modal.css">
     <link rel="stylesheet" href="../admin-css/students.css">
     <title>Student Management</title>
 </head>
@@ -125,8 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
         echo "<script>alert('" . $_SESSION['message'] . "');</script>";
         unset($_SESSION['message']);
     }
-
-    include('../pages/modal.php');
     ?>
 
     <div class="navigator">
@@ -239,97 +243,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
         </div>
     </div>
 </body>
-<script>
-    function showModal(message) {
-        const modal = document.getElementById("alertModal");
-        const modalMessage = modal.querySelector(".modal-message");
-        modalMessage.textContent = message;
-        modal.style.display = "block";
-    }
-
-    function closeModal() {
-        const modal = document.getElementById("alertModal");
-        modal.style.display = "none";
-    }
-
-    <?php if ($modalTitle && $modalMessage): ?>
-        showModal("<?= htmlspecialchars($modalMessage) ?>");
-    <?php endif; ?>
-</script>
 
 </html>
 
 <script>
-    function showModal(type, message) {
-        // Determine the correct modal ID based on type
-        const modalId = type === 'success' ? 'successModal' : 'failModal';
-        const modal = document.getElementById(modalId);
-
-        if (modal) {
-            const modalMessage = modal.querySelector('.modal-message');
-
-            // Set the message and make the modal visible
-            if (modalMessage) modalMessage.textContent = message;
-
-            modal.style.display = 'block';
-            const modalContent = modal.querySelector('.modal-content');
-
-            if (modalContent) {
-                modalContent.style.animation = 'slideDown 0.5s ease forwards';
-            }
-        } else {
-            console.error(`Modal with ID "${modalId}" not found.`);
-        }
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-
-        if (modal) {
-            const modalContent = modal.querySelector('.modal-content');
-
-            // Apply slide-up animation before hiding
-            if (modalContent) {
-                modalContent.style.animation = 'slideUp 0.5s ease forwards';
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 200); // Match the animation duration
-            }
-        } else {
-            console.error(`Modal with ID "${modalId}" not found.`);
-        }
-    }
-</script>
-
-
-<?php if (!empty($modalTitle) && !empty($modalMessage)): ?>
-    <script>
-        showModal('<?php echo strtolower($modalTitle); ?>', '<?php echo $modalMessage; ?>');
-    </script>
-<?php endif; ?>
-
-<script>
-    window.addEventListener('click', function (event) {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            if (event.target === modal) {
-                const modalContent = modal.querySelector('.modal-content');
-                if (modalContent) {
-                    // Apply slide-up animation
-                    modalContent.style.animation = 'slideUp 0.5s ease forwards';
-
-                    // Wait for the animation to complete before hiding the modal
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                    }, 200); // Match the animation duration
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-
+    document.addEventListener("DOMContentLoaded", function() {
+        
         // Get all edit buttons
         const editButtons = document.querySelectorAll('.edit-btn');
 

@@ -118,8 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_user'])) {
     } catch (Exception $e) {
         $conn->rollback();
     }
-    $_SESSION['message'] = 'User updated successfully.';
-    header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
 
@@ -330,6 +328,23 @@ $result = $conn->query($sql);
                 modal.style.display = 'none';
             }
         });
+    });
+</script>
+
+<script>
+    document.getElementById('editForm').addEventListener('submit', function (event) {
+        event.preventDefault();  // Prevent the default form submission
+        const formData = new FormData(this);  // Collect the form data
+
+        // Debugging: Log the form data to see if it's being collected correctly
+        console.log('Form data being submitted:');
+        formData.forEach((value, key) => {
+            console.log(key + ": " + value);
+        });
+
+        // Now submit the form using fetch (AJAX), or simply submit it as a regular POST
+        // For now, let's trigger a regular form submission for testing
+        this.submit(); // This will perform a standard form submission
     });
 
 </script>

@@ -101,6 +101,7 @@ form {
   display: flex; /* Make it a flex container */
   flex-direction: column; /* Stack children vertically */
   gap: 14px; /* Add gap between child elements */
+  text-align: left;
 }
 
 .student-add h2,

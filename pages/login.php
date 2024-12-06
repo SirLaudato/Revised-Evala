@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         // Redirect if role is "IAB"
                         elseif (in_array($row["role"], ["IAB"])) {
-                            header("Location: ../admin/index.php");
+                            header("Location: ../admin/evaluation.php");
                             exit(); // Make sure the script stops here
                         } else {
                             $modalTitle = "Access Denied";

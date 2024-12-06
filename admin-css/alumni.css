@@ -91,7 +91,7 @@ body {
 .alumni-list .buttons {
   /* Button alignment for the form */
   display: flex;
-  width: 100px;
+  width: auto;
   text-align: center;
   margin-top: 10px;
   gap: 5px;

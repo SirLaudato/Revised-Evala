@@ -12,56 +12,64 @@
 <body>
 
     <div class="navigator">
-        <!-- {% include 'index.php' %}> -->
-        {% include 'chart.php' %}
-        <div style="width: 100%; margin: auto;">
-            <canvas id="evaluationPieChart" width="800" height="400"></canvas>
-        </div>
-
+        {% include 'index.php' %}>
     </div>
 
-    <div class="parent-evaluation-container">
-        <div class="evaluation-add">
-            <h2>Evaluation Analysis</h2>
-            <form id="uploadForm" method="POST" action="" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="criteria_name">Criteria Name:</label>
-                    <label class="custum-file-upload" for="file">
-                        <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
-                                <!-- SVG Content -->
-                            </svg>
-                        </div>
-                        <div class="text">
-                            <span>Click to upload File</span>
-                        </div>
-                        <input type="file" name="file" id="file">
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="prompt">Prompt:</label>
-                    <textarea name="prompt" id="prompt" rows="4" cols="50" required></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" name="add_criteria">Analyze</button>
-                </div>
-            </form>
+    <div class="parent-parent-container">
+
+        <div class="chart-container">
+
+            <div style="width: 50%; margin: auto;">
+                <canvas id="evaluationPieChart" width="800" height="400">
+                    {% include 'chart.php' %}
+                </canvas>
+            </div>
         </div>
 
-        <div class="evaluation-list">
-            <h2>Analyzation with AI Feedback</h2>
-            <form method="POST" action="">
-                <div class="form-group">
-                    <label for="criteria_name">Results:</label>
-                    <textarea id="response" name="response" required></textarea>
-                </div>
-                <div class="form-group">
-                    <!-- Send data to pdf-generator.php with the content of textarea -->
-                    <a id="export-pdf" href="#" target="_blank">
-                        <button type="button">Export to PDF</button>
-                    </a>
-                </div>
-            </form>
+        <div class="parent-evaluation-container">
+            <div class="evaluation-add">
+                <h2>Evaluation Analysis</h2>
+                <form id="uploadForm" method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="criteria_name">Criteria Name:</label>
+                        <label class="custum-file-upload" for="file">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
+                                    <!-- SVG Content -->
+                                </svg>
+                            </div>
+                            <div class="text">
+                                <span>Click to upload File</span>
+                            </div>
+                            <input type="file" name="file" id="file">
+                        </label>
+                        <div class="file-name" id="file-name"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="prompt">Prompt:</label>
+                        <textarea name="prompt" id="prompt" rows="4" cols="50" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="add_criteria">Analyze</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="evaluation-list">
+                <h2>Analyzation with Ai Feedback</h2>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="criteria_name">Results:</label>
+                        <textarea id="response" name="response" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <!-- Send data to pdf-generator.php with the content of textarea -->
+                        <a id="export-pdf" href="#" target="_blank">
+                            <button type="button">Export to PDF</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -94,6 +102,19 @@
 
             // Update the href to include the response text
             this.href = "https://localhost/Revised-Evala/pdf-generator.php?response=" + responseText;
+        });
+    </script>
+
+    <script>
+        document.getElementById('file').addEventListener('change', function (event) {
+            var fileName = event.target.files[0] ? event.target.files[0].name : '';
+            var fileNameDisplay = document.getElementById('file-name');
+
+            if (fileName) {
+                fileNameDisplay.textContent = 'Selected file: ' + fileName;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
         });
     </script>
 </body>
