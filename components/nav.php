@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
+
+</html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/all.css" />
-    <link rel="stylesheet" href="../components/nav.css" />
+    <link rel="stylesheet" href="../components/nav.css">
+    <link rel="stylesheet" href="css/colors.css">
 </head>
 
 <body>
@@ -39,7 +41,7 @@
 
             <!-- SVG Icons -->
             <div class="svg-buttons">
-                <!-- <a href="calendar.php">
+                <a href="calendar.php">
                     <button class="icon-button">
                         <svg class="hover-icon" width="20" height="21" viewBox="0 0 20 21"
                             xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +52,7 @@
                         </svg>
 
                     </button>
-                </a> -->
+                </a>
 
                 <div class="dropdown">
                     <button class="icon-button">
@@ -81,17 +83,17 @@
 
 
     <script>
-        const navbar = document.querySelector('.navbar');
+    const navbar = document.querySelector('.navbar');
 
-        window.addEventListener('scroll', function () {  // Removed extra parentheses here
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    window.addEventListener('scroll', function() { // Removed extra parentheses here
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            if (scrollTop > 0) {
-                navbar.classList.add('shadow');
-            } else {
-                navbar.classList.remove('shadow');
-            }
-        });
+        if (scrollTop > 0) {
+            navbar.classList.add('shadow');
+        } else {
+            navbar.classList.remove('shadow');
+        }
+    });
     </script>
 </body>
 
